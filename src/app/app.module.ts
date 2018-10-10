@@ -12,12 +12,21 @@ import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { UserItemComponent } from './user/user-list/user-item/user-item.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import {TicketService} from './ticket/ticket.service';
+import {TicketService} from './core/services/ticket.service';
 import {UserService} from './user/user.service';
 
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdmincenterComponent } from './admincenter/admincenter.component';
+import { LoginComponent } from './login/login.component';
+import { TicketAddComponent } from './ticket/ticket-add/ticket-add.component';
+import { UserEditComponent } from './user/user-edit/user-edit.component';
+import { CategoriesService } from './core/services/categories.service';
+import { TechnicianComponent } from './technician/technician.component';
+import { RolesService } from './core/services/roles.service';
+import { TicketItemComponent } from './ticket/ticket-list/ticket-item/ticket-item.component';
+import { HttpModule} from '@angular/http';
+import { FormsModule} from '@angular/forms';
 
 
 
@@ -34,14 +43,21 @@ import { AdmincenterComponent } from './admincenter/admincenter.component';
     UserItemComponent,
     HomeComponent,
     DashboardComponent,
-   AdmincenterComponent
+   AdmincenterComponent,
+   LoginComponent,
+   TicketAddComponent,
+   UserEditComponent,
+   TechnicianComponent,
+   TicketItemComponent
    
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpModule,
+    FormsModule
   ],
-  providers: [TicketService,UserService],
+  providers: [TicketService,UserService,CategoriesService,RolesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

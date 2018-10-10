@@ -1,3 +1,6 @@
-<p>
-  user-item works!
-</p>
+<a style="cursor:pointer;" [routerLink]="[index]" routerLinkActive="active">
+    <div class="ticketList">
+        <h4 class="list-group-item-heading">{{user.FirstName}} {{user.LastName}}</h4>
+        <p class="list-group-item-text">{{user.role}}</p>
+    </div>
+  </a>

@@ -1,32 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <app-header></app-header>
+<app-header></app-header>
 
-    <div class="container">
-            <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Admin Center</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Dashboards</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Technicians</a>
-                    </li>
-                  </ul>
-
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <ul class="nav nav-tabs">
+          <li  role="presentation"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact: true}">
+            <a routerLink="/home">Home</a>
+          </li>
+          <li *ngIf="true" role="presentation"
+              routerLinkActive="active">
+            <a routerLink="tech">Tech Name</a>
+          </li>
+          <li *ngIf="true" role="presentation"
+            routerLinkActive="active">
+            <a [routerLink]="['dashboard']">Dashboard</a>
+          </li>
+          <li *ngIf="true"  role="presentation"
+              routerLinkActive="active">
+            <a [routerLink]="['admincenter']">Admin Center</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <!-- tabs goes here -->
-    <router-outlet></router-outlet>  
-</body>
-</html>
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+

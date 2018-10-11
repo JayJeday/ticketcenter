@@ -3,6 +3,7 @@ import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import { CategoriesService } from 'src/app/core/services/categories.service';
 import { Category } from 'src/app/core/models/category.model';
 import { Ticket } from 'src/app/core/models/ticket.model';
+import { TicketService } from 'src/app/core/services/ticket.service';
 
 
 @Component({
@@ -14,23 +15,31 @@ export class TicketAddComponent implements OnInit {
 
   ticketForm: FormGroup;
   //load from service
-  categories:Category[];
+
   //ticket to send to server
   ticket:Ticket
   
 
   //call categories services here.loaded from the database
-  constructor(private categoryService:CategoriesService) {
-  
+  constructor(private categoryService:CategoriesService,private ticketService:TicketService) {
+    
    }
 
   ngOnInit() {
-      console.log(this.categoryService.getCategories());
+    //fill the category list 
+      this.categoryService.getCategories();
+
+      this.ticketForm = new FormGroup({
+          'ticketData': new FormGroup({
+            'description': new FormControl(null,[Validators.required]),
+            'category': new FormControl()
+          })
+      });
   }
   
   onAddTicket(){
-    
-    console.log("call from form");
+   this.ticketService.addTicket(this.ticket);
+   this.ticketForm.reset();
   }
 
 }

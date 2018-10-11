@@ -26,7 +26,7 @@ import { TechnicianComponent } from './technician/technician.component';
 import { RolesService } from './core/services/roles.service';
 import { TicketItemComponent } from './ticket/ticket-list/ticket-item/ticket-item.component';
 import { HttpModule} from '@angular/http';
-import { FormsModule} from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -55,7 +55,7 @@ import { FormsModule} from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpModule,
-    FormsModule
+    ReactiveFormsModule
   ],
   providers: [TicketService,UserService,CategoriesService,RolesService],
   bootstrap: [AppComponent]

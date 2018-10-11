@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import 'rxjs/Rx';
-import { Observable } from 'rxjs/Observable';
+import { Category } from '../models/category.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriesService {
 
+  categoryList:Category[];
+
   constructor(private http:Http) { }
 
   getCategories(){
-    return this.http.get('http://localhost:2175/api/category/getallcategories')
-    .map(response => response.json())
-    .catch((error:any) => Observable.throw({
-      message: error.json().message, details: error.json().details
-    }));
-
-    
+    this.http.get('http://localhost:2175/api/category/getallcategories')
+    .map(
+      (data : Response) =>{  return data.json() as Category[]; })
+    .toPromise().then(x => {
+      this.categoryList = x;
+    }).catch((x)=>'error was called');
   }
 }

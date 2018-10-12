@@ -1,3 +1,7 @@
 .err{
     color: red;
 }
+
+mat-form-field {
+    display: block;
+}

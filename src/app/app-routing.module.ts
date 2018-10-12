@@ -4,6 +4,7 @@ import { HomeComponent } from "./home/home.component";
 import { AdmincenterComponent } from "./admincenter/admincenter.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { TechnicianComponent } from "./technician/technician.component";
+import { TicketDetailComponent } from "./ticket/ticket-detail/ticket-detail.component";
 
 const appRoutes:Routes =[
    {
@@ -26,7 +27,9 @@ const appRoutes:Routes =[
     },
     {
         path:'tech',
-        component: TechnicianComponent
+        component: TechnicianComponent,children:[
+            {path:'ticket/:id', component: TicketDetailComponent}
+        ]
     }
 ]
 

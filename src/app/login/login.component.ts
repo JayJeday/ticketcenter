@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { User } from '../core/models/user.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -8,14 +10,24 @@ import { FormGroup } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
+  loginForm: FormGroup;
+
   email:string;
   password:string;
 
-  loginForm:FormGroup;
+  loading = false;
+  success = false;
 
-  constructor() { }
+  //pass this user to homeComponent for login purposes
+  user:User;
+
+  constructor(private fb:FormBuilder,private userService:UserService) { }
 
   ngOnInit() {
+
+    this.loginForm = this.fb.group({
+      
+    });
   }
 
   onLogin(){

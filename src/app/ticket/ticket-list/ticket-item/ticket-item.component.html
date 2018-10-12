@@ -1,6 +1,14 @@
-<a style="cursor:pointer;" [routerLink]="[index]" routerLinkActive="active">
-  <div class="ticketList">
-      <h4 class="list-group-item-heading">{{ticket.description}}</h4>
-      <p class="list-group-item-text">{{ticket.createdDate}}</p>
-  </div>
-</a>
+<a
+  style="cursor: pointer;"
+  [routerLink]="[index]"
+  routerLinkActive="active"
+  class="list-group-item clearfix">
+
+    <mat-list-item class="col-md-12" role="listitem">
+      <h4 class="list-group-item-text left">{{ticket.Description}}</h4>
+       <h4 class="list-group-item-text right">{{ticket.CreatedDate | date}}</h4>
+        <h4 class="list-group-item-text right" *ngIf="false">{{ticket.Category}}</h4>
+          <h4 class="list-group-item-text right" *ngIf="false">{{ticket.Status}}</h4>
+     </mat-list-item> 
+     
+    </a>

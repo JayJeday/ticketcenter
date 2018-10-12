@@ -9,9 +9,6 @@ import { Ticket } from '../core/models/ticket.model';
 })
 export class TechnicianComponent implements OnInit {
 
-  user:User;
-  tickets:Ticket[];
-  
   constructor() { }
 
   ngOnInit() {

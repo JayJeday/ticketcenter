@@ -28,6 +28,15 @@ import { TicketItemComponent } from './ticket/ticket-list/ticket-item/ticket-ite
 import { HttpModule} from '@angular/http';
 import { ReactiveFormsModule} from '@angular/forms';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import {MatListModule} from '@angular/material/list';
+
 
 
 @NgModule({
@@ -44,18 +53,28 @@ import { ReactiveFormsModule} from '@angular/forms';
     HomeComponent,
     DashboardComponent,
    AdmincenterComponent,
+  
    LoginComponent,
    TicketAddComponent,
    UserEditComponent,
    TechnicianComponent,
    TicketItemComponent
+  
    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    BrowserAnimationsModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatListModule
+
   ],
   providers: [TicketService,UserService,CategoriesService,RolesService],
   bootstrap: [AppComponent]

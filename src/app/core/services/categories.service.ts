@@ -19,5 +19,6 @@ export class CategoriesService {
     .toPromise().then(x => {
       this.categoryList = x;
     }).catch((x)=>'error was called');
+
   }
 }

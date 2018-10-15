@@ -10,6 +10,9 @@ export class AdmincenterComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
   }
+
+
 
 }

@@ -1,20 +1,42 @@
 <div class="row">
-  <div class="col-md-6">
-    <h2>List by status</h2>
-    <app-ticket-list></app-ticket-list>
-  </div>
-  <div class="col-md-6">
-      <h2>List by categoy</h2>
-      <app-ticket-list></app-ticket-list>
-  </div>
   <div class="row">
-    <div class="col-md-6">
-    <h2>List by technician</h2>
-    <app-user-list></app-user-list>
-    </div>
-    <div class="col-md-6">
-      <h2>Analytics Summary</h2>
-    </div>
-    
+    <h2>Analytics Summary</h2>
   </div>
-</div>
+ 
+  <div class="row">
+     <div class="col-md-6">
+
+      <h4>Total Tickets: {{this.ticketService.summary.numTicketsTotal}}</h4>
+      <h4>Open Tickets: {{this.ticketService.summary.numTicketsOpen}}</h4>
+      </div> 
+      <div class="vol-md-6">
+      <h4>Close Tickets:  {{this.ticketService.summary.numTicketsClose}} </h4>
+      <h4>Cell Phone based Tickets:  {{this.ticketService.summary.cellphonesTickets}}  </h4>
+      <h4>Computer based Tickets:{{this.ticketService.summary.computerTickets}}</h4>
+      </div>
+  </div>
+  
+     
+   
+    <div class="row">
+        <div class="sidenav">
+          <ul>
+            <li><a (click)="onBtnStatus()" style="cursor: pointer;">List by Status</a> 
+            </li>
+           
+              <li><a (click)="onBtnCat()" style="cursor: pointer;"> List by Category</a> </li>
+
+                <li><a  (click)="onFilterRole()" style="cursor: pointer;">List by Technicians</a> </li>
+
+          </ul>  
+          </div>
+          
+    </div>
+    <div class="row">
+
+      <app-ticket-list [filteredType]="type" [filteredProperty]="property"></app-ticket-list>
+
+     <router-outlet></router-outlet>
+
+    </div>
+  </div>

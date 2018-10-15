@@ -9,7 +9,6 @@ import { Ticket } from 'src/app/core/models/ticket.model';
 export class TicketItemComponent implements OnInit {
 
   @Input() ticket:Ticket;
-  @Input() index:number;
 
   constructor() { }
 

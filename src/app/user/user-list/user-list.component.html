@@ -1,5 +1,8 @@
 <div class="col-md-6">
         <div>
-                <app-user-item *ngFor="let auser of users; let i = index" [user]="auser" [index]="i"></app-user-item>
+                        <button *ngIf="filteredProperty ==='role'" (click)=" onTicketRoleFilter()">
+                                        {{toogle? 'Filter for Admin Users':' Filter for Technician Users'}}
+                         </button>
+                <app-user-item *ngFor="let auser of users | userTechnician: filteredType: filteredProperty " [user]="auser" [index]="i"></app-user-item>
         </div>
 </div>

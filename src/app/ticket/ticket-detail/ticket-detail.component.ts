@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Ticket } from 'src/app/core/models/ticket.model';
 import { TicketService } from 'src/app/core/services/ticket.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl, NgForm} from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
@@ -13,12 +13,11 @@ export class TicketDetailComponent implements OnInit {
 
   ticket:Ticket;
   id:number;
-  editTicketForm:FormGroup;
   loading = false;
-  
+  comp:string;
 
 
-  constructor(private route: ActivatedRoute,private router: Router,  private ticketService:TicketService, private fb:FormBuilder) { }
+  constructor(private route: ActivatedRoute,private router: Router,  private ticketService:TicketService) { }
 
   ngOnInit() {
 
@@ -27,27 +26,38 @@ export class TicketDetailComponent implements OnInit {
     .subscribe(
       (params: Params) => {
         this.id = +params['id'];
-        console.log(this.id);
+         this.ticketService.getTicket(this.id);
       }
     );
 
-    this.editTicketForm = this.fb.group({
-      comments:'',
-      status:''
+    this.route.data
+    .subscribe((data)=>{
+      this.comp = data['comp'];
+      
     });
 
   }
 
-  onEditTicket(){
+  onEditTicket(form:NgForm){
     this.loading = true;
 
-    this.ticketService.updateTicket(this.editTicketForm.value)
-    .subscribe(data => {
-      this.loading  = false;
-      //notify that was successfully close
-    });
 
+    this.ticket = new Ticket();
+    this.ticket.TicketId = this.ticketService.ticket.TicketId;
     
+    this.ticket.Comment = form.value.Comment;
+    this.ticket.StatusId = form.value.StatusId;
+
+    console.log(JSON.stringify(this.ticket));
+
+    //pass back the same ticket
+    this.ticketService.updateTicket(this.ticket)
+     .subscribe(data => {
+        this.loading = false;
+        //notification of succesfully saved
+       //need to update list so it refresh it 
+     });
+
     this.loading = false;
 
 

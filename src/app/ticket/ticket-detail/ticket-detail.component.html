@@ -1,27 +1,30 @@
  <div class="col-md-6">
 
-    <form [formGroup]="editTicketForm" (ngSubmit)="onEditTicket()">
+       <form class="tick-form" #ticketForm="ngForm" (ngSubmit)="onEditTicket(ticketForm)">
 
-        <p>Category: {{ticket.CategoryId}} </p>
 
-        <p>Tickets description: {{ticket.Description}}</p>
-        <p>Comments:</p>
-        <textarea  class="form-control" formControlName="comments" placeholder="Technician comments...." id="comment" rows="5"></textarea>
+              <h4 class="list-group-item-text right">{{this.ticketService.ticket.Category}}</h4>
+              
+              <h4>Ticket Description: </h4>
+              <p> {{this.ticketService.ticket.Description}}</p>
+           
+        <textarea [attr.disabled]="comp === 'dash'" class="form-control"  id="comment" name="Comment" #Comment="ngModel" [(ngModel)]="this.ticketService.ticket.Comment"  rows="5">
+                {{this.ticketService.ticket.Comment}}
+        </textarea>
        
         <div class="form-group">
                 <label for="status"></label>
-                <select formControlName="status"  class="form-control" id="categories">
-                  <option [value]="1">open</option>
-                  <option [value]="2">re-open</option>
-                  <option [value]="3">close</option>
+                <select name="StatusId" #StatusId="ngModel" [(ngModel)]="this.ticketService.ticket.StatusId" class="form-control" id="categories">
+                  <option [value]=1>open</option>
+                  <option [value]=2>close</option>
                 </select>
             </div>
 
         <div>
-            <h4>create date: 10/10/2018</h4>
+            <h4>Date created: {{this.ticketService.ticket.CreatedDate | date}}</h4>
         </div>
         
-            <button mat-raised-button type="submit" color="primary">Update Ticket</button>
+            <button *ngIf="comp !== 'dash'" mat-raised-button type="submit" color="primary">Update Ticket</button>
     
     </form>
 </div>

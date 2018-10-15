@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../core/models/user.model';
-import { Ticket } from '../core/models/ticket.model';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { TicketService } from 'src/app/core/services/ticket.service';
+
 
 @Component({
   selector: 'app-technician',
@@ -9,9 +10,22 @@ import { Ticket } from '../core/models/ticket.model';
 })
 export class TechnicianComponent implements OnInit {
 
-  constructor() { }
+  //routeId
+  id:number;
+
+  constructor(private route: ActivatedRoute,private router: Router,  private ticketService:TicketService) { }
 
   ngOnInit() {
+    //get route pass id when user login
+    this.route.params
+    .subscribe(
+      (params: Params) => {
+        this.id = +params['id'];
+         this.ticketService.getUserTicket(this.id);
+      }
+    );
+
+
   }
 
 }

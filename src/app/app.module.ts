@@ -37,7 +37,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import {MatListModule} from '@angular/material/list';
 
-
+import { FormsModule } from '@angular/forms';
+import { TicketStatusPipe } from './ticket/ticket-status.pipe';
+import { TicketCategoriesPipe } from './ticket/ticket-categories.pipe';
+import { UserTechnicianPipe } from './user/user-technician.pipe';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,10 @@ import {MatListModule} from '@angular/material/list';
    TicketAddComponent,
    UserEditComponent,
    TechnicianComponent,
-   TicketItemComponent
+   TicketItemComponent,
+   TicketStatusPipe,
+   TicketCategoriesPipe,
+   UserTechnicianPipe
   
    
   ],
@@ -67,13 +73,15 @@ import {MatListModule} from '@angular/material/list';
     AppRoutingModule,
     HttpModule,
     ReactiveFormsModule,
+  
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
     BrowserAnimationsModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatListModule
+    MatListModule,
+    FormsModule
 
   ],
   providers: [TicketService,UserService,CategoriesService,RolesService],

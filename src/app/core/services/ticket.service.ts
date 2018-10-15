@@ -4,6 +4,7 @@ import { Ticket } from '../models/ticket.model';
 import { Headers, Http, Response, RequestOptions, RequestMethod } from '@angular/http';
 import 'rxjs/Rx';
 import { Subject } from 'rxjs/Rx';
+import { Summary } from 'src/app/dashboard/summary.model';
 
 
 @Injectable({
@@ -11,15 +12,24 @@ import { Subject } from 'rxjs/Rx';
 })
 export class TicketService {
 
-  ticketsListChanged = new Subject<Ticket[]>();
+  summaryActivated = new Subject();
+
+
+  summary:Summary;
+  totalTicket = 0;
+  openTicket = 0;
+  closeTicket = 0;
+  cellphoneTicket = 0;
+  computerTicket = 0;
 
   ticketList:Ticket[];
+  ticket:Ticket;
 
   constructor(private http:Http) { }
 
   //get all tickets
   getTickets(){
-    this.http.get('http://localhost:2175/api/ticket/getalltickets')
+    this.http.get('http://localhost:2175/api/ticket/')
     .map(
       (data : Response) =>{  return data.json() as Ticket[]; })
     .toPromise().then(x => {
@@ -27,7 +37,9 @@ export class TicketService {
     }).catch((x)=>'error was called');
   }
 
-
+  getUserTicket(id:number){
+    console.log(id);
+  }
 
   addTicket(ticket:Ticket){
     var body = JSON.stringify(ticket);
@@ -42,11 +54,66 @@ export class TicketService {
 
   updateTicket(ticket:Ticket){
     var body = JSON.stringify(ticket);
-    var headerOptions = new Headers({ 'Content-Type': 'application/json' });
+    console.log(body);
+    var headerOptions = new Headers({ 'Content-Type': 'application/json'});
     var requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
-    return this.http.put("http://localhost:2175/api/ticket/updateticket",
+    return this.http.put("http://localhost:2175/api/ticket",
       body,
       requestOptions).map(res => res.json());
   }
 
+  getTicket(id:number){
+    this.http.get('http://localhost:2175/api/ticket/' + id)
+    .map(
+      (data : Response) =>{  return data.json() as Ticket[] })
+    .toPromise().then(x => {
+      this.ticket = x[0];
+    }).catch((x)=>'error was called');
+  }
+
+
+  onSummaryCall(){
+    this.http.get('http://localhost:2175/api/ticket/')
+    .map(
+      (data : Response) =>{  return data.json() as Ticket[]; })
+    .toPromise().then(x => {
+      this.ticketSummary(x);
+    }).catch((x)=>'error was called');
+  }
+//get summary of all tickets
+  ticketSummary(tickets:Ticket[]){
+
+    this.summary = new Summary();
+    this.summary.numTicketsTotal = tickets.length;
+     //get the ticket lenght
+         tickets.forEach(ticket =>{
+         if(ticket.Status === "open"){
+           this.openTicket++;
+         }
+         if(ticket.Status === "close"){
+           this.closeTicket++;
+         }
+         if(ticket.Category === "computers"){
+           this.computerTicket++;
+         }
+         if(ticket.Category === "cell phones"){
+           this.cellphoneTicket++;
+         }
+       });
+       this.summary.numTicketsOpen = this.openTicket;
+       this.summary.numTicketsClose = this.closeTicket;
+       this.summary.cellphonesTickets = this.cellphoneTicket;
+       this.summary.computerTickets = this.computerTicket;
+
+       //clear values
+        this.totalTicket = 0;
+        this.openTicket = 0;
+        this.closeTicket = 0;
+        this.cellphoneTicket = 0;
+        this.computerTicket = 0;
+       return this.summary;
+
+
+       console.log(this.summary);
+   }
 }

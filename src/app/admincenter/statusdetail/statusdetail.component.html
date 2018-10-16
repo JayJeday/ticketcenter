@@ -1,0 +1,11 @@
+<div>
+  <h3>{{ statusDesc }}</h3>
+  <div>
+    <label>Status Description: </label>
+    <input [(ngModel)]="statusService?.status.StatusDesc" placeholder="status description"/>
+  </div>
+  <p>
+    <button (click)="update()">Update status</button>
+    <button (click)="cancel()">Cancel status</button>
+  </p>
+</div>

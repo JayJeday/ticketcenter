@@ -1,0 +1,11 @@
+<div *ngIf="category">
+  <h3>"{{ categoryDesc }}"</h3>
+  <div>
+    <label>Category Description: </label>
+    <input [(ngModel)]="categoryDesc" placeholder="category description"/>
+  </div>
+  <p>
+    <button (click)="save()">Update category</button>
+    <button (click)="cancel()">Cancel category</button>
+  </p>
+</div>

@@ -41,6 +41,12 @@ import { FormsModule } from '@angular/forms';
 import { TicketStatusPipe } from './ticket/ticket-status.pipe';
 import { TicketCategoriesPipe } from './ticket/ticket-categories.pipe';
 import { UserTechnicianPipe } from './user/user-technician.pipe';
+import { CategorylistComponent } from './admincenter/categorylist/categorylist.component';
+import { StatuslistComponent } from './admincenter/statuslist/statuslist.component';
+import { CategorydetailComponent } from './admincenter/categorydetail/categorydetail.component';
+import { StatusdetailComponent } from './admincenter/statusdetail/statusdetail.component';
+
+
 
 @NgModule({
   declarations: [
@@ -64,7 +70,11 @@ import { UserTechnicianPipe } from './user/user-technician.pipe';
    TicketItemComponent,
    TicketStatusPipe,
    TicketCategoriesPipe,
-   UserTechnicianPipe
+   UserTechnicianPipe,
+   CategorylistComponent,
+   StatuslistComponent,
+   CategorydetailComponent,
+   StatusdetailComponent
   
    
   ],

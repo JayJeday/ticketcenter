@@ -80,9 +80,9 @@ export class DashboardComponent implements OnInit {
     this.isCategorySearch = true;
   }
 
-  onFilterRole(){
-    this.type = "computers";
-    this.property = "Category";
+  onInputSearch(){
+    this.type = "";
+    this.property = "TechName";
     this.isStatusSearch =  false;
     this.isRoleSearch = true;
     this.isCategorySearch = false;

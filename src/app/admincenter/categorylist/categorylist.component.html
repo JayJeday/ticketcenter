@@ -1,0 +1,10 @@
+<ul class="categories">
+  <li *ngFor="let category of categoryList$ | async"
+    [class.selected]="category.CategoryId === selectedId" >
+    <a [routerLink]="['category',category.CategoryId]">
+      <span class="badge">{{ i + 1 }}</span>{{ category.Category1 }}
+    </a>
+  </li>
+</ul>
+
+<router-outlet></router-outlet>

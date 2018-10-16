@@ -41,7 +41,6 @@ export class TicketDetailComponent implements OnInit {
   onEditTicket(form:NgForm){
     this.loading = true;
 
-
     this.ticket = new Ticket();
     this.ticket.TicketId = this.ticketService.ticket.TicketId;
     

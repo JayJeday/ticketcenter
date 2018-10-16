@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { StatusService } from '../core/services/status.service';
+import { Status } from '../core/models/status.model';
 
 @Component({
   selector: 'app-admincenter',
@@ -7,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdmincenterComponent implements OnInit {
 
-  constructor() { }
+  
+  constructor(private statusService:StatusService ) { }
 
   ngOnInit() {
-    
+    this.statusService.getStatus();
+    console.log(this.statusService.statusList);
   }
 
 

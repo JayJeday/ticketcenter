@@ -17,14 +17,16 @@
             <li><a style="cursor: pointer;"
             [routerLink]="['tickets/user']"
             routerLinkActive="active">Assign ticket to user</a> </li>
+
+            <li><a style="cursor: pointer;"
+                [routerLink]="['manage/catstat']"
+                routerLinkActive="active">Manage status and Categories</a> </li>
+
         </ul>  
     </div>
     <div class="row">
         <div class="col-md-6">
-            <router-outlet></router-outlet>
-        </div>
-        <div class="col-md-6">
-                <router-outlet name="admin_detail"></router-outlet>
+           <app-statuslist></app-statuslist>
         </div>
             
     </div>

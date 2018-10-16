@@ -1,3 +1,5 @@
+import { NumberValueAccessor } from "@angular/forms/src/directives";
+
 export class Ticket{
 
    public TicketId:number;
@@ -5,8 +7,11 @@ export class Ticket{
     public Comment:string;
     public CreatedDate:string;
     public CategoryId:number;
-    public Category:string;
-     public Status:string;
+    public CategoryDesc:string;
+    public StatusDesc:string;
     public StatusId:number;
+    public UserId:number;
+    public TechName:string;
+    public RolesId:number;
      
 }

@@ -8,8 +8,8 @@
               <h4>Ticket Description: </h4>
               <p> {{this.ticketService.ticket.Description}}</p>
            
-        <textarea [attr.disabled]="comp === 'dash'" class="form-control"  id="comment" name="Comment" #Comment="ngModel" [(ngModel)]="this.ticketService.ticket.Comment"  rows="5">
-                {{this.ticketService.ticket.Comment}}
+        <textarea [attr.disabled]="comp === 'dash'" class="form-control"  id="comment" name="Comment" #Comment="ngModel" [(ngModel)]="this.ticketService?.ticket.Comment"  rows="5">
+                {{this.ticketService?.ticket.Comment}}
         </textarea>
        
         <div class="form-group">

@@ -8,6 +8,9 @@
             <button *ngIf="filteredProperty ==='Category'" (click)="onTicketCategoryFilter()">
                     {{toogle? 'Computer Category':'Cell Phones Category'}}
             </button>
+           
+            
+            <input  *ngIf="filteredProperty ==='TechName'"  [(ngModel)]="filteredType"   placeholder="Enter Name of technician" type="text"   />
             
             <mat-list>     
                 <app-ticket-item *ngFor="let aticket of ticketService.ticketList | ticketStatus: filteredType: filteredProperty"  [ticket]="aticket">

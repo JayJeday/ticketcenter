@@ -7,6 +7,8 @@ import { TechnicianComponent } from "./technician/technician.component";
 import { TicketDetailComponent } from "./ticket/ticket-detail/ticket-detail.component";
 import { TicketListComponent } from "./ticket/ticket-list/ticket-list.component";
 import { UserListComponent } from "./user/user-list/user-list.component";
+import { StatusdetailComponent } from "./admincenter/statusdetail/statusdetail.component";
+import { CategorydetailComponent } from "./admincenter/categorydetail/categorydetail.component";
 
 const appRoutes:Routes =[
    {
@@ -26,7 +28,11 @@ const appRoutes:Routes =[
             {path:'tickets',component:TicketListComponent,data:{comp:'admin_status'}},
             {path:'technicians/categories',component:UserListComponent,data:{comp:'admin_cat'}},
             {path:'technician/role',component:UserListComponent,data:{comp:'admin_role'}},
-            {path:':id', component: TicketDetailComponent,outlet: 'admin_detail'}
+            {path:':id', component: TicketDetailComponent,outlet: 'admin_detail'},
+
+
+            {path:'status/:id', component: StatusdetailComponent},
+            {path:'category/:id', component: CategorydetailComponent}
             
         ]
     },

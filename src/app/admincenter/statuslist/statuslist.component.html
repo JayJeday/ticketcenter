@@ -1,0 +1,10 @@
+<ul class="status">
+  <li *ngFor="let status of service.statusList"
+    [class.selected]="status.StatusId === selectedId" >
+    <a [routerLink]="['status',status.StatusId]">
+      <span class="badge">{{ 1 }}</span>{{ status.StatusDesc}}
+    </a>
+  </li>
+</ul>
+
+<router-outlet></router-outlet>

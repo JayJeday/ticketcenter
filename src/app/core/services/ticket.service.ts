@@ -80,9 +80,11 @@ export class TicketService {
       this.ticketSummary(x);
     }).catch((x)=>'error was called');
   }
+  
 //get summary of all tickets
   ticketSummary(tickets:Ticket[]){
 
+    //TODO store procedure do this better
     this.summary = new Summary();
     this.summary.numTicketsTotal = tickets.length;
      //get the ticket lenght

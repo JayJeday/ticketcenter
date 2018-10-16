@@ -22,7 +22,7 @@ export class TicketListComponent implements OnInit {
 
   //show normal list or filtered
   comp:string;
-
+  techName:String;
 
   toogle:boolean = true;
   
@@ -86,6 +86,5 @@ export class TicketListComponent implements OnInit {
      this.toogle =  !this.toogle;
     }
   }
-
 
 }

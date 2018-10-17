@@ -3,31 +3,24 @@
         <ul>
          
           <li><a style="cursor: pointer;"
-            [routerLink]="['']"
-            routerLinkActive="active">Manage technicians categories</a> </li>
+            [routerLink]="['manage/tickets']"
+            routerLinkActive="active">Tickets Management</a> </li>
          
-            <li><a style="cursor: pointer;"
-            [routerLink]="['tickets']"
-            routerLinkActive="active">Manage tickets Status</a>  </li>
        
             <li><a style="cursor: pointer;"
-            [routerLink]="['technician/role']"
-            routerLinkActive="active">Manage Users Roles</a>  </li>
+            [routerLink]="['manage']"
+            routerLinkActive="active">Users Management</a>  </li>
         
-            <li><a style="cursor: pointer;"
-            [routerLink]="['tickets/user']"
-            routerLinkActive="active">Assign ticket to user</a> </li>
 
             <li><a style="cursor: pointer;"
-                [routerLink]="['manage/catstat']"
-                routerLinkActive="active">Manage status and Categories</a> </li>
+                [routerLink]="['props']"
+                routerLinkActive="active">Manage status, Categories, Roles</a> </li>
 
         </ul>  
     </div>
     <div class="row">
-        <div class="col-md-6">
-           <app-statuslist></app-statuslist>
-        </div>
+
+            <router-outlet></router-outlet>         
             
     </div>
   </div>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../core/models/user.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { UserService } from '../user/user.service';
+import { UsersService } from '../core/services/users.service';
+
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
   //pass this user to homeComponent for login purposes
   user:User;
 
-  constructor(private fb:FormBuilder,private userService:UserService) { }
+  constructor(private fb:FormBuilder,private usersService:UsersService) { }
 
   ngOnInit() {
 

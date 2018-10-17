@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   filterType:boolean = false;
 
   type:string="open";
-  property:string="Status";
+  property:string="StatusDesc";
 
   statusBtnString;
 
@@ -66,20 +66,22 @@ export class DashboardComponent implements OnInit {
   //to appear button on screen
   onBtnStatus(){
     this.type = "open";
-    this.property = "Status";
+    this.property = "StatusDesc";
     this.isStatusSearch =  true;
     this.isRoleSearch = false;
     this.isCategorySearch = false;
   }
-
+  //TODO add this dynamically
   onBtnCat(){
     this.type = "computers";
-    this.property = "Category";
+    this.property = "CategoryDesc";
     this.isStatusSearch =  false;
     this.isRoleSearch = false;
     this.isCategorySearch = true;
   }
 
+
+  //TODO add this dynamically
   onInputSearch(){
     this.type = "";
     this.property = "TechName";

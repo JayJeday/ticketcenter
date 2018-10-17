@@ -1,6 +1,43 @@
 <a style="cursor:pointer;" [routerLink]="[index]" routerLinkActive="active">
-    <div class="ticketList">
-        <h4 class="list-group-item-heading">{{user.FirstName}} {{user.LastName}}</h4>
-        <p class="list-group-item-text">{{user.role}}</p>
+    
+    
+    <div class="userList">
+        
+        <!--show by item ng if -->
+       
+       <!-- /admincenter/props',{outlets:{stat:'status/' + status.StatusId}}  -->
+
+        <div *ngIf="itemType === 'role'" class="role">
+                <a
+                style="cursor: pointer;"
+                [routerLink]="['manage',{outlets:{rol: 7+'/role'}}]"
+                routerLinkActive=""
+                class="list-group-item clearfix">
+              
+                  <mat-list-item class="col-md-12" role="listitem">
+                    <h4 class="list-group-item-text left">{{user.FirstName}} {{user.LastName}}</h4>
+                     <h4 class="list-group-item-text">{{user.Role}}</h4>
+                   </mat-list-item> 
+                   
+                  </a>
+              
+        </div>  
+       
+        <div *ngIf="itemType === 'cat'" class="cat">
+                <a
+                style="cursor: pointer;"
+                [routerLink]="['/admincenter/manage/users',{outlets:{ca: 7+'/cat'}}]"
+                routerLinkActive=""
+                class="list-group-item clearfix">
+              
+                  <mat-list-item class="col-md-12" role="listitem">
+                    <h4 class="list-group-item-text left">{{user.FirstName}} {{user.LastName}}</h4>
+                     <h4 class="list-group-item-text">{{user.CategoryDesc}}</h4>
+                   </mat-list-item> 
+                   
+                  </a>
+              
+        </div>
+    
     </div>
   </a>

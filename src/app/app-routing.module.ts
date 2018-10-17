@@ -9,6 +9,10 @@ import { TicketListComponent } from "./ticket/ticket-list/ticket-list.component"
 import { UserListComponent } from "./user/user-list/user-list.component";
 import { StatusdetailComponent } from "./admincenter/statusdetail/statusdetail.component";
 import { CategorydetailComponent } from "./admincenter/categorydetail/categorydetail.component";
+import { PropcomponentComponent } from "./admincenter/propcomponent/propcomponent.component";
+import { ManageUserComponent } from "./admincenter/manage-user/manage-user.component";
+import { ManageTicketsComponent } from "./admincenter/manage-tickets/manage-tickets.component";
+import { UserDetailComponent } from "./user/user-detail/user-detail.component";
 
 const appRoutes:Routes =[
    {
@@ -26,14 +30,23 @@ const appRoutes:Routes =[
         component: AdmincenterComponent,
         children:[
             {path:'tickets',component:TicketListComponent,data:{comp:'admin_status'}},
-            {path:'technicians/categories',component:UserListComponent,data:{comp:'admin_cat'}},
-            {path:'technician/role',component:UserListComponent,data:{comp:'admin_role'}},
-            {path:':id', component: TicketDetailComponent,outlet: 'admin_detail'},
-
-
-            {path:'status/:id', component: StatusdetailComponent},
-            {path:'category/:id', component: CategorydetailComponent}
             
+
+            {path:'props', component:PropcomponentComponent, children:[
+             {path:'status/:id', component: StatusdetailComponent, outlet: 'stat'},
+            {path:'category/:id', component: CategorydetailComponent}
+            ]},
+
+            {path:'manage', component: ManageUserComponent, children:[
+                {path:':id/role',component:UserDetailComponent, outlet:'rol',data:{comp:'admin_role'}},
+                {path:':id/cat',component:UserDetailComponent, outlet:'ca', data:{comp:'admin_cat'}}
+            ] },
+
+            {path:'manage/tickets', component: ManageTicketsComponent, children:[
+                  {path:':id', component: TicketDetailComponent,outlet: 'admin_detail'}
+            ] }
+
+             
         ]
     },
     {

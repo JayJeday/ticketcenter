@@ -49,4 +49,13 @@ export class StatusService {
       }).catch((x)=>'error was called');
     }
 
+
+  addStatus(status:Status){
+      var body = JSON.stringify(status);
+      console.log(body);
+      var headerOptions = new Headers({'Content-Type':'application/json'});
+      var requestOptions = new RequestOptions({method : RequestMethod.Post,headers : headerOptions});
+      return this.http.post('http://localhost:2175/api/status',body,requestOptions).map(x => x.json());
+
+    }
 }

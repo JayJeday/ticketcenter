@@ -1,11 +1,11 @@
 <div class="col-md-6">
     <div class="col-xs-12">
 
-            <button *ngIf="filteredProperty ==='Status'" (click)="onTicketStatusFilter()">
+            <button *ngIf="filteredProperty ==='StatusDesc'" (click)="onTicketStatusFilter()">
                 {{toogle? ' Filter for Close Tickets':' Filter for Open Tickets'}}
 
             </button>
-            <button *ngIf="filteredProperty ==='Category'" (click)="onTicketCategoryFilter()">
+            <button *ngIf="filteredProperty ==='CategoryDesc'" (click)="onTicketCategoryFilter()">
                     {{toogle? 'Computer Category':'Cell Phones Category'}}
             </button>
            

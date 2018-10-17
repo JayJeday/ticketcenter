@@ -3,6 +3,6 @@
                         <button *ngIf="filteredProperty ==='role'" (click)=" onTicketRoleFilter()">
                                         {{toogle? 'Filter for Admin Users':' Filter for Technician Users'}}
                          </button>
-                <app-user-item *ngFor="let auser of users | userTechnician: filteredType: filteredProperty " [user]="auser" [index]="i"></app-user-item>
+                <app-user-item [itemType]="listType" *ngFor="let auser of service.userList" [user]="auser" [index]="i"></app-user-item>
         </div>
 </div>

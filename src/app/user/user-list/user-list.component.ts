@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { User } from 'src/app/core/models/user.model';
 import { ActivatedRoute } from '@angular/router';
+import { UsersService } from 'src/app/core/services/users.service';
+
 
 @Component({
   selector: 'app-user-list',
@@ -14,50 +16,24 @@ export class UserListComponent implements OnInit {
 
   toogle:boolean = true;
 
-  users:User[] = [
+  @Input()listType;
 
-{
-  FirstName:'Test',
-  LastName:'Test',
-  Email:'test@email.com',
-  Password:'password',
-  isActivate:false,
-  isLocked:false,
-  role:'admin'
-},
-{
-  FirstName:'Test2',
-  LastName:'Test2',
-  Email:'tes2t@email.com',
-  Password:'password2',
-  isActivate:false,
-  isLocked:false,
-  role:'technician'
-},
-{
-  FirstName:'Test3',
-  LastName:'Test3',
-  Email:'test3@email.com',
-  Password:'password3',
-  isActivate:false,
-  isLocked:false,
-  role:'technician'
-},
-
-
-
-
-
-  ]
-  constructor(private route:ActivatedRoute) { }
+  constructor(private route:ActivatedRoute,private service:UsersService) { }
 
   ngOnInit() {
+    //get all users by default
+    this.service.getU();
+
+    console.log(this.service.userList);
+    
+    console.log(this.listType);
+
 
     this.route.data.subscribe((data)=>{
        this.filteredProperty = data['prop'];
-       
-
+      
     });
+
 
   }
 

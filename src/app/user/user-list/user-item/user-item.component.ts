@@ -11,9 +11,13 @@ export class UserItemComponent implements OnInit {
   @Input() user:User;
   @Input() index:number;
 
+  @Input() itemType:string;
+
   constructor() { }
 
   ngOnInit() {
+
+    console.log(this.itemType)
   }
 
 }

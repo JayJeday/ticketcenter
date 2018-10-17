@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/core/models/category.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { CategoriesService } from 'src/app/core/services/categories.service';
 
 @Component({
@@ -13,6 +13,8 @@ export class CategorydetailComponent implements OnInit {
   category: Category;
   categoryDesc: string;
 
+  id:number;
+
   loading = false;
 
   constructor( private route: ActivatedRoute,
@@ -22,25 +24,27 @@ export class CategorydetailComponent implements OnInit {
 
   ngOnInit() {
 
-    this.route.data
-      .subscribe((c:Category) => {
-        this.categoryDesc = c.Category1;
-      });
-
+    this.route.params
+    .subscribe(
+      (params: Params) => {
+        this.id = +params['id'];
+         this.categoryService.getCategoryById(this.id);
+         console.log("category is called");
+      }
+    );
   }
 
 update(){
-  this.category.Category1 = this.categoryDesc;
   //call service  to update category here
   this.loading = true;
-  this.categoryService.updateCategory( this.category)
+  this.categoryService.updateCategory(this.categoryService.category)
      .subscribe(data => {
         this.loading = false;
 
         //notification of succesfully saved
-
+        console.log("cat updated is called");
        //need to update list so it refresh it 
-
+       this.categoryService.getCategories();
         //route back to list
         this.gotoCategoryList();
      });
@@ -49,14 +53,14 @@ update(){
 
 
 cancel(){
-
+  this.gotoCategoryList();
 
 }
 
 gotoCategoryList(){
   //go back
   //pass Value  to updated true activated message 
-  this.router.navigate(['../',{ updated: true }], { relativeTo: this.route });
+  this.router.navigate(['../../'], { relativeTo: this.route });
 }
   
 }

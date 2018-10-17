@@ -15,6 +15,13 @@ export class StatuslistComponent implements OnInit {
   subscription: Subscription;
  // @Input() statusList:Status[];
 
+ displayAddForm = false;
+ statusAdded:string;
+
+ loading = false;
+
+
+
   constructor(private service:StatusService,
     private route: ActivatedRoute) { }
 
@@ -30,5 +37,27 @@ export class StatuslistComponent implements OnInit {
     );
 
   }
+
+  addStatus(){
+    
+    var c = new Status();
+    c.StatusDesc = this.statusAdded;
+    this.loading = true;
+
+    this.service.addStatus(c).subscribe(data => {
+      
+      //update list
+      this.service.getStatus();
+      //snackebar that notify list changed
+      
+   });
+
+    //close button to add 
+    this.displayAddForm =false;
+  }
+
+showForm(){
+  this.displayAddForm =!this.displayAddForm;
+}
 
 }

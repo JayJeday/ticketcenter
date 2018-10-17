@@ -1,10 +1,18 @@
+<button (click)="showForm()">+</button>
 <ul class="categories">
-  <li *ngFor="let category of categoryList$ | async"
+  <li *ngFor="let category of categoryService.categoryList"
     [class.selected]="category.CategoryId === selectedId" >
     <a [routerLink]="['category',category.CategoryId]">
-      <span class="badge">{{ i + 1 }}</span>{{ category.Category1 }}
+      <span class="badge">{{ 1 }}</span>{{ category.CategoryDesc }}
     </a>
   </li>
 </ul>
 
+<div *ngIf="displayAddForm">
+
+  <h3>Add Category</h3>
+    <input type="text" [(ngModel)]="categoryAdded">
+    <button  (click)="addCategory()">Add Category</button>
+</div>
+<!--Use name route to manage router outlet -->
 <router-outlet></router-outlet>

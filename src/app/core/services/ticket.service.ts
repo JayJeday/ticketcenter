@@ -89,16 +89,16 @@ export class TicketService {
     this.summary.numTicketsTotal = tickets.length;
      //get the ticket lenght
          tickets.forEach(ticket =>{
-         if(ticket.Status === "open"){
+         if(ticket.StatusDesc === "open"){
            this.openTicket++;
          }
-         if(ticket.Status === "close"){
+         if(ticket.StatusDesc === "close"){
            this.closeTicket++;
          }
-         if(ticket.Category === "computers"){
+         if(ticket.CategoryDesc === "computers"){
            this.computerTicket++;
          }
-         if(ticket.Category === "cell phones"){
+         if(ticket.CategoryDesc === "cell phones"){
            this.cellphoneTicket++;
          }
        });

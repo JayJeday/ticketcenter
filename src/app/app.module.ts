@@ -13,7 +13,7 @@ import { UserItemComponent } from './user/user-list/user-item/user-item.componen
 import { AppRoutingModule } from './app-routing.module';
 
 import {TicketService} from './core/services/ticket.service';
-import {UserService} from './user/user.service';
+
 
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -45,6 +45,11 @@ import { CategorylistComponent } from './admincenter/categorylist/categorylist.c
 import { StatuslistComponent } from './admincenter/statuslist/statuslist.component';
 import { CategorydetailComponent } from './admincenter/categorydetail/categorydetail.component';
 import { StatusdetailComponent } from './admincenter/statusdetail/statusdetail.component';
+import { UsersService } from './core/services/users.service';
+import { PropcomponentComponent } from './admincenter/propcomponent/propcomponent.component';
+import { ManageUserComponent } from './admincenter/manage-user/manage-user.component';
+import { ManageTicketsComponent } from './admincenter/manage-tickets/manage-tickets.component';
+
 
 
 
@@ -74,7 +79,10 @@ import { StatusdetailComponent } from './admincenter/statusdetail/statusdetail.c
    CategorylistComponent,
    StatuslistComponent,
    CategorydetailComponent,
-   StatusdetailComponent
+   StatusdetailComponent,
+   PropcomponentComponent,
+   ManageUserComponent,
+   ManageTicketsComponent
   
    
   ],
@@ -94,7 +102,7 @@ import { StatusdetailComponent } from './admincenter/statusdetail/statusdetail.c
     FormsModule
 
   ],
-  providers: [TicketService,UserService,CategoriesService,RolesService],
+  providers: [TicketService,UsersService,CategoriesService,RolesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

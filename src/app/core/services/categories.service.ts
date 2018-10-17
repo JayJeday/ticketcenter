@@ -14,7 +14,7 @@ export class CategoriesService {
   constructor(private http:Http) { }
 
   getCategories(){
-    this.http.get('http://localhost:2175/api/category/getallcategories')
+    this.http.get('http://localhost:2175/api/category')
     .map(
       (data : Response) =>{  return data.json() as Category[]; })
     .toPromise().then(x => {
@@ -43,4 +43,14 @@ export class CategoriesService {
     }).catch((x)=>'error was called');
     }
   
+
+    addCategory(category:Category){
+      var body = JSON.stringify(category);
+      console.log(body);
+      var headerOptions = new Headers({'Content-Type':'application/json'});
+      var requestOptions = new RequestOptions({method : RequestMethod.Post,headers : headerOptions});
+      return this.http.post('http://localhost:2175/api/category',body,requestOptions).map(x => x.json());
+
+    }
+
 }

@@ -1,10 +1,22 @@
+<button (click)="showForm()">+</button>
 <ul class="status">
   <li *ngFor="let status of service.statusList"
     [class.selected]="status.StatusId === selectedId" >
-    <a [routerLink]="['status',status.StatusId]">
+
+    <!--<a [routerLink]="['status',status.StatusId]">  -->
+      
+      <a [routerLink]="['/admincenter/props',{outlets:{stat:'status/' + status.StatusId}}]">
+
       <span class="badge">{{ 1 }}</span>{{ status.StatusDesc}}
     </a>
   </li>
 </ul>
 
-<router-outlet></router-outlet>
+<div *ngIf="displayAddForm">
+
+    <h3>Add Status</h3>
+      <input type="text" [(ngModel)]="statusAdded">
+      <button  (click)="addStatus()">Add Status</button>
+  </div>
+
+<router-outlet name="stat"></router-outlet>

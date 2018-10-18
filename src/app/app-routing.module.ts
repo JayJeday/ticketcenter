@@ -29,21 +29,21 @@ const appRoutes:Routes =[
         path:'admincenter',
         component: AdmincenterComponent,
         children:[
-            {path:'tickets',component:TicketListComponent,data:{comp:'admin_status'}},
             
-
             {path:'props', component:PropcomponentComponent, children:[
              {path:'status/:id', component: StatusdetailComponent, outlet: 'stat'},
             {path:'category/:id', component: CategorydetailComponent}
             ]},
 
             {path:'manage', component: ManageUserComponent, children:[
-                {path:':id/role',component:UserDetailComponent, outlet:'rol',data:{comp:'admin_role'}},
-                {path:':id/cat',component:UserDetailComponent, outlet:'ca', data:{comp:'admin_cat'}}
+                {path:'role/:id',component:UserDetailComponent, outlet:'rol',data:{comp:'admin_role'}},
+                {path:'category/:id',component:UserDetailComponent, outlet:'rol', data:{comp:'admin_cat'}}
             ] },
 
-            {path:'manage/tickets', component: ManageTicketsComponent, children:[
-                  {path:':id', component: TicketDetailComponent,outlet: 'admin_detail'}
+            {path:'tickets', component: ManageTicketsComponent, children:[
+
+                  {path:':id', component: TicketDetailComponent,data:{comp:'admin'}}
+
             ] }
 
              

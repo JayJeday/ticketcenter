@@ -13,7 +13,7 @@
             <input  *ngIf="filteredProperty ==='TechName'"  [(ngModel)]="filteredType"   placeholder="Enter Name of technician" type="text"   />
             
             <mat-list>     
-                <app-ticket-item *ngFor="let aticket of ticketService.ticketList | ticketStatus: filteredType: filteredProperty"  [ticket]="aticket">
+                <app-ticket-item  [itemType]="listType" *ngFor="let aticket of ticketService.ticketList | ticketStatus: filteredType: filteredProperty"  [ticket]="aticket">
                     </app-ticket-item>
             </mat-list>
 

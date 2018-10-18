@@ -1,16 +1,9 @@
-<a style="cursor:pointer;" [routerLink]="[index]" routerLinkActive="active">
-    
-    
-    <div class="userList">
-        
-        <!--show by item ng if -->
-       
-       <!-- /admincenter/props',{outlets:{stat:'status/' + status.StatusId}}  -->
-
+  <div class="userList">
+           
         <div *ngIf="itemType === 'role'" class="role">
                 <a
                 style="cursor: pointer;"
-                [routerLink]="['manage',{outlets:{rol: 7+'/role'}}]"
+                [routerLink]="['/admincenter/manage',{outlets:{rol:'role/' + user.id}}]"
                 routerLinkActive=""
                 class="list-group-item clearfix">
               
@@ -26,7 +19,7 @@
         <div *ngIf="itemType === 'cat'" class="cat">
                 <a
                 style="cursor: pointer;"
-                [routerLink]="['/admincenter/manage/users',{outlets:{ca: 7+'/cat'}}]"
+                [routerLink]="['/admincenter/manage',{outlets:{rol:'category/' + user.id}}]"
                 routerLinkActive=""
                 class="list-group-item clearfix">
               
@@ -40,4 +33,3 @@
         </div>
     
     </div>
-  </a>

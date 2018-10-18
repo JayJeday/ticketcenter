@@ -49,6 +49,7 @@ import { UsersService } from './core/services/users.service';
 import { PropcomponentComponent } from './admincenter/propcomponent/propcomponent.component';
 import { ManageUserComponent } from './admincenter/manage-user/manage-user.component';
 import { ManageTicketsComponent } from './admincenter/manage-tickets/manage-tickets.component';
+import { AsignUserComponent } from './admincenter/asign-user/asign-user.component';
 
 
 
@@ -82,7 +83,8 @@ import { ManageTicketsComponent } from './admincenter/manage-tickets/manage-tick
    StatusdetailComponent,
    PropcomponentComponent,
    ManageUserComponent,
-   ManageTicketsComponent
+   ManageTicketsComponent,
+   AsignUserComponent
   
    
   ],

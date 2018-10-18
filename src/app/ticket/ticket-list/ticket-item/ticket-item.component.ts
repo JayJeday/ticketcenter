@@ -10,6 +10,8 @@ export class TicketItemComponent implements OnInit {
 
   @Input() ticket:Ticket;
 
+  @Input() itemType:string;
+
   constructor() { }
 
   ngOnInit() {

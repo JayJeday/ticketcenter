@@ -9,6 +9,7 @@ import 'rxjs/Rx';
 export class UsersService {
 
   userList:User[];
+  user:User;
 
   constructor(private http:Http) { }
 
@@ -21,15 +22,30 @@ export class UsersService {
     }).catch((x)=>'error was called');
   }
 
-  getUserById(){
-
+  getUserById(id:number){
+    this.http.get('http://localhost:2175/api/user/'+ id)
+    .map(
+      (data : Response) =>{  return data.json() as User[] })
+    .toPromise().then(x => {
+      this.user = x[0];
+    }).catch((x)=>'error was called');
   }
 
   getUserByCred(){
 
   }
 
-  addUser(){
+  updateUser(user:User){
+    var body = JSON.stringify(user);
+    console.log(body);
+    var headerOptions = new Headers({ 'Content-Type': 'application/json'});
+    var requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
+    return this.http.put("http://localhost:2175/api/user",
+      body,
+      requestOptions).map(res => res.json());
+  }
+
+  createUser(){
     
   }
 }

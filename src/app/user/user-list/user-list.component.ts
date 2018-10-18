@@ -23,7 +23,7 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
     //get all users by default
     this.service.getU();
-
+    
     console.log(this.service.userList);
     
     console.log(this.listType);

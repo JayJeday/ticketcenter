@@ -16,8 +16,7 @@ export class UserItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
-    console.log(this.itemType)
+    console.log(this.user.CategoryId);
   }
 
 }

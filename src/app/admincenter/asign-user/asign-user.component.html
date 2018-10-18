@@ -1,0 +1,12 @@
+
+<!--If ticet has somebody asigned show them-->
+<div *ngIf="ticket.UserId !== null"  class="user_card">
+
+
+<span style="color:red">Change Technician</span>
+</div>
+
+<h4>technicians to assign</h4>
+<!-- Search inputs here if ticket is not assigned -->
+<input type="text" placeholder="Enter technician name">
+<app-user-list></app-user-list>

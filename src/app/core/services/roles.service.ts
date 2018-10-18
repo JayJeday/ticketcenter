@@ -15,7 +15,7 @@ export class RolesService {
   constructor(private http:Http) { }
 
   getRoles(){
-    this.http.get('http://localhost:2175/api/ticket/getroles')
+    this.http.get('http://localhost:2175/api/role')
     .map(
       (data : Response) =>{  return data.json() as Role[]; })
     .toPromise().then(x => {

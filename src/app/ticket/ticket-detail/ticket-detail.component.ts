@@ -14,6 +14,8 @@ export class TicketDetailComponent implements OnInit {
   ticket:Ticket;
   id:number;
   loading = false;
+
+  //which components the data will operate on
   comp:string;
 
 

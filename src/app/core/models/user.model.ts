@@ -9,5 +9,6 @@ export class User {
     Role:string;
     CategoryDesc:string;
     CategoryId:number;
+    RoleId:number;
 
 }

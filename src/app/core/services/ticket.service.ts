@@ -38,7 +38,12 @@ export class TicketService {
   }
 
   getUserTicket(id:number){
-    console.log(id);
+    this.http.get('http://localhost:2175/api/userticket/' + id)
+    .map(
+      (data : Response) =>{  return data.json() as Ticket[] })
+    .toPromise().then(x => {
+      this.ticketList = x;
+    }).catch((x)=>'error was called');
   }
 
   addTicket(ticket:Ticket){

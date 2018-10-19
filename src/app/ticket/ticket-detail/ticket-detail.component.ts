@@ -46,8 +46,15 @@ export class TicketDetailComponent implements OnInit {
     this.ticket = new Ticket();
     this.ticket.TicketId = this.ticketService.ticket.TicketId;
     
+    //if comment is null get the one from service
     this.ticket.Comment = form.value.Comment;
+    
+    console.log(form.value.StatusId);
+
     this.ticket.StatusId = form.value.StatusId;
+
+    //get the ticket user id from the service
+     this.ticket.UserId = this.ticketService.ticket.UserId;
 
     console.log(JSON.stringify(this.ticket));
 

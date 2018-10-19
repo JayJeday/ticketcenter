@@ -57,7 +57,7 @@ const appRoutes:Routes =[
         ]
     },
     {
-        path:'tech',
+        path:'tech/:id',
         component: TechnicianComponent
         ,children:[
             {path:'ticket/:id', component: TicketDetailComponent}

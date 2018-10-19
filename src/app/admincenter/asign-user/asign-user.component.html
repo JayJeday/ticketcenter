@@ -2,11 +2,21 @@
 <!--If ticet has somebody asigned show them-->
 <div *ngIf="ticket.UserId !== null"  class="user_card">
 
+    <h4>{{this.userService.user.FirstName}}</h4>
+    <h4>{{this.userService.user.LastName}}</h4>
+    <h4>{{this.userService.user.Role}}</h4>
 
-<span style="color:red">Change Technician</span>
+  <button style="color:red" (click)="onChange()">{{displayList ? 'Cancel changes' : 'Change Technicians'}}</button>
 </div>
 
 <h4>technicians to assign</h4>
-<!-- Search inputs here if ticket is not assigned -->
+
+<div>
+    <!-- Search inputs here if ticket is not assigned -->
 <input type="text" placeholder="Enter technician name">
-<app-user-list></app-user-list>
+    <h5 *ngIf="ticket.UserId === null">Ticket  does not have technician assigned.Select a user from the list</h5> 
+
+      <app-user-list *ngIf="ticket.UserId === null || displayList === true"[listType]="userType"></app-user-list>
+    
+</div>
+

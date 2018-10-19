@@ -10,12 +10,45 @@
       <h4>Open Tickets: {{this.ticketService.summary.numTicketsOpen}}</h4>
       </div> 
       <div class="vol-md-6">
-      <h4>Close Tickets:  {{this.ticketService.summary.numTicketsClose}} </h4>
+      <h4>Close Tickets: {{this.ticketService.summary.numTicketsClose}} </h4>
       <h4>Cell Phone based Tickets:  {{this.ticketService.summary.cellphonesTickets}}  </h4>
       <h4>Computer based Tickets:{{this.ticketService.summary.computerTickets}}</h4>
       </div>
+
   </div>
   
+
+  <div class="row">
+
+    <div class="col-md-6">
+        <div style="display: block">
+          <!-- For status-->
+            <canvas baseChart
+                        [data]="doughnutChartStatusData"
+                        [labels]="doughnutChartLabels"
+                        [chartType]="doughnutChartType"
+                        [colors]="chartColorsStatus"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+          </div>
+
+    </div>
+
+    <div class="col-md-6">
+        <div style="display: block">
+           <!-- For Categories-->
+            <canvas baseChart
+                        [data]="doughnutChartCategoryData"
+                        [labels]="doughnutChartLabels2"
+                        [chartType]="doughnutChartType"
+                        [colors]="chartColorsCategories"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+          </div>
+
+    </div>
+
+  </div>
      
    
     <div class="row">

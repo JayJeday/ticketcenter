@@ -12,7 +12,7 @@ export class TechnicianComponent implements OnInit {
 
   //routeId
   id:number;
-
+  userTickets = 'byUser';
   constructor(private route: ActivatedRoute,private router: Router,  private ticketService:TicketService) { }
 
   ngOnInit() {

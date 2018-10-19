@@ -25,16 +25,52 @@ export class DashboardComponent implements OnInit {
 
   statusBtnString;
 
+  //for status => 
+  public doughnutChartLabels:string[] = ['Tickets Open', 'Tickets Close'];
+  public doughnutChartStatusData:number[];
+  public doughnutChartCategoryData:number[];
+  public doughnutChartType:string = 'doughnut';
+ 
+
+  //for categories
+  public doughnutChartLabels2:string[] = ['Cell phones', 'Computers'];
+
+  // events
+  public chartClicked(e:any):void {
+    console.log(e);
+  }
+ 
+  public chartHovered(e:any):void {
+    console.log(e);
+  }
 
   constructor(private ticketService:TicketService,
     private router: Router,
     private route: ActivatedRoute
     ) { }
 
+    public chartColorsStatus: Array<any> = [
+      { // all colors in order
+        backgroundColor: ['#d13537', '#b0o0b5', '#coffee']
+      }
+    ]
+      public chartColorsCategories: Array<any> = [
+        { // all colors in order
+          backgroundColor: ['#d13537', '#b0o0b5', '#coffee']
+        }
+
+  ]
+
+
   ngOnInit() {
     
     //call summary data
     this.ticketService.onSummaryCall();
+    
+    this.doughnutChartStatusData = [this.ticketService.summary.numTicketsOpen,this.ticketService.summary.numTicketsClose];
+
+    this.doughnutChartCategoryData = [this.ticketService.summary.numTicketsOpen,this.ticketService.summary.numTicketsClose];
+
     
     //pass go to route manually
 //this.router.navigate(['tickets/status'], {relativeTo: this.route});
@@ -89,6 +125,9 @@ export class DashboardComponent implements OnInit {
     this.isRoleSearch = true;
     this.isCategorySearch = false;
   }
+
+
+
 
 
 

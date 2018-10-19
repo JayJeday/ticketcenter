@@ -34,32 +34,17 @@ export class TicketListComponent implements OnInit {
 
      
   ngOnInit() {
-    this.ticketService.getTickets();
+    if(this.listType !== "byUser"){
+        this.ticketService.getTickets();
+    }
+   
     
     console.log(this.ticketService.ticketList);
     
     console.log(this.filteredType);
     console.log(this.filteredProperty);
    
-    //the data that the activated route bring
-    //this.route.data.subscribe((data)=>{
-     // this.filteredProperty = data['prop'];
-      //enable specific button
-     // if(this.filteredProperty ==='Status'){
-        //by default filter for open
-     //   this.filteredType = 'open';
-     // }
-
-     // if(this.filteredProperty === 'Category'){
-      //  this.filteredType = 'computers';
-     // }
-      
-   //});
-
-    //pass value between component
-   // this.ticketService.summaryActivated.next(this.ticketService.summary);
-    
-   //this.ticketService.filterChanged.next(this.ticketService.summary);
+   
 
   }
   

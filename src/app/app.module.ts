@@ -51,6 +51,9 @@ import { ManageUserComponent } from './admincenter/manage-user/manage-user.compo
 import { ManageTicketsComponent } from './admincenter/manage-tickets/manage-tickets.component';
 import { AsignUserComponent } from './admincenter/asign-user/asign-user.component';
 
+import { ChartsModule } from 'ng2-charts';
+
+
 
 
 
@@ -93,7 +96,7 @@ import { AsignUserComponent } from './admincenter/asign-user/asign-user.componen
     AppRoutingModule,
     HttpModule,
     ReactiveFormsModule,
-  
+    ChartsModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,

@@ -13,6 +13,10 @@ import { PropcomponentComponent } from "./admincenter/propcomponent/propcomponen
 import { ManageUserComponent } from "./admincenter/manage-user/manage-user.component";
 import { ManageTicketsComponent } from "./admincenter/manage-tickets/manage-tickets.component";
 import { UserDetailComponent } from "./user/user-detail/user-detail.component";
+import { AuthGuard } from "./core/authorization/auth.guard";
+import { LoginComponent } from "./login/login.component";
+import { CreateuserComponent } from "./admincenter/createuser/createuser.component";
+import { ManageTechComponent } from "./admincenter/manage-tech/manage-tech.component";
 
 const appRoutes:Routes =[
    {
@@ -25,14 +29,21 @@ const appRoutes:Routes =[
         path:'home',
         component:HomeComponent
     },
+
     {
         path:'admincenter',
         component: AdmincenterComponent,
+        canActivate:[AuthGuard],
         children:[
-            
+
+             {path:'tech', component: ManageTechComponent},
+            {path:'create', component: CreateuserComponent},
             {path:'props', component:PropcomponentComponent, children:[
              {path:'status/:id', component: StatusdetailComponent, outlet: 'stat'},
-            {path:'category/:id', component: CategorydetailComponent}
+            {path:'category/:id', component: CategorydetailComponent},
+           
+           
+
             ]},
 
             {path:'manage', component: ManageUserComponent, children:[
@@ -52,15 +63,17 @@ const appRoutes:Routes =[
     {
         path:'dashboard',
         component: DashboardComponent,
+        canActivate:[AuthGuard],
         children:[
             {path:'ticket/:id', component: TicketDetailComponent,data:{comp:'dash'}}
         ]
     },
     {
         path:'tech/:id',
-        component: TechnicianComponent
+        component: TechnicianComponent,
+        canActivate:[AuthGuard]
         ,children:[
-            {path:'ticket/:id', component: TicketDetailComponent}
+            {path:'ticket/:id', component: TicketDetailComponent,data:{comp:'tech'}}
         ]
     }
 ]

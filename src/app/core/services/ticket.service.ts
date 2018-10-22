@@ -51,7 +51,7 @@ export class TicketService {
     console.log(body);
     var headerOptions = new Headers({'Content-Type':'application/json'});
     var requestOptions = new RequestOptions({method : RequestMethod.Post,headers : headerOptions});
-    return this.http.post('http://localhost:2175/api/ticket/addticket',body,requestOptions).map(x => x.json());
+    return this.http.post('http://localhost:2175/api/ticket',body,requestOptions).map(x => x.json());
 
     //verify if this is necesary to update the list
     //this.ticketsListChanged.next(this.tickets.slice());
@@ -76,51 +76,4 @@ export class TicketService {
     }).catch((x)=>'error was called');
   }
 
-
-  onSummaryCall(){
-    this.http.get('http://localhost:2175/api/ticket/')
-    .map(
-      (data : Response) =>{  return data.json() as Ticket[]; })
-    .toPromise().then(x => {
-      this.ticketSummary(x);
-    }).catch((x)=>'error was called');
-  }
-  
-//get summary of all tickets
-  ticketSummary(tickets:Ticket[]){
-
-    //TODO store procedure do this better
-    this.summary = new Summary();
-    this.summary.numTicketsTotal = tickets.length;
-     //get the ticket lenght
-         tickets.forEach(ticket =>{
-         if(ticket.StatusDesc === "open"){
-           this.openTicket++;
-         }
-         if(ticket.StatusDesc === "close"){
-           this.closeTicket++;
-         }
-         if(ticket.CategoryDesc === "computers"){
-           this.computerTicket++;
-         }
-         if(ticket.CategoryDesc === "cell phones"){
-           this.cellphoneTicket++;
-         }
-       });
-       this.summary.numTicketsOpen = this.openTicket;
-       this.summary.numTicketsClose = this.closeTicket;
-       this.summary.cellphonesTickets = this.cellphoneTicket;
-       this.summary.computerTickets = this.computerTicket;
-
-       //clear values
-        this.totalTicket = 0;
-        this.openTicket = 0;
-        this.closeTicket = 0;
-        this.cellphoneTicket = 0;
-        this.computerTicket = 0;
-       return this.summary;
-
-
-       console.log(this.summary);
-   }
 }

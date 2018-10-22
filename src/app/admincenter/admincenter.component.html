@@ -9,12 +9,22 @@
        
             <li><a style="cursor: pointer;"
             [routerLink]="['manage']"
-            routerLinkActive="active">Users Management</a>  </li>
+            routerLinkActive="active">Manage user roles</a>  </li>
         
+
+            <li><a style="cursor: pointer;"
+                [routerLink]="['tech']"
+                routerLinkActive="active">Manage tech categories</a>  </li>
+
 
             <li><a style="cursor: pointer;"
                 [routerLink]="['props']"
                 routerLinkActive="active">Manage status, Categories, Roles</a> </li>
+
+                <li><a style="cursor: pointer;"
+                    [routerLink]="['create']"
+                    routerLinkActive="active">Create Users</a> </li>
+      
 
         </ul>  
     </div>

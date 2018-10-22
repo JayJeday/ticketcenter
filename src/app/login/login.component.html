@@ -1,20 +1,27 @@
-<div class="col-md-6">
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
-  
-        <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" formControlName="Email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-            </div>
+<h1 mat-dialog-title>Login</h1>
+<div mat-dialog-content>
 
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" formControlName="Password"  class="form-control" id="password" placeholder="Password">
-          </div>
+ <form [formGroup]="loginForm"   #lForm="ngForm" (ngSubmit)="login()">
+
+   <mat-spinner *ngIf="loading"></mat-spinner>
+   
+    <mat-form-field>
+        <input matInput placeholder="email" formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput  type="password" placeholder="password" formControlName="password">
+    </mat-form-field>    
             
-            <button mat-raised-button type="submit" color="primary">Submit</button>
+            <button mat-stroked-button color="primary" [disabled]="lForm.invalid"  type="submit">Log In</button>
+         
     </form>
+  <button mat-button  color="cancel" (click)=" closeDialog()" >Close</button>
   
+   <div *ngIf="invalidCred" style="color:red">Invalid Credentials</div>
   
+    
+</div>
+   
   
-  </div>
 

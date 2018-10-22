@@ -36,6 +36,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import {MatListModule} from '@angular/material/list';
+import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 
 import { FormsModule } from '@angular/forms';
 import { TicketStatusPipe } from './ticket/ticket-status.pipe';
@@ -52,10 +54,18 @@ import { ManageTicketsComponent } from './admincenter/manage-tickets/manage-tick
 import { AsignUserComponent } from './admincenter/asign-user/asign-user.component';
 
 import { ChartsModule } from 'ng2-charts';
+import { AuthGuard } from './core/authorization/auth.guard';
+
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
+import {MatRadioModule} from '@angular/material/radio';
 
-
+import {MatTabsModule} from '@angular/material/tabs';
+import { CreateuserComponent } from './admincenter/createuser/createuser.component';
+import { TechListComponent } from './admincenter/manage-user/tech-list/tech-list.component';
+import { ManageTechComponent } from './admincenter/manage-tech/manage-tech.component';
 
 @NgModule({
   declarations: [
@@ -71,8 +81,6 @@ import { ChartsModule } from 'ng2-charts';
     HomeComponent,
     DashboardComponent,
    AdmincenterComponent,
-  
-   LoginComponent,
    TicketAddComponent,
    UserEditComponent,
    TechnicianComponent,
@@ -87,8 +95,11 @@ import { ChartsModule } from 'ng2-charts';
    PropcomponentComponent,
    ManageUserComponent,
    ManageTicketsComponent,
-   AsignUserComponent
-  
+   AsignUserComponent,
+   LoginComponent,
+   CreateuserComponent,
+   TechListComponent,
+   ManageTechComponent
    
   ],
   imports: [
@@ -103,11 +114,17 @@ import { ChartsModule } from 'ng2-charts';
     BrowserAnimationsModule,
     MatCheckboxModule,
     MatChipsModule,
+    MatCardModule,
     MatListModule,
-    FormsModule
-
+    MatDialogModule,
+    FormsModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    MatRadioModule,
+    MatTabsModule
   ],
-  providers: [TicketService,UsersService,CategoriesService,RolesService],
-  bootstrap: [AppComponent]
+  providers: [TicketService,UsersService,CategoriesService,RolesService,AuthGuard],
+  bootstrap: [AppComponent],
+  entryComponents:[LoginComponent]
 })
 export class AppModule { }

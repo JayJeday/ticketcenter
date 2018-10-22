@@ -1,0 +1,21 @@
+.navbar-default {
+    background-color: #01579B;
+    color: #fff;
+    border: 0;
+}
+
+a{
+    color: whitesmoke;
+}
+.navbar {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.navbar {
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+}
+

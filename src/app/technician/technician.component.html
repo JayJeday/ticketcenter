@@ -1,17 +1,62 @@
 <div class="row">
-  <div class="greetings">Welcome Technician</div>
+  <div class="greetings">
+   <h3>Welcome Technician</h3> 
+  </div>
   
   <!-- this should be a notification component-->
-  <div class="card">
-      <div class="card-body">
+  <mat-card *ngIf="false" class="col-md-6">
         You have new tickets assigned
-      </div>
-    </div>
+  </mat-card>
+</div>
+
+<div class="row">
+  <div class="col-md-6"> 
+      <mat-form-field>
+          <mat-select   placeholder="Select Sorting Options"  (selectionChange)="setSearch($event.value)">
+              <mat-option value = "SelectAll">Select All</mat-option>
+            <mat-option value = "DateAll">Sort by Date</mat-option>
+             <mat-option  value = "StatusDesc">Sort by Status</mat-option>
+             <mat-option  value = "TicketId">Search By Id</mat-option>
+            </mat-select>
+       </mat-form-field>
+  
+  </div>
+
+  <div class="col-md-6">
+      <ul
+      [ngSwitch]="property"> 
+  
+    <li *ngSwitchCase="'DateAll'" >
+        <mat-radio-group [(ngModel)]="sortDate" (change)="radioChange($event)" >
+            <mat-radio-button value="1">Descending</mat-radio-button>
+            <mat-radio-button value="2">Ascending</mat-radio-button>
+          </mat-radio-group>
+    </li>
+      
+    <li *ngSwitchCase="'StatusDesc'">
+        <mat-radio-group [(ngModel)]="type" >
+            <mat-radio-button [value]="aStatus.StatusDesc"  *ngFor="let aStatus of statusService.statusList">{{aStatus.StatusDesc}}</mat-radio-button>     
+          </mat-radio-group>
+    </li>
+        
+    <li *ngSwitchCase="'TicketId'">
+        <mat-form-field>
+            <input matInput [(ngModel)]="type"  placeholder="Search by Id" type="number">
+        </mat-form-field>
+    </li>
+       
+  </ul>
+
+  </div>
+
+  <hr/>
+</div>
+
 
     <div class="row">
-      <app-ticket-list [listType]="userTickets"></app-ticket-list>
+      <app-ticket-list [listType]="userTickets" [filteredType]="type" [filteredProperty]="property"></app-ticket-list>
       
       <router-outlet></router-outlet>
     </div>
 
-</div>
+

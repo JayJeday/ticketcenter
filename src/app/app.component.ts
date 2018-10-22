@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from './core/services/users.service';
 import { User } from './core/models/user.model';
+import { AuthenticationService } from './core/services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -9,26 +10,39 @@ import { User } from './core/models/user.model';
 })
 export class AppComponent implements OnInit {
  
+
+  currentUser:User;
   isLoggin = false;
+  
+
   role:string;
 
- constructor(private userService:UsersService){}
+ constructor(private userService:UsersService,
+  private authService:AuthenticationService
+  ){
+
+ }
   
  ngOnInit(): void {
 
   //need to declared outside
-  console.log("message from app")
-
-  //get the role
+  console.log("message from app");
   
+  //if user refresh the page
+  this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   
-  this.userService.userLoggedIn.subscribe((data)=>{
-    console.log(this.userService.loggedUser);
-  //listen to when it change
-  this.role = this.userService.loggedUser.Role;
-
+  //when user log in
+  this.userService.userLoggedIn.subscribe((data)=>{  
+  //listen to when it user login
+  this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  console.log(this.currentUser);
+    this.isLoggin = true;
   });
 
+  //user log out close tabs
+  this.authService.userlogout.subscribe((data)=>{
+    this.isLoggin =false;
+  });
   }
 
   ngOnChanges(){

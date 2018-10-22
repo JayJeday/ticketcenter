@@ -68,7 +68,7 @@ export class UserDetailComponent implements OnInit {
       this.user.RoleId = form.value.RoleId;
     }else
    {
-     console.log("Was called here")
+      
       this.user.CategoryId = form.value.CategoryId;
     }
    

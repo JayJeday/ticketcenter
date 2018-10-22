@@ -3,6 +3,7 @@ import {Status} from '../models/status.model';
 import 'rxjs/Rx';
 import { Headers, Http, Response, RequestOptions, RequestMethod } from '@angular/http';
 import { Subject } from 'rxjs/Rx';
+import { Summary } from 'src/app/dashboard/summary.model';
 
 
 @Injectable({
@@ -12,6 +13,7 @@ export class StatusService {
 
   statusList:Status[];
   
+  statusSummaryList:Summary[];
   status:Status;
 
   //observe when list change
@@ -58,4 +60,14 @@ export class StatusService {
       return this.http.post('http://localhost:2175/api/status',body,requestOptions).map(x => x.json());
 
     }
+
+    getStatusSummary(){
+      this.http.get('http://localhost:2175/api/status/summary')
+      .map(
+        (data : Response) =>{  return data.json() as Summary[]; })
+      .toPromise().then(x => {
+        this.statusSummaryList = x;
+      }).catch((x)=>'error was called');
+    }
+
 }

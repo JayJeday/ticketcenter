@@ -8,6 +8,10 @@ export class TicketStatusPipe implements PipeTransform {
   transform(value: any, filterString: string, propName:string): any {
     console.log(propName);
     console.log(filterString);
+    if (propName === 'SelectAll' || filterString === '' || propName==='DateAll') {
+      return value;
+    }
+
     if (value.length === 0 || filterString === '') {
       return value;
     }

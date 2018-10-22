@@ -1,22 +1,7 @@
 <div class="row">
   <div class="row">
     <h2>Analytics Summary</h2>
-  </div>
- 
-  <div class="row">
-     <div class="col-md-6">
-
-      <h4>Total Tickets: {{this.ticketService.summary.numTicketsTotal}}</h4>
-      <h4>Open Tickets: {{this.ticketService.summary.numTicketsOpen}}</h4>
-      </div> 
-      <div class="vol-md-6">
-      <h4>Close Tickets: {{this.ticketService.summary.numTicketsClose}} </h4>
-      <h4>Cell Phone based Tickets:  {{this.ticketService.summary.cellphonesTickets}}  </h4>
-      <h4>Computer based Tickets:{{this.ticketService.summary.computerTickets}}</h4>
-      </div>
-
-  </div>
-  
+  </div> 
 
   <div class="row">
 
@@ -50,26 +35,48 @@
 
   </div>
      
-   
-    <div class="row">
-        <div class="sidenav">
-          <ul>
-            <li><a (click)="onBtnStatus()" style="cursor: pointer;">List by Status</a> 
-            </li>
-           
-              <li><a (click)="onBtnCat()" style="cursor: pointer;"> List by Category</a> </li>
-
-              <li><a  (click)="onInputSearch()" style="cursor: pointer;">List by Technicians</a> </li>
-
-          </ul>  
-          </div>
+  <div class="row">
+      <mat-tab-group>
+          <mat-tab label="List by status">
+           <div>
+             <h4>Filter by status</h4>
+             <mat-radio-group (change)="statusChange($event)">
+                <mat-radio-button [value]="aStatus.StatusDesc"  *ngFor="let aStatus of statusService.statusList">{{aStatus.StatusDesc}}</mat-radio-button>     
+              </mat-radio-group>
+           </div>
+             
+             
+             
+              <app-ticket-list [filteredType]="statType" [filteredProperty]="defaultStatusproperty"></app-ticket-list>     
+            </mat-tab>
           
-    </div>
-    <div class="row">
+            <mat-tab label="List by categories">
+              <div>
+                <h4>Filter by categories</h4>
+                <mat-radio-group (change)="categoryChange($event)">
+                    <mat-radio-button [value]="aCategory.CategoryDesc"  *ngFor="let aCategory of categoryService.categoryList">{{aCategory.CategoryDesc}}</mat-radio-button>     
+                  </mat-radio-group>
+              </div>
+                
 
-      <app-ticket-list [filteredType]="type" [filteredProperty]="property"></app-ticket-list>
+              <app-ticket-list [filteredType]="catType" [filteredProperty]="defaultCatproperty"></app-ticket-list>     
+            </mat-tab>
+         
 
+
+            <mat-tab label="List by Technicians">
+                <mat-form-field>
+                    <input matInput [(ngModel)]="userInput" placeholder="Search by Name" type="text">
+                </mat-form-field>
+              <app-ticket-list [filteredType]="userInput" [filteredProperty]="techProperty"></app-ticket-list>     
+          </mat-tab>
+
+
+
+      </mat-tab-group>
+  </div>
+
+  <!--  <app-ticket-list [filteredType]="type" [filteredProperty]="property"></app-ticket-list>
+    -->   
      <router-outlet></router-outlet>
-
-    </div>
   </div>

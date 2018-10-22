@@ -4,8 +4,11 @@
       <a routerLink="/" class="navbar-brand">Ticket Center</a>
     </div>
     <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active"  *ngIf="!logged"> <a (click)="openLoginDialog()" >login</a></li>
+      </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li routerLinkActive="active"><a routerLink="/home">logout</a></li>
+        <li *ngIf="logged"><a (click)="logout()">logout</a></li>
       </ul>
     </div>
   </div>

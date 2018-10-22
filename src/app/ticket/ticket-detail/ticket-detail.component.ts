@@ -3,6 +3,8 @@ import { Ticket } from 'src/app/core/models/ticket.model';
 import { TicketService } from 'src/app/core/services/ticket.service';
 import {FormBuilder, FormGroup, Validators, FormControl, NgForm} from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { StatusService } from 'src/app/core/services/status.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -14,12 +16,18 @@ export class TicketDetailComponent implements OnInit {
   ticket:Ticket;
   id:number;
   loading = false;
+  selected:number;
 
   //which components the data will operate on
   comp:string;
 
 
-  constructor(private route: ActivatedRoute,private router: Router,  private ticketService:TicketService) { }
+  constructor(private route: ActivatedRoute,
+    private router: Router,  
+    private ticketService:TicketService,
+    private statusService:StatusService,
+    public snackBar: MatSnackBar
+    ) { }
 
   ngOnInit() {
 
@@ -38,6 +46,9 @@ export class TicketDetailComponent implements OnInit {
       
     });
 
+    this.statusService.getStatus();
+
+
   }
 
   onEditTicket(form:NgForm){
@@ -49,7 +60,6 @@ export class TicketDetailComponent implements OnInit {
     //if comment is null get the one from service
     this.ticket.Comment = form.value.Comment;
     
-    console.log(form.value.StatusId);
 
     this.ticket.StatusId = form.value.StatusId;
 
@@ -62,8 +72,21 @@ export class TicketDetailComponent implements OnInit {
     this.ticketService.updateTicket(this.ticket)
      .subscribe(data => {
         this.loading = false;
-        //notification of succesfully saved
+
+       this.snackBar.open("Ticket Updated successfully",'', {
+        duration: 1000
+      });
+
        //need to update list so it refresh it 
+       //TODO need to have the id  of the current user from local storage
+       if(this.comp ==="tech"){
+         //update tech list
+        // this.ticketService.getUserTicket(this.id);
+       }
+       
+     },
+     error=>{
+      this.snackBar.open("Error ocurred");
      });
 
     this.loading = false;

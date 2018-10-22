@@ -1,5 +1,5 @@
 
-<div *ngIf="itemType !== 'admin'" class="cat">
+<div *ngIf="itemType !== 'admin'" class="cat col-md-12">
 
 <a
   style="cursor: pointer;"
@@ -8,10 +8,9 @@
   class="list-group-item clearfix">
 
     <mat-list-item class="col-md-12" role="listitem">
-      <h4 class="list-group-item-text left">{{ticket.Description}}</h4>
-       <h4 class="list-group-item-text right">{{ticket.CreatedDate | date}}</h4>
-        <h4 class="list-group-item-text right" *ngIf="false">{{ticket.Category}}</h4>
-          <h4 class="list-group-item-text right" *ngIf="false">{{ticket.Status}}</h4>
+      <h5 class="list-group-item-text left">{{ticket.StatusDesc}}</h5>
+       <h5 class="list-group-item-text right">{{ticket.CreatedDate | date}}</h5>
+       <h5 class="list-group-item-text right">ID:{{ticket.TicketId}}</h5>
      </mat-list-item> 
      
     </a>

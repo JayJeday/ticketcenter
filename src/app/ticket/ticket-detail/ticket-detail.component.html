@@ -8,15 +8,14 @@
               <h4>Ticket Description: </h4>
               <p> {{this.ticketService.ticket.Description}}</p>
            
-        <textarea class="form-control"  id="comment" name="Comment" #Comment="ngModel" [(ngModel)]="this.ticketService?.ticket.Comment"  rows="5">
+        <textarea class="form-control"  id="comment" name="Comment" #Comment="ngModel" placeholder="Enter description"  [(ngModel)]="this?.ticketService?.ticket.Comment"  rows="5">
                 {{this.ticketService?.ticket.Comment}}
         </textarea>
        
         <div class="form-group">
                 <label for="status"></label>
                 <select name="StatusId" #StatusId="ngModel" [(ngModel)]="this.ticketService.ticket.StatusId" class="form-control" id="categories">
-                  <option [value]=1>open</option>
-                  <option [value]=2>close</option>
+                    <option [value]="aStatus.StatusId" *ngFor="let aStatus of statusService.statusList">{{aStatus.StatusDesc}} </option>   
                 </select>
             </div>
 

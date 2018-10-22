@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, Response, RequestOptions, RequestMethod } from '@angular/http';
 import 'rxjs/Rx';
 import { Category } from '../models/category.model';
+import { Summary } from 'src/app/dashboard/summary.model';
+;
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,8 @@ export class CategoriesService {
 
   categoryList:Category[];
   category:Category;
+
+  categorySummaryList:Summary[];
 
   constructor(private http:Http) { }
 
@@ -51,6 +55,15 @@ export class CategoriesService {
       var requestOptions = new RequestOptions({method : RequestMethod.Post,headers : headerOptions});
       return this.http.post('http://localhost:2175/api/category',body,requestOptions).map(x => x.json());
 
+    }
+
+    getCategoriesSummary(){
+      this.http.get('http://localhost:2175/api/category/summary')
+      .map(
+        (data : Response) =>{  return data.json() as Summary[]; })
+      .toPromise().then(x => {
+        this.categorySummaryList = x;
+      }).catch((x)=>'error was called');
     }
 
 }

@@ -11,9 +11,9 @@ export class UsersService {
 
   userList:User[];
   user:User;
+  techList:User[];
 
   userChanged = new Subject();
-
 
   loggedUser = new User();
   userLoggedIn = new Subject();
@@ -57,7 +57,20 @@ export class UsersService {
       requestOptions).map(res => res.json());
   }
 
-  createUser(){
-    
+  createUser(user:User){
+    var body = JSON.stringify(user);
+    console.log(body);
+    var headerOptions = new Headers({'Content-Type':'application/json'});
+    var requestOptions = new RequestOptions({method : RequestMethod.Post,headers : headerOptions});
+    return this.http.post('http://localhost:2175/api/user',body,requestOptions).map(x => x.json());
+  }
+
+  getTechs(){
+    this.http.get('http://localhost:2175/api/user/techs')
+    .map(
+      (data : Response) =>{  return data.json() as User[]; })
+    .toPromise().then(x => {
+      this.techList = x;
+    }).catch((x)=>'error was called');
   }
 }

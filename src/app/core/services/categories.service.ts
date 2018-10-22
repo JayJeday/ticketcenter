@@ -18,7 +18,7 @@ export class CategoriesService {
   constructor(private http:Http) { }
 
   getCategories(){
-    this.http.get('http://localhost:2175/api/category')
+    this.http.get('http://localhost:2175/api/category/all')
     .map(
       (data : Response) =>{  return data.json() as Category[]; })
     .toPromise().then(x => {

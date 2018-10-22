@@ -66,6 +66,13 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { CreateuserComponent } from './admincenter/createuser/createuser.component';
 import { TechListComponent } from './admincenter/manage-user/tech-list/tech-list.component';
 import { ManageTechComponent } from './admincenter/manage-tech/manage-tech.component';
+import { TechItemComponent } from './admincenter/manage-user/tech-list/tech-item/tech-item.component';
+import { TechCatComponent } from './admincenter/manage-tech/tech-cat/tech-cat.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './core/Interceptors/jwt.Interceptor';
+import { ErrorInterceptor } from './core/Interceptors/error.interceptor';
+
+
 
 @NgModule({
   declarations: [
@@ -99,7 +106,9 @@ import { ManageTechComponent } from './admincenter/manage-tech/manage-tech.compo
    LoginComponent,
    CreateuserComponent,
    TechListComponent,
-   ManageTechComponent
+   ManageTechComponent,
+   TechItemComponent,
+   TechCatComponent
    
   ],
   imports: [
@@ -123,7 +132,11 @@ import { ManageTechComponent } from './admincenter/manage-tech/manage-tech.compo
     MatRadioModule,
     MatTabsModule
   ],
-  providers: [TicketService,UsersService,CategoriesService,RolesService,AuthGuard],
+  providers: [TicketService,UsersService,CategoriesService,RolesService,AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  
+  ],
   bootstrap: [AppComponent],
   entryComponents:[LoginComponent]
 })

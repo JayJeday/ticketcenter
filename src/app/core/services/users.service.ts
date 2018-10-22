@@ -73,4 +73,14 @@ export class UsersService {
       this.techList = x;
     }).catch((x)=>'error was called');
   }
+
+  updateTechCat(tech:User){
+    var body = JSON.stringify(tech);
+    console.log(body);
+    var headerOptions = new Headers({ 'Content-Type': 'application/json'});
+    var requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
+    return this.http.put("http://localhost:2175/api/user/tech/cat",
+      body,
+      requestOptions).map(res => res.json());
+  }
 }

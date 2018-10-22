@@ -1,10 +1,4 @@
 <mat-list role="list">
-    <mat-list-item role="listitem"   
-    *ngFor="let aUser of userService.techList"
-    [class.selected]="category.CategoryId === selectedId">
-    
-    <a [routerLink]="['category',category.CategoryId]">
-      {{ category.CategoryDesc}}
-      </a>
-    </mat-list-item>
+   <app-tech-item  [itemType]="listType"   [tech]="aTech" *ngFor="let aTech of userService.techList">
+   </app-tech-item>
   </mat-list>

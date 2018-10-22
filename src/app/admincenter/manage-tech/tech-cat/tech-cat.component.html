@@ -1,0 +1,16 @@
+<form class="tech-form" #techForm="ngForm" (ngSubmit)="onTechUpdate(techForm)">
+
+<h4>Name: </h4>
+<h4>{{usersService?.user?.FirstName}} {{usersService?.user?.LastName}}</h4>
+
+<h4>Email: </h4>
+<h4>{{usersService?.user?.Email}}</h4>
+
+<div class="form-group">
+  <label for="category">Category:</label>
+  <select  name="CategoryId" #CategoryId="ngModel" [(ngModel)]="usersService.user.CategoryId" class="form-control" id="categories">
+      <option [value]="aCategory.CategoryId" *ngFor="let aCategory of categoryService.categoryList">{{aCategory?.CategoryDesc}} </option>
+  </select>
+</div>
+      <button mat-raised-button type="update" color="primary">Update</button>
+</form>

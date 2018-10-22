@@ -5,6 +5,7 @@ import { RolesService } from 'src/app/core/services/roles.service';
 import { CategoriesService } from 'src/app/core/services/categories.service';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { User } from 'src/app/core/models/user.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-detail',
@@ -29,7 +30,8 @@ export class UserDetailComponent implements OnInit {
     private usersService:UsersService,
     private roleService: RolesService,
     private categoryService:CategoriesService,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    public snackBar: MatSnackBar
     ) { }
 
   ngOnInit() {
@@ -79,8 +81,12 @@ export class UserDetailComponent implements OnInit {
     this.usersService.updateUser(this.user)
      .subscribe(data => {
         this.loading = false;
-        //notification of succesfully saved
-       //need to update list so it refresh it 
+       
+        this.snackBar.open("Updated successfully",'', {
+          duration: 1000
+        });
+
+
        this.usersService.getU();
        console.log("succesfull");
      });

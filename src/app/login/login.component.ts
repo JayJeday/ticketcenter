@@ -4,6 +4,9 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { UsersService } from '../core/services/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material/dialog';
+import { AuthenticationService } from '../core/services/authentication.service';
+import { first } from 'rxjs/operators';
+
 
 
 
@@ -25,6 +28,8 @@ export class LoginComponent implements OnInit {
 
   invalidCred:boolean;
 
+  error = '';
+
 
   //pass this user to homeComponent for login purposes
   user:User;
@@ -33,7 +38,8 @@ export class LoginComponent implements OnInit {
     private usersService:UsersService,
     private route: ActivatedRoute,
     private router: Router,
-    public dialogRef: MatDialogRef<LoginComponent>
+    public dialogRef: MatDialogRef<LoginComponent>,
+    private authenticationService: AuthenticationService
     ) { }
 
   ngOnInit() {
@@ -44,26 +50,21 @@ export class LoginComponent implements OnInit {
       });
   }
 
+  get f() { return this.loginForm.controls; }
+
+
 login(){
     this.loading = true;
     
-    this.usersService.getUserByCred(this.loginForm.value).subscribe(data => {
-      this.success = true;
-      this.loading  = false;
+    this.authenticationService.login(this.f.email.value,this.f.password.value)
+    .pipe(first())
+    .subscribe(
+        data => {
+          console.log(data);
+          this.success = true;
+          this.loading  = false;
+          this.dialogRef.close();
 
-      //save the current user in local storage
-      localStorage.setItem('currentUser', JSON.stringify(data[0]));
-
-      var obj = JSON.stringify(data[0]);
-      this.user = JSON.parse(obj);
-     
-      console.log(this.user);
-       this.usersService.userLoggedIn.next(true);
-     
-      this.loading = false;
-      
-      this.dialogRef.close();
-      
       if(this.user.Role === 'admin'){
          //go to dashboard page
          this.router.navigateByUrl('/dashboard');
@@ -71,17 +72,16 @@ login(){
       else if(this.user.Role === 'technician'){
       //go to technician page
           this.router.navigate(['tech', this.user.id]);
-      }
-    }, error => {
-      if(error.status === 404){
-        this.invalidCred = true;
-      }
-      this.loading = false;
-    });
+        }
+  
+        },
+        error => {
+            this.error = error;
+            this.loading = false;
+        });
+     
+    }
     
-    
-
-  }
 
   closeDialog(){
     this.dialogRef.close();

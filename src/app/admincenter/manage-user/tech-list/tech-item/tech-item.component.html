@@ -1,0 +1,30 @@
+<div class="col-md-4"  *ngIf="itemType !== 'assign'" >
+<a
+  style="cursor: pointer;"
+  [routerLink]="[tech.id]"
+  routerLinkActive="active"
+  class="list-group-item clearfix">
+
+    <mat-list-item class="col-md-12" role="listitem">
+      <h5 class="list-group-item-text left">{{tech.FirstName}} {{tech.LastName}}</h5>
+       <h5 class="list-group-item-text right">ID: {{tech.id}}</h5>
+
+     </mat-list-item> 
+    </a>
+</div>
+
+<div  *ngIf="itemType === 'assign'">
+    <a
+    style="cursor: pointer;"
+    (click)="updateUserTicket()"
+    routerLinkActive=""
+    class="list-group-item clearfix">
+  
+      <mat-list-item class="col-md-12" role="listitem">
+        <h5 class="list-group-item-text left">{{tech.FirstName}} {{tech.LastName}}</h5>
+         <h5 class="list-group-item-text">ID:{{tech.id}}</h5>
+       </mat-list-item> 
+       
+      </a>
+  
+</div>

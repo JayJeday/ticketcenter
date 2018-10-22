@@ -18,7 +18,7 @@
     </form>
   <button mat-button  color="cancel" (click)=" closeDialog()" >Close</button>
   
-   <div *ngIf="invalidCred" style="color:red">Invalid Credentials</div>
+   <div *ngIf="invalidCred" style="color:red">{{error}}</div>
   
     
 </div>

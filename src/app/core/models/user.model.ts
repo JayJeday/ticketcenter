@@ -11,4 +11,6 @@ export class User {
     CategoryId:number;
     RoleId:number;
 
+    UserId:number;
+
 }

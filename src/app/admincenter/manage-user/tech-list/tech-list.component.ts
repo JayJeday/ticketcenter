@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UsersService } from 'src/app/core/services/users.service';
 
 @Component({
@@ -7,6 +7,8 @@ import { UsersService } from 'src/app/core/services/users.service';
   styleUrls: ['./tech-list.component.css']
 })
 export class TechListComponent implements OnInit {
+
+  @Input()listType;
 
   constructor(private userService:UsersService) { }
 

@@ -17,6 +17,7 @@ import { AuthGuard } from "./core/authorization/auth.guard";
 import { LoginComponent } from "./login/login.component";
 import { CreateuserComponent } from "./admincenter/createuser/createuser.component";
 import { ManageTechComponent } from "./admincenter/manage-tech/manage-tech.component";
+import { TechCatComponent } from "./admincenter/manage-tech/tech-cat/tech-cat.component";
 
 const appRoutes:Routes =[
    {
@@ -36,7 +37,9 @@ const appRoutes:Routes =[
         canActivate:[AuthGuard],
         children:[
 
-             {path:'tech', component: ManageTechComponent},
+             {path:'tech', component: ManageTechComponent, children:[
+                {path:':id', component: TechCatComponent}
+             ]},
             {path:'create', component: CreateuserComponent},
             {path:'props', component:PropcomponentComponent, children:[
              {path:'status/:id', component: StatusdetailComponent, outlet: 'stat'},

@@ -65,6 +65,9 @@ export class UsersService {
     return this.http.post('http://localhost:2175/api/user',body,requestOptions).map(x => x.json());
   }
 
+
+  
+
   getTechs(){
     this.http.get('http://localhost:2175/api/user/techs')
     .map(

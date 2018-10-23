@@ -22,6 +22,14 @@
 
         </div>
 
+        <div>
+
+         <mat-form-field>
+                        <input matInput placeholder="email" formControlName="Email">
+        </mat-form-field>
+
+        </div>
+
         
         <div>
 
@@ -36,7 +44,7 @@
         
       
       <mat-form-field>
-          <mat-select formControlName="CategoryId"  placeholder="Select Category">
+          <mat-select formControlName="CategoryId" [(ngModel)]="selectedValue"  placeholder="Select Category" [disabled]="techDisable">
              <mat-option [value]="aCategory.CategoryId" *ngFor="let aCategory of categoryService.categoryList">{{aCategory.CategoryDesc}} </mat-option>
             </mat-select>
        </mat-form-field>

@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TicketService } from 'src/app/core/services/ticket.service';
 import { StatusService } from '../core/services/status.service';
 import { MatRadioChange } from '@angular/material/radio';
+import { User } from '../core/models/user.model';
 
 
 @Component({
@@ -24,6 +25,9 @@ export class TechnicianComponent implements OnInit {
   type:string;
   property:string;
 
+  tech:User;
+    techName:string;
+
   statusRb:string;
 
   ngOnInit() {
@@ -37,6 +41,11 @@ export class TechnicianComponent implements OnInit {
     );
     this.statusService.getStatus();
    //   this.statusRb = this.statusService.statusList[0].StatusDesc;
+
+
+   this.tech = JSON.parse(localStorage.getItem('currentUser'));
+   this.techName = this.tech.FirstName + " " + this.tech.LastName;
+
   }
  setSearch(value){
     if(value === 'selectAll'){
@@ -49,6 +58,9 @@ export class TechnicianComponent implements OnInit {
        
     } 
     }
+
+    
+
 
     radioChange($event: MatRadioChange) {
       console.log($event.source.name, $event.value);

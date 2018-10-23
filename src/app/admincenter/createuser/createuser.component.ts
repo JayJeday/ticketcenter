@@ -19,7 +19,9 @@ export class CreateuserComponent implements OnInit {
 
   success = false;
 
-  techEnabled = false;
+  techDisable = true;
+
+  selectedValue:string;
 
   constructor(private userService:UsersService,
       private categoryService:CategoriesService,
@@ -36,16 +38,24 @@ export class CreateuserComponent implements OnInit {
       'FirstName': new FormControl('', [Validators.required]),
       'LastName': new FormControl(null, [Validators.required]),
       'RoleId': new FormControl(null, [Validators.required]),
-      'CategoryId': new FormControl(null)
+      'Email': new FormControl(null,[Validators.required,Validators.email]),
+      'CategoryId': new FormControl()
     });
 
 
   }
 
+  get f() { return this.userForm.controls; }
+
+
   setTech(value){
-    if(value === 'technician'){
-     this.techEnabled = true;
-    } 
+    if(value === 2){
+      this.techDisable = false;
+    } else{
+      this.techDisable = true;
+      //empty mat select value
+      this.selectedValue = undefined;
+    }
     }
 
   onCreatedUser(){
@@ -54,7 +64,7 @@ export class CreateuserComponent implements OnInit {
     this.userService.createUser(this.userForm.value).subscribe(data => {
       this.loading  = false;
       this.success = true;
-      //display notification
+      
     },error =>{
       console.log(error);
     });

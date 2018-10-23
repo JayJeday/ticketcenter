@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
 
   error = '';
 
+  loggedUser:User;
 
   //pass this user to homeComponent for login purposes
   user:User;
@@ -55,23 +56,37 @@ export class LoginComponent implements OnInit {
 
 login(){
     this.loading = true;
-    
+    console.log(this.f.email.value);
     this.authenticationService.login(this.f.email.value,this.f.password.value)
     .pipe(first())
     .subscribe(
         data => {
-          console.log(data);
+          //store data in the browser
+          //parse id fix for now
+          this.loggedUser = JSON.parse(JSON.stringify(data));
+
+          //convert the strings into int  quick fix
+          this.loggedUser.id = Number(this.loggedUser.aId);
+          this.loggedUser.RoleId = Number(this.loggedUser.aRoleId);
+
+
+          localStorage.setItem('currentUser', JSON.stringify(this.loggedUser));
+          
+          console.log(this.loggedUser);
           this.success = true;
           this.loading  = false;
           this.dialogRef.close();
 
-      if(this.user.Role === 'admin'){
+          this.usersService.userLoggedIn.next(true);
+
+          //fix this
+      if(this.loggedUser.RoleId === 1){
          //go to dashboard page
          this.router.navigateByUrl('/dashboard');
       }
-      else if(this.user.Role === 'technician'){
+      else if(this.loggedUser.RoleId === 2){
       //go to technician page
-          this.router.navigate(['tech', this.user.id]);
+          this.router.navigate(['tech', this.loggedUser.id]);
         }
   
         },

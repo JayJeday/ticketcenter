@@ -28,6 +28,8 @@ import { TicketItemComponent } from './ticket/ticket-list/ticket-item/ticket-ite
 import { HttpModule} from '@angular/http';
 import { ReactiveFormsModule} from '@angular/forms';
 
+import { HttpClientModule } from '@angular/common/http'; 
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatInputModule } from '@angular/material/input';
@@ -71,6 +73,8 @@ import { TechCatComponent } from './admincenter/manage-tech/tech-cat/tech-cat.co
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/Interceptors/jwt.Interceptor';
 import { ErrorInterceptor } from './core/Interceptors/error.interceptor';
+
+
 
 
 
@@ -130,10 +134,11 @@ import { ErrorInterceptor } from './core/Interceptors/error.interceptor';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatRadioModule,
+    HttpClientModule,
     MatTabsModule
   ],
   providers: [TicketService,UsersService,CategoriesService,RolesService,AuthGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   
   ],

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { RequestOptions, RequestMethod } from '@angular/http';
+import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,21 +19,17 @@ export class AuthenticationService {
 
   userlogout = new Subject();
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,
+    private usersService:UsersService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
-  login(email: string, password: string) {
-    return this.http.post<any>(`http://localhost:2175/token`, { email, password })
-        .pipe(map(user => {
-            // login successful if there's a jwt token in the response
-            if (user && user.token) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(user));
-            }
 
-            return user;
-        }));
-}
-
+login(userName, password) {
+   var data = "username=" + userName + "&password=" + password + "&grant_type=password";
+   var reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-urlencoded','No-Auth':'True'});
+    return this.http.post('http://localhost:2175/token', data, { headers: reqHeader });
+  }
 
 
 
@@ -39,5 +37,8 @@ export class AuthenticationService {
   
       // remove user from local storage to log user out
       localStorage.removeItem('currentUser');
+      
+      this.router.navigateByUrl('/home');
+      this.userlogout.next(false);
   }
 }

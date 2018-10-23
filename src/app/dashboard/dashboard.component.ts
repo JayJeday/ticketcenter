@@ -48,12 +48,16 @@ categoryNameData:string[] = [];
 statusNameData:string[] = [];
 
 
+
+
   //for status => 
-  public doughnutChartLabels:string[] = ['Tickets Open', 'Tickets Close'];
+  public doughnutChartLabels:string[];
   public doughnutChartStatusData:number[];
   public doughnutChartCategoryData:number[];
   public doughnutChartType:string = 'doughnut';
  
+
+  
 
   //for categories
   public doughnutChartLabels2:string[];
@@ -95,7 +99,6 @@ statusNameData:string[] = [];
     this.categoryService.getCategories();
     this.statusService.getStatus();
 
-    
     //create observable when list changes to this
 
     this.categoryService.categorySummaryList.forEach((s:Summary)=> {
@@ -109,15 +112,18 @@ statusNameData:string[] = [];
   this.statusNameData.push(s.StatusDesc);
 });
 
-    //set graphic to chart 
+    //set graphic categories to chart 
     this.doughnutChartCategoryData = this.categoryData;
     this.doughnutChartLabels2 = this.categoryNameData;
 
 
-//set graphic to chart 
-this.doughnutChartStatusData = this.statusData;
-this.doughnutChartLabels = this.statusNameData;
+    //set graphic status to chart 
+    this.doughnutChartStatusData = this.statusData;
+    this.doughnutChartLabels = this.statusNameData;
 
+
+
+    console.log(this.categoryData);
   // this.doughnutChartStatusData = [this.ticketService.summary.numTicketsOpen,this.ticketService.summary.numTicketsClose];
 
   }
@@ -144,38 +150,5 @@ this.doughnutChartLabels = this.statusNameData;
     }
     this.filterType = !this.filterType;
   }
-
-
-  //to appear button on screen
-  onBtnStatus(){
-    this.type = "open";
-    this.property = "StatusDesc";
-    this.isStatusSearch =  true;
-    this.isRoleSearch = false;
-    this.isCategorySearch = false;
-  }
-  //TODO add this dynamically
-  onBtnCat(){
-    this.type = "computers";
-    this.property = "CategoryDesc";
-    this.isStatusSearch =  false;
-    this.isRoleSearch = false;
-    this.isCategorySearch = true;
-  }
-
-
-  //TODO add this dynamically
-  onInputSearch(){
-    this.type = "";
-    this.property = "TechName";
-    this.isStatusSearch =  false;
-    this.isRoleSearch = true;
-    this.isCategorySearch = false;
-  }
-
-
-
-
-
 
 }

@@ -11,6 +11,13 @@ export class User {
     CategoryId:number;
     RoleId:number;
 
+    //token info
+    aRoleId:string;
+    access_token:string;
+    token_type:string;
+    aId:string;
+
+
     UserId:number;
 
 }

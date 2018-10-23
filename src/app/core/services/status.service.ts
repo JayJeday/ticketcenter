@@ -13,7 +13,7 @@ export class StatusService {
 
   statusList:Status[];
   
-  statusSummaryList:Summary[];
+  statusSummaryList:Summary[] = [];
   status:Status;
 
   //observe when list change

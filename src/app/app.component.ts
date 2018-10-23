@@ -12,6 +12,8 @@ export class AppComponent implements OnInit {
  
 
   currentUser:User;
+
+  //save this in local storage
   isLoggin = false;
   
 
@@ -28,20 +30,30 @@ export class AppComponent implements OnInit {
   //need to declared outside
   console.log("message from app");
   
+//get loggin from storage
+  this.isLoggin = JSON.parse(localStorage.getItem('loggin'));
+
   //if user refresh the page
-  this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   
   //when user log in
   this.userService.userLoggedIn.subscribe((data)=>{  
-  //listen to when it user login
-  this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  console.log(this.currentUser);
+    //listen to when it user login
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    console.log(this.currentUser);
     this.isLoggin = true;
+
+    //create loggin
+    localStorage.setItem('loggin', JSON.stringify(this.isLoggin));
   });
 
   //user log out close tabs
   this.authService.userlogout.subscribe((data)=>{
     this.isLoggin =false;
+
+    //remove logged in
+    localStorage.removeItem('loggin');
   });
   }
 

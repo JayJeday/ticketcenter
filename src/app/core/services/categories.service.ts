@@ -13,7 +13,7 @@ export class CategoriesService {
   categoryList:Category[];
   category:Category;
 
-  categorySummaryList:Summary[];
+  categorySummaryList:Summary[] = [];
 
   constructor(private http:Http) { }
 

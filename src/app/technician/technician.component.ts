@@ -17,6 +17,7 @@ export class TechnicianComponent implements OnInit {
   //routeId
   id:number;
   userTickets = 'byUser';
+
   constructor(private route: ActivatedRoute,private router: Router, 
      private ticketService:TicketService,
      private statusService:StatusService
@@ -24,11 +25,13 @@ export class TechnicianComponent implements OnInit {
 
   type:string;
   property:string;
-
+  
   tech:User;
     techName:string;
 
   statusRb:string;
+
+  
 
   ngOnInit() {
     //get route pass id when user login
@@ -40,7 +43,6 @@ export class TechnicianComponent implements OnInit {
       }
     );
     this.statusService.getStatus();
-   //   this.statusRb = this.statusService.statusList[0].StatusDesc;
 
 
    this.tech = JSON.parse(localStorage.getItem('currentUser'));
@@ -65,13 +67,13 @@ export class TechnicianComponent implements OnInit {
     radioChange($event: MatRadioChange) {
       console.log($event.source.name, $event.value);
       
-      //descendin
+      //descendin date
       if ($event.value === '1') {
         return this.ticketService.ticketList.sort((a, b) => {
           return <any>new Date(b.CreatedDate) - <any>new Date(a.CreatedDate);
         });
       }
-      //ascending
+      //ascending date
        if($event.value === '2'){
 
          return this.ticketService.ticketList.sort((a, b) => {

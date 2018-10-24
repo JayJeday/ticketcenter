@@ -46,6 +46,18 @@ export class TicketService {
     }).catch((x)=>'error was called');
   }
 
+  getUserTicket2(id:number, ){
+    this.http.get('http://localhost:2175/api/userticket/' + id)
+    .map(
+      (data : Response) =>{  return data.json() as Ticket[] })
+    .toPromise().then(x => {
+      this.ticketList = x;
+    }).catch((x)=>'error was called');
+  }
+
+
+
+
   addTicket(ticket:Ticket){
     var body = JSON.stringify(ticket);
     console.log(body);

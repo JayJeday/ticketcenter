@@ -41,9 +41,12 @@ import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 
+import {MatSidenavModule} from '@angular/material/sidenav';
+
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 import { FormsModule } from '@angular/forms';
 import { TicketStatusPipe } from './ticket/ticket-status.pipe';
-import { TicketCategoriesPipe } from './ticket/ticket-categories.pipe';
 import { UserTechnicianPipe } from './user/user-technician.pipe';
 import { CategorylistComponent } from './admincenter/categorylist/categorylist.component';
 import { StatuslistComponent } from './admincenter/statuslist/statuslist.component';
@@ -97,7 +100,6 @@ import { ErrorInterceptor } from './core/Interceptors/error.interceptor';
    TechnicianComponent,
    TicketItemComponent,
    TicketStatusPipe,
-   TicketCategoriesPipe,
    UserTechnicianPipe,
    CategorylistComponent,
    StatuslistComponent,
@@ -135,7 +137,9 @@ import { ErrorInterceptor } from './core/Interceptors/error.interceptor';
     MatSnackBarModule,
     MatRadioModule,
     HttpClientModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSidenavModule,
+    MatPaginatorModule
   ],
   providers: [TicketService,UsersService,CategoriesService,RolesService,AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

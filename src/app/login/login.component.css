@@ -5,3 +5,7 @@
 mat-form-field {
     display: block;
 }
+
+.large {
+    width: 50px;
+}

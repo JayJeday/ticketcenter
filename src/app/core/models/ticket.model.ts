@@ -14,4 +14,7 @@ export class Ticket{
     public TechName:string;
     public RolesId:number;
      
+
+    public pageIndex:number;
+    public pageSize:number;
 }

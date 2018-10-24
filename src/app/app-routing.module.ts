@@ -38,7 +38,7 @@ const appRoutes:Routes =[
         children:[
 
              {path:'tech', component: ManageTechComponent, children:[
-                {path:':id', component: TechCatComponent}
+            {path:':id', component: TechCatComponent}
              ]},
             {path:'create', component: CreateuserComponent},
             {path:'props', component:PropcomponentComponent, children:[

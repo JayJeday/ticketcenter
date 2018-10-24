@@ -1,9 +1,14 @@
 <div class="col-md-6">
     <div>
             <mat-list>     
-                <app-ticket-item  [itemType]="listType" *ngFor="let aticket of ticketService.ticketList | ticketStatus: filteredType: filteredProperty"  [ticket]="aticket">
+                <app-ticket-item  [itemType]="listType" *ngFor="let aticket of ticketService.ticketList |  slice: lowValue : highValue | ticketStatus: filteredType: filteredProperty as result"  [ticket]="aticket">
                     </app-ticket-item>
             </mat-list>
+
+            <mat-paginator [length]="ticketService?.ticketList?.length" 
+              [pageSize]="pageSize" 
+               (page)="pageEvent = getPaginatorData($event)">
+            </mat-paginator> 
 
     </div>
 </div>

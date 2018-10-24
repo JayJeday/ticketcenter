@@ -1,12 +1,12 @@
         <mat-card>
 
                 <mat-card-header>    
-                    <mat-card-title>Create User  </mat-card-title>
+                    <mat-card-title class="text-center">Create User  </mat-card-title>
                   </mat-card-header>
 
     <form [formGroup]="userForm" #uForm="ngForm" [hidden]="success" (ngSubmit)="uForm.valid && onCreatedUser()">
 
-        <div>
+        <div class="col-md-4">
 
         <mat-form-field>
             <input matInput placeholder="First Name" formControlName="FirstName">
@@ -14,7 +14,7 @@
 
         </div>
         
-        <div>
+        <div class="col-md-4" >
 
         <mat-form-field>
             <input matInput placeholder="Last Name" formControlName="LastName">
@@ -22,7 +22,7 @@
 
         </div>
 
-        <div>
+        <div class="col-md-4">
 
          <mat-form-field>
                         <input matInput placeholder="email" formControlName="Email">
@@ -31,7 +31,7 @@
         </div>
 
         
-        <div>
+        <div class="col-md-4">
 
         <mat-form-field>
           <mat-select formControlName="RoleId"  placeholder="Select User Role" (selectionChange)="setTech($event.value)">
@@ -42,15 +42,20 @@
         </div>
 
         
-      
-      <mat-form-field>
-          <mat-select formControlName="CategoryId" [(ngModel)]="selectedValue"  placeholder="Select Category" [disabled]="techDisable">
-             <mat-option [value]="aCategory.CategoryId" *ngFor="let aCategory of categoryService.categoryList">{{aCategory.CategoryDesc}} </mat-option>
+      <div class="col-md-4">
+
+        <mat-form-field >
+            <mat-select formControlName="CategoryId" [(ngModel)]="selectedValue"  placeholder="Select Category" [disabled]="techDisable">
+              <mat-option [value]="aCategory.CategoryId" *ngFor="let aCategory of categoryService.categoryList">{{aCategory.CategoryDesc}} </mat-option>
             </mat-select>
-       </mat-form-field>
-        
+         </mat-form-field>
+
+      </div>
+     
         <button mat-raised-button type="submit"  [disabled]="uForm.invalid"   color="primary">Submit</button>
-</form>
+
+
+    </form>
 
 <div *ngIf="success">
         <h4>User was Created Succesfully</h4>

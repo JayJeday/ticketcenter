@@ -61,7 +61,7 @@ export class CreateuserComponent implements OnInit {
   onCreatedUser(){
     this.loading = true;
 
-    this.userService.createUser(this.userForm.value).subscribe(data => {
+    this.userService.createEmployee(this.userForm.value).subscribe(data => {
       this.loading  = false;
       this.success = true;
       

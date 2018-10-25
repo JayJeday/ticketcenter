@@ -18,6 +18,7 @@ import { LoginComponent } from "./login/login.component";
 import { CreateuserComponent } from "./admincenter/createuser/createuser.component";
 import { ManageTechComponent } from "./admincenter/manage-tech/manage-tech.component";
 import { TechCatComponent } from "./admincenter/manage-tech/tech-cat/tech-cat.component";
+import { TicketAddComponent } from "./ticket/ticket-add/ticket-add.component";
 
 const appRoutes:Routes =[
    {
@@ -31,6 +32,10 @@ const appRoutes:Routes =[
         component:HomeComponent
     },
 
+    {
+        path:'addTicket',
+        component:TicketAddComponent
+    },
     {
         path:'admincenter',
         component: AdmincenterComponent,

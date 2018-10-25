@@ -76,6 +76,7 @@ import { TechCatComponent } from './admincenter/manage-tech/tech-cat/tech-cat.co
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/Interceptors/jwt.Interceptor';
 import { ErrorInterceptor } from './core/Interceptors/error.interceptor';
+import { RegistrationComponent } from './registration/registration.component';
 
 
 
@@ -114,7 +115,8 @@ import { ErrorInterceptor } from './core/Interceptors/error.interceptor';
    TechListComponent,
    ManageTechComponent,
    TechItemComponent,
-   TechCatComponent
+   TechCatComponent,
+   RegistrationComponent
    
   ],
   imports: [

@@ -1,0 +1,47 @@
+
+<mat-card>
+
+        <mat-card-header>    
+            <mat-card-title class="text-center">Register </mat-card-title>
+          </mat-card-header>
+<form [formGroup]="regForm" #rForm="ngForm" [hidden]="success" (ngSubmit)="rForm.valid && onRegisterUser()">
+
+        <div class="col-md-6">
+
+                <mat-form-field>
+                    <input matInput placeholder="First Name" formControlName="FirstName">
+                </mat-form-field>
+        
+                </div>
+                
+                <div class="col-md-6" >
+        
+                <mat-form-field>
+                    <input matInput placeholder="Last Name" formControlName="LastName">
+                </mat-form-field>
+        
+                </div>
+        
+                <div class="col-md-6">
+        
+                 <mat-form-field>
+                                <input matInput placeholder="email" formControlName="Email">
+                </mat-form-field>
+        
+                </div>
+
+                <div class="col-md-6" >
+        
+                        <mat-form-field>
+                            <input matInput placeholder="Password" type="password" formControlName="Password">
+                        </mat-form-field>
+                
+                        </div>
+
+          
+             
+                <button mat-raised-button type="submit"  [disabled]="rForm.invalid"   color="primary">Register</button>
+
+</form>
+
+</mat-card>

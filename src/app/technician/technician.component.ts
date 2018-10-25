@@ -39,7 +39,10 @@ export class TechnicianComponent implements OnInit {
     .subscribe(
       (params: Params) => {
         this.id = +params['id'];
-         this.ticketService.getUserTicket(this.id);
+
+        // this.ticketService.getUserTicket(this.id);
+          //default call
+          this.ticketService.getUserTicket2(this.id,1,5);
       }
     );
     this.statusService.getStatus();
@@ -47,8 +50,9 @@ export class TechnicianComponent implements OnInit {
 
    this.tech = JSON.parse(localStorage.getItem('currentUser'));
    this.techName = this.tech.FirstName + " " + this.tech.LastName;
-
   }
+
+
  setSearch(value){
     if(value === 'selectAll'){
       this.property = '';
@@ -59,6 +63,7 @@ export class TechnicianComponent implements OnInit {
 
        
     } 
+
     }
 
     

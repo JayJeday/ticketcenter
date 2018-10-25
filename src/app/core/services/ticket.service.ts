@@ -28,8 +28,8 @@ export class TicketService {
   constructor(private http:Http) { }
 
   //get all tickets
-  getTickets(){
-    this.http.get('http://localhost:2175/api/ticket/')
+  getTickets(pageIndex:number,pageSize:number){
+    this.http.get("http://localhost:2175/api/ticket/?pageIndex=" + pageIndex + "&pageSize=" + pageSize)
     .map(
       (data : Response) =>{  return data.json() as Ticket[]; })
     .toPromise().then(x => {
@@ -46,13 +46,15 @@ export class TicketService {
     }).catch((x)=>'error was called');
   }
 
-  getUserTicket2(id:number, ){
-    this.http.get('http://localhost:2175/api/userticket/' + id)
-    .map(
-      (data : Response) =>{  return data.json() as Ticket[] })
-    .toPromise().then(x => {
-      this.ticketList = x;
-    }).catch((x)=>'error was called');
+  getUserTicket2(UserId:number,pageIndex:number,pageSize:number)
+  {
+       return this.http.get("http://localhost:2175/api/user/tickets/pagi?pageIndex=" + pageIndex  + "&pageSize=" + pageSize + "&userId=" + UserId)
+       .map(
+        (data : Response) =>{  return data.json() as Ticket[] })
+      .toPromise().then(x => {
+        this.ticketList = x;
+      }).catch((x)=>'error was called');
+     
   }
 
 

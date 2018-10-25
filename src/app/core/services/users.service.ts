@@ -57,7 +57,7 @@ export class UsersService {
       requestOptions).map(res => res.json());
   }
 
-  createUser(user:User){
+  createEmployee(user:User){
     var body = JSON.stringify(user);
     console.log(body);
     var headerOptions = new Headers({'Content-Type':'application/json'});
@@ -65,7 +65,13 @@ export class UsersService {
     return this.http.post('http://localhost:2175/api/user',body,requestOptions).map(x => x.json());
   }
 
-
+  registerClient(user:User){
+    var body = JSON.stringify(user);
+    console.log(body);
+    var headerOptions = new Headers({'Content-Type':'application/json'});
+    var requestOptions = new RequestOptions({method : RequestMethod.Post,headers : headerOptions});
+    return this.http.post('http://localhost:2175/api/user/register',body,requestOptions).map(x => x.json());
+  }
   
 
   getTechs(){

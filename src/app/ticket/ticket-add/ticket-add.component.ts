@@ -4,6 +4,7 @@ import { CategoriesService } from 'src/app/core/services/categories.service';
 import { Category } from 'src/app/core/models/category.model';
 import { Ticket } from 'src/app/core/models/ticket.model';
 import { TicketService } from 'src/app/core/services/ticket.service';
+import { User } from 'src/app/core/models/user.model';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class TicketAddComponent implements OnInit {
 
   loading = false;
 
- 
+  client:User;
 
   //call categories services here.loaded from the database
   constructor(private categoryService:CategoriesService,
@@ -38,21 +39,30 @@ export class TicketAddComponent implements OnInit {
           'categoryid': new FormControl('', [Validators.required]),
           'description': new FormControl(null, [Validators.required])
         });
-
-       
-
-
   }
   
+
+  get f() { return this.ticketForm.controls; }
+
 
   onAddTicket(){
     this.loading = true;
 
-    this.ticketService.addTicket(this.ticketForm.value).subscribe(data => {
+    //get user id from local storage
+    this.client = JSON.parse(localStorage.getItem('currentUser'));
+
+    this.ticket = new Ticket();
+    this.ticket.ClientId = Number(this.client.ClientId);
+    this.ticket.Description = this.f.description.value;
+    this.ticket.CategoryId = this.f.categoryid.value;
+
+
+    this.ticketService.addTicket(this.ticket).subscribe(data => {
       this.loading  = false;
       this.ticketForm.reset();
       this.success = true;
       //display notification
+
     });
 
     

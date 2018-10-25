@@ -13,8 +13,12 @@ export class Ticket{
     public UserId:number;
     public TechName:string;
     public RolesId:number;
+
+    public ClientId:number;
      
 
+    //pagination
     public pageIndex:number;
     public pageSize:number;
+    public TotalCount:number;
 }

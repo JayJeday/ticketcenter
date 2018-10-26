@@ -3,32 +3,30 @@
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
        
-        <ul *ngIf="isLoggin"  class="nav nav-tabs">
+        
+ <ul *ngIf="isLoggin"  class="nav nav-tabs">
               
-          <li  role="presentation"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{exact: true}">
-            <a routerLink="/home">Home</a>
-          </li>
-         
           <li *ngIf="currentUser.aRoleId === '2' " role="presentation"
               routerLinkActive="active">
             <a [routerLink]="['tech',currentUser.id]" >Tech </a>
           </li>
           
           
-          <li *ngIf="currentUser.aRoleId === '1'" role="presentation"
+          <li *ngIf="currentUser.aRoleId === '3'" role="presentation"
             routerLinkActive="active">
             <a [routerLink]="['dashboard']">Dashboard</a>
           </li>
 
 
-          <li *ngIf="currentUser.aRoleId === '1'"  role="presentation"
+          <li *ngIf="currentUser.aRoleId === '3'"  role="presentation"
               routerLinkActive="active">
             <a [routerLink]="['admincenter']">Admin Center</a>
           </li>
 
         </ul>
+      
+       
+
       </div>
     </div>
     <div class="row">

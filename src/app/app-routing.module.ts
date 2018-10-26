@@ -34,7 +34,7 @@ const appRoutes:Routes =[
 
     {
         path:'addTicket',
-        component:TicketAddComponent
+        component:TicketAddComponent, canActivate:[AuthGuard] 
     },
     {
         path:'admincenter',

@@ -10,7 +10,7 @@ export class Ticket{
     public CategoryDesc:string;
     public StatusDesc:string;
     public StatusId:number;
-    public UserId:number;
+    public TechId:number;
     public TechName:string;
     public RolesId:number;
 

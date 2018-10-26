@@ -10,6 +10,8 @@ export class User {
     CategoryDesc:string;
     CategoryId:number;
     RoleId:number;
+    techId:number;
+    
 
     //token info
     aRoleId:string;
@@ -17,7 +19,7 @@ export class User {
     token_type:string;
     aId:string;
     ClientId:string;
-
+    aEmpId:number;
     UserId:number;
 
 }

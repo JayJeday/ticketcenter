@@ -64,7 +64,7 @@ export class TicketDetailComponent implements OnInit {
     this.ticket.StatusId = form.value.StatusId;
 
     //get the ticket user id from the service
-     this.ticket.UserId = this.ticketService.ticket.UserId;
+     this.ticket.TechId = this.ticketService.ticket.TechId;
 
     console.log(JSON.stringify(this.ticket));
 

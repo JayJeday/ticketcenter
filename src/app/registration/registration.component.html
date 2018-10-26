@@ -4,7 +4,7 @@
         <mat-card-header>    
             <mat-card-title class="text-center">Register </mat-card-title>
           </mat-card-header>
-<form [formGroup]="regForm" #rForm="ngForm" [hidden]="success" (ngSubmit)="rForm.valid && onRegisterUser()">
+<form [formGroup]="regForm" #rForm="ngForm" (ngSubmit)="rForm.valid && onRegisterUser()">
 
         <div class="col-md-6">
 
@@ -45,3 +45,5 @@
 </form>
 
 </mat-card>
+
+<mat-spinner *ngIf="loading"></mat-spinner>

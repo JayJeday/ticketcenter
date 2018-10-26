@@ -69,6 +69,8 @@ login(){
           this.loggedUser.id = Number(this.loggedUser.aId);
           this.loggedUser.RoleId = Number(this.loggedUser.aRoleId);
 
+          //need tech id
+          this.loggedUser.techId = Number(this.loggedUser.aEmpId);
 
           localStorage.setItem('currentUser', JSON.stringify(this.loggedUser));
           
@@ -79,14 +81,17 @@ login(){
 
           this.usersService.userLoggedIn.next(true);
 
-          //fix this
-      if(this.loggedUser.RoleId === 1){
+          //if user has role and client id empty 
+      if(this.loggedUser.RoleId === 3 && this.loggedUser.ClientId == ""){
          //go to dashboard page
          this.router.navigateByUrl('/dashboard');
       }
-      else if(this.loggedUser.RoleId === 2){
+      else if(this.loggedUser.RoleId === 4 && this.loggedUser.ClientId == ""){
       //go to technician page
-          this.router.navigate(['tech', this.loggedUser.id]);
+          this.router.navigate(['tech', this.loggedUser.techId]);
+        }else if(this.loggedUser.aRoleId == ""){
+      //user does not have a role then go to add tickets
+        this.router.navigateByUrl('/addTicket');
         }
   
         },

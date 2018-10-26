@@ -17,8 +17,6 @@ export class RegistrationComponent implements OnInit {
 
   loading = false;
 
-  success = false;
-
   loggedUser:User;
 
   error = '';
@@ -45,13 +43,14 @@ get f() { return this.regForm.controls; }
 
 onRegisterUser(){
 
+
+  this.loading = true;
+  
 this.userService.registerClient(this.regForm.value).subscribe(
   data => {
-  this.loading  = false;
-  this.success = true;
+ 
 },error =>{
   console.log(error);
-  this.loading = false;
 
 });
 
@@ -74,12 +73,12 @@ this.authenticationService.login(this.f.Email.value,this.f.Password.value)
       localStorage.setItem('currentUser', JSON.stringify(this.loggedUser));
       
       console.log(this.loggedUser);
-      this.success = true;
+  
       this.loading  = false;
 
       this.userService.userLoggedIn.next(true);
 
-      //fix this
+    
       this.router.navigateByUrl('/addTicket');
 
     },

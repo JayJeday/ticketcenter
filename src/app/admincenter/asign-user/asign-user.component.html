@@ -1,6 +1,6 @@
 
 <!--If ticet has somebody asigned show them-->
-<div *ngIf="ticket.UserId !== null"  class="user_card">
+<div *ngIf="ticket.TechId !== null"  class="user_card">
 
         <mat-card>
                 <mat-card-header>
@@ -21,14 +21,14 @@
 
   <div>
 
-    <h5 *ngIf="ticket.UserId === null">Ticket  does not have technician assigned.Select a user from the list</h5> 
+    <h5 *ngIf="ticket.TechId === null">Ticket  does not have technician assigned.Select a user from the list</h5> 
 
 
     </div>
 <div class="col-md-10">
     <!-- Search inputs here if ticket is not assigned -->
 
-      <app-tech-list *ngIf="ticket.UserId === null || displayList === true"[listType]="userType"></app-tech-list>
+      <app-tech-list *ngIf="ticket.TechId === null || displayList === true"[listType]="userType"></app-tech-list>
     
 
 </div>

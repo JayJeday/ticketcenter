@@ -32,8 +32,8 @@ export class AsignUserComponent implements OnInit {
       //when user select user from the list
         this.userService.user = user;
         //update ticket id to user id
-        this.ticket.UserId = this.userService.user.id;
-
+        this.ticket.TechId = this.userService.user.id;
+        console.log(this.userService.user.id);
         this.displayList = false;
         
     });
@@ -41,9 +41,9 @@ export class AsignUserComponent implements OnInit {
   }
 
   ngOnChanges(){
-    if(this.ticket.UserId !== null){
+    if(this.ticket.TechId !== null){
       //user with the ticket
-    this.userService.getUserById(this.ticket.UserId);
+    this.userService.getUserById(this.ticket.TechId);
 
     }
 

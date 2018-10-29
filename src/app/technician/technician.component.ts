@@ -42,7 +42,8 @@ export class TechnicianComponent implements OnInit {
 
         // this.ticketService.getUserTicket(this.id);
           //default call
-          this.ticketService.getUserTicket2(this.id,1,5);
+       //  this.ticketService.getUserTicket2(this.id,1,5);
+
       }
     );
     this.statusService.getStatus();

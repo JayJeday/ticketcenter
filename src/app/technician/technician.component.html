@@ -9,7 +9,8 @@
   </mat-card>
 </div>
 
-<div class="row">
+<!--
+div class="row">
   <div class="col-md-6"> 
       <mat-form-field>
           <mat-select   placeholder="Select Sorting Options"  (selectionChange)="setSearch($event.value)">
@@ -53,13 +54,18 @@
 </div>
 
 
+
+
+-->
+
+
     <div class="row">    
 
-      <app-ticket-list [listType]="userTickets" [filteredType]="type" [filteredProperty]="property"></app-ticket-list>
+      <app-ticket-list [listType]="userTickets" [id]="id" [filteredType]="type" [filteredProperty]="property"></app-ticket-list>
     
   
 
-      <router-outlet></router-outlet>
+    <!-- <router-outlet></router-outlet>       -->  
     </div>
 
 

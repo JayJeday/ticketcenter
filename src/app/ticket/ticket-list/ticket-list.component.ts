@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, DoCheck, IterableDiffers, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, DoCheck, IterableDiffers, SimpleChanges, ViewChild } from '@angular/core';
 import {Ticket} from  '../../core/models/ticket.model';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {TicketService} from '../../core/services/ticket.service'
@@ -7,6 +7,10 @@ import { CategoriesService } from 'src/app/core/services/categories.service';
 import { Summary } from 'src/app/dashboard/summary.model';
 import { PageEvent } from '@angular/material/paginator';
 import { User } from 'src/app/core/models/user.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { TicketDetailComponent } from '../ticket-detail/ticket-detail.component';
 
 
 @Component({
@@ -21,6 +25,8 @@ export class TicketListComponent implements OnInit,DoCheck {
   //by default
   @Input()filteredType;
   @Input()filteredProperty;
+
+  @Input()id:number;
 
   //show normal list or filtered
   comp:string;
@@ -38,14 +44,24 @@ export class TicketListComponent implements OnInit,DoCheck {
 
     iterableDiffer: any;
    
+    tickets:Ticket[] = [];
     //for the tech
     tech:User;
 
     result:any;
 
+    //table contents
+    ticketData: MatTableDataSource<any>;
+
+    //define Columns
+    displayedColumns: string[] = ['TicketId', 'StatusDesc', 'Description', 'CategoryDesc', 'CreatedDate','actions'];
+    @ViewChild(MatSort) sort: MatSort;
+
+
   constructor(private ticketService:TicketService,
      private router: Router,
      private route: ActivatedRoute,
+     private dialog: MatDialog,
      private _iterableDiffers: IterableDiffers) {
 
       this.iterableDiffer =  this._iterableDiffers.find([]).create(null);
@@ -57,12 +73,23 @@ export class TicketListComponent implements OnInit,DoCheck {
   }
   
   ngOnInit() {
-    //tickets by technician
+    //tickets by all
     if(this.listType !== "byUser"){
-        this.ticketService.getTickets(1,5);
+        this.ticketService.getTickets(1,5).subscribe((data)=>{
+          this.tickets = data;
+          this.ticketData = new MatTableDataSource(this.tickets);
+          this.ticketData.sort = this.sort;
+        });
+        
     } 
-
-    //find a way to get the data by technician
+    
+      this.ticketService.getUserTicket2(this.id,1,5).subscribe((data)=>{
+        this.tickets = data;
+         this.ticketData = new MatTableDataSource(this.tickets);
+         this.ticketData.sort = this.sort;
+      });
+    
+   
   }
 
 //this is called when the button of paginator is pressed
@@ -73,16 +100,37 @@ export class TicketListComponent implements OnInit,DoCheck {
 
   //we know the request is get ticket by tech id
     if(this.listType === "byUser"){
-      console.log("was called");
       this.tech = JSON.parse(localStorage.getItem('currentUser'));
-      this.ticketService.getUserTicket2(this.tech.id,this.pageIndex,5);
+
+      this.ticketService.getUserTicket2(this.tech.id,this.pageIndex,5).subscribe((data)=>{
+
+        this.tickets = data;
+        this.ticketData = new MatTableDataSource(this.tickets);
+        this.ticketData.sort = this.sort;
+
+      });
     
     }
 
-    this.ticketService.getTickets(this.pageIndex,5);
+    this.ticketService.getTickets(this.pageIndex,5).subscribe((data)=>{
+      this.tickets = data;
+      this.ticketData = new MatTableDataSource(this.tickets);
+      this.ticketData.sort = this.sort;
+    });
     
   }
 
+  onEdit(row){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    dialogConfig.data = {
+      data: {
+        ticketId: row
+      }
+    }
+    this.dialog.open(TicketDetailComponent,dialogConfig);
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
 

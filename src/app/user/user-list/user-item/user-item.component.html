@@ -1,9 +1,9 @@
   <div class="userList">
            
-        <div *ngIf="itemType === 'role'" class="role cat col-md-10">
+        <div  class="role cat col-md-10">
                 <a
                 style="cursor: pointer;"
-                [routerLink]="['/admincenter/manage',{outlets:{rol:'role/' + user.id}}]"
+                [routerLink]="[user.id]"
                 routerLinkActive=""
                 class="list-group-item clearfix">
               
@@ -15,22 +15,6 @@
                   </a>
               
         </div>  
-       
-        <div *ngIf="itemType === 'assign'" class="cat">
-          <a
-          style="cursor: pointer;"
-          (click)="updateUserTicket()"
-          routerLinkActive=""
-          class="list-group-item clearfix">
-        
-            <mat-list-item class="col-md-12" role="listitem">
-              <h4 class="list-group-item-text left">{{user.FirstName}} {{user.LastName}}</h4>
-               <h4 class="list-group-item-text">{{user.CategoryDesc}}</h4>
-             </mat-list-item> 
-             
-            </a>
-        
-  </div>
 
     
     </div>

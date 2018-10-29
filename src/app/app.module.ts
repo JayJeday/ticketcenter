@@ -64,6 +64,9 @@ import { AuthGuard } from './core/authorization/auth.guard';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
+import {MatTableModule} from '@angular/material/table';
+import {MatIconModule} from '@angular/material/icon';
+
 
 import {MatRadioModule} from '@angular/material/radio';
 
@@ -77,6 +80,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/Interceptors/jwt.Interceptor';
 import { ErrorInterceptor } from './core/Interceptors/error.interceptor';
 import { RegistrationComponent } from './registration/registration.component';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
@@ -141,7 +145,10 @@ import { RegistrationComponent } from './registration/registration.component';
     HttpClientModule,
     MatTabsModule,
     MatSidenavModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTableModule,
+    MatIconModule,
+    MatSortModule
   ],
   providers: [TicketService,UsersService,CategoriesService,RolesService,AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

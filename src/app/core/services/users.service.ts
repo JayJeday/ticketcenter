@@ -29,6 +29,7 @@ export class UsersService {
     }).catch((x)=>'error was called');
   }
 
+  //to get tech and update cate
   getUserById(id:number){
     this.http.get('http://localhost:2175/api/user/'+ id)
     .map(
@@ -37,6 +38,17 @@ export class UsersService {
       this.user = x[0];
     }).catch((x)=>'error was called');
   }
+
+
+  getUserRoleById(id:number){
+    this.http.get('http://localhost:2175/api/user/role?id='+ id)
+    .map(
+      (data : Response) =>{  return data.json() as User[] })
+    .toPromise().then(x => {
+      this.user = x[0];
+    }).catch((x)=>'error was called');
+  }
+
 
   //Post method for user login
   //TODO add oauth

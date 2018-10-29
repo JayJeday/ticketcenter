@@ -55,9 +55,7 @@ const appRoutes:Routes =[
             ]},
 
             {path:'manage', component: ManageUserComponent, children:[
-                {path:'role/:id',component:UserDetailComponent, outlet:'rol',data:{comp:'admin_role'}},
-                {path:'category/:id',component:UserDetailComponent, outlet:'rol', data:{comp:'admin_cat'}}
-            ] },
+                {path:':id',component:UserDetailComponent}  ] },
 
             {path:'tickets', component: ManageTicketsComponent, children:[
 

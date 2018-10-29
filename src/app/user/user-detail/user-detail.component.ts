@@ -44,7 +44,8 @@ export class UserDetailComponent implements OnInit {
       (params: Params) => {
         this.id = +params['id'];
 
-        this.usersService.getUserById(this.id);
+        this.usersService.getUserRoleById(this.id);
+        console.log(this.usersService.user);
         
       }
     );
@@ -63,17 +64,9 @@ export class UserDetailComponent implements OnInit {
     this.loading = true;
 
     this.user = new User();
-    this.user.id = this.usersService.user.id;
-    
-    //update fields
-    if(this.comp === 'admin_role'){
-      this.user.RoleId = form.value.RoleId;
-    }else
-   {
-      
-      this.user.CategoryId = form.value.CategoryId;
-    }
-   
+    this.user.id = this.usersService.user.UserId;
+     this.user.RoleId = form.value.RoleId;
+
 
     console.log(JSON.stringify(this.user));
 

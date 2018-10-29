@@ -82,11 +82,11 @@ login(){
           this.usersService.userLoggedIn.next(true);
 
           //if user has role and client id empty 
-      if(this.loggedUser.RoleId === 3 && this.loggedUser.ClientId == ""){
+      if(this.loggedUser.RoleId === 2 && this.loggedUser.ClientId == ""){
          //go to dashboard page
          this.router.navigateByUrl('/dashboard');
       }
-      else if(this.loggedUser.RoleId === 4 && this.loggedUser.ClientId == ""){
+      else if(this.loggedUser.RoleId === 1 && this.loggedUser.ClientId == ""){
       //go to technician page
           this.router.navigate(['tech', this.loggedUser.techId]);
         }else if(this.loggedUser.aRoleId == ""){

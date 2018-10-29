@@ -1,15 +1,83 @@
-<div class="col-md-6">
+<div class="col-md-12">
     <div>
-            <mat-list>     
+        <!--
+        <mat-list>     
                 <app-ticket-item  [itemType]="listType" *ngFor="let aticket of ticketService.ticketList | ticketStatus: filteredType: filteredProperty as result"  [ticket]="aticket">
                     </app-ticket-item>
             </mat-list>
 
-            <mat-paginator #paginator 
-             [length]="this?.ticketService?.ticketList[0]?.TotalCount" 
+
+        -->
+           
+
+
+            <div class="mat-elevation-z8">
+  
+                <mat-table [dataSource]="this.ticketData"  matSort>
+                  
+                  <ng-container matColumnDef="TicketId">
+                    <mat-header-cell *matHeaderCellDef  mat-sort-header>ID</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.TicketId}}</mat-cell>
+                  </ng-container>
+                
+                  <ng-container matColumnDef="StatusDesc">
+                    <mat-header-cell *matHeaderCellDef  mat-sort-header>Status</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.StatusDesc}}</mat-cell>
+                  </ng-container>
+                 
+                  <ng-container matColumnDef="Description">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.Description}}</mat-cell>
+                  </ng-container>
+                 
+                  <ng-container matColumnDef="CategoryDesc">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.CategoryDesc}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="CreatedDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.CreatedDate | date}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      <button mat-icon-button  (click)="onEdit(row.TicketId)"><mat-icon>launch</mat-icon></button>   
+                     </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="loading">
+                        <mat-footer-cell *matFooterCellDef colspan="6">
+                          Loading data...
+                        </mat-footer-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="noData">
+                        <mat-footer-cell *matFooterCellDef colspan="6">
+                          No data.
+                        </mat-footer-cell>
+                      </ng-container>
+
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                  <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':this.ticketData!=null}"></mat-footer-row>
+                  <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(this.ticketData!=null && this.ticketData.length==0)}"></mat-footer-row>
+                </mat-table>
+              
+
+                <mat-paginator #paginator 
+             [length]="this.tickets[0]?.TotalCount" 
               [pageSize]="5" 
                (page)="pageEvent = handlePage($event)">
             </mat-paginator> 
+              </div>
 
+              
+
+
+
+
+
+              
+            
     </div>
 </div>

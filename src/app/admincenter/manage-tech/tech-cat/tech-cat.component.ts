@@ -50,7 +50,7 @@ export class TechCatComponent implements OnInit {
     this.loading = true;
 
     this.user = new User();
-    this.user.UserId = this.usersService.user.id;
+    this.user.UserId = this.usersService.user.UserId;
         
     this.user.CategoryId = form.value.CategoryId;
   

@@ -20,6 +20,7 @@ export class User {
     aId:string;
     ClientId:string;
     aEmpId:number;
+   
     UserId:number;
 
 }

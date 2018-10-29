@@ -14,7 +14,6 @@ export class TicketService {
 
   summaryActivated = new Subject();
 
-
   summary:Summary;
   totalTicket = 0;
   openTicket = 0;
@@ -28,13 +27,22 @@ export class TicketService {
   constructor(private http:Http) { }
 
   //get all tickets
-  getTickets(pageIndex:number,pageSize:number){
+  /*
+getTickets(pageIndex:number,pageSize:number){
     this.http.get("http://localhost:2175/api/ticket/?pageIndex=" + pageIndex + "&pageSize=" + pageSize)
     .map(
       (data : Response) =>{  return data.json() as Ticket[]; })
     .toPromise().then(x => {
       this.ticketList = x;
     }).catch((x)=>'error was called');
+  }
+
+
+  */
+  getTickets(pageIndex:number,pageSize:number){
+    return this.http.get("http://localhost:2175/api/ticket/?pageIndex=" + pageIndex + "&pageSize=" + pageSize)
+    .map(
+      (data : Response) =>{  return data.json() as Ticket[]; });
   }
 
   getUserTicket(id:number){
@@ -50,11 +58,7 @@ export class TicketService {
   {
        return this.http.get("http://localhost:2175/api/user/tickets/pagi?pageIndex=" + pageIndex  + "&pageSize=" + pageSize + "&userId=" + UserId)
        .map(
-        (data : Response) =>{  return data.json() as Ticket[] })
-      .toPromise().then(x => {
-        this.ticketList = x;
-      }).catch((x)=>'error was called');
-     
+        (data : Response) =>{  return data.json() as Ticket[] });
   }
 
 

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { Ticket } from 'src/app/core/models/ticket.model';
 import { TicketService } from 'src/app/core/services/ticket.service';
 import {FormBuilder, FormGroup, Validators, FormControl, NgForm} from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { StatusService } from 'src/app/core/services/status.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef } from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -26,17 +28,22 @@ export class TicketDetailComponent implements OnInit {
     private router: Router,  
     private ticketService:TicketService,
     private statusService:StatusService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public dialogRef: MatDialogRef<TicketDetailComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
     ) { }
 
   ngOnInit() {
 
+    console.log(this.data.ticketId);
     //get the  route parameter
+     this.ticketService.getTicket(this.data.ticketId);
+   
     this.route.params
     .subscribe(
       (params: Params) => {
         this.id = +params['id'];
-         this.ticketService.getTicket(this.id);
+       
       }
     );
 
@@ -92,5 +99,9 @@ export class TicketDetailComponent implements OnInit {
     this.loading = false;
 
 
+  }
+
+  closeDialog(){
+    this.dialogRef.close();
   }
 }

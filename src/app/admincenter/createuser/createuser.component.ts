@@ -49,7 +49,8 @@ export class CreateuserComponent implements OnInit {
 
 
   setTech(value){
-    if(value === 2){
+    //is technician
+    if(value === 1){
       this.techDisable = false;
     } else{
       this.techDisable = true;

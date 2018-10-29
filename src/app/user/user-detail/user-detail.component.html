@@ -9,16 +9,8 @@
      
       <h4>Email: </h4>
       <h4>{{usersService?.user?.Email}}</h4>
-   
-    <!-- for admin category list-->
-    <div class="form-group" *ngIf="comp === 'admin_cat'" >
-      <label for="category">Category:</label>
-      <select  name="CategoryId" #CategoryId="ngModel" [(ngModel)]="usersService.user.CategoryId" class="form-control" id="categories">
-          <option [value]="aCategory.CategoryId" *ngFor="let aCategory of categoryService.categoryList">{{aCategory?.CategoryDesc}} </option>
-      </select>
-    </div>
           
-    <div class="form-group" *ngIf="comp === 'admin_role'" >
+    <div class="form-group" >
         <label for="role">Role:</label>
         <select  name="RoleId" #RoleId="ngModel" [(ngModel)]="usersService.user.RoleId" class="form-control" id="categories">
             <option [value]="aRole.RoleId" *ngFor="let aRole of roleService.roleList">{{aRole.Role}} </option>

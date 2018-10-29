@@ -58,6 +58,24 @@ export class StatusdetailComponent implements OnInit {
    
   }
 
+  delete(){
+    
+    //call service  to update category here
+    this.loading = true;
+    this.statusService.deleteStatusById(this.statusService.status.StatusId)
+       .subscribe(data => {
+          this.loading = false;
+  
+         //need to update list so it refresh it 
+          this.statusService.getStatus();
+          //route back to list
+          this.gotoStatusList();
+          console.log(this.statusService.status);
+       });
+   
+  }
+
+
   cancel(){
     //go back to the list
     this.router.navigate(['../../'], { relativeTo: this.route });

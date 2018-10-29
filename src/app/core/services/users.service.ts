@@ -15,18 +15,17 @@ export class UsersService {
 
   userChanged = new Subject();
 
+  roleChanged = new Subject();
+
   loggedUser = new User();
   userLoggedIn = new Subject();
 
   constructor(private http:Http) { }
 
   getU(){
-    this.http.get('http://localhost:2175/api/user')
+    return this.http.get('http://localhost:2175/api/user')
     .map(
-      (data : Response) =>{  return data.json() as User[]; })
-    .toPromise().then(x => {
-      this.userList = x;
-    }).catch((x)=>'error was called');
+      (data : Response) =>{  return data.json() as User[]; });
   }
 
   //to get tech and update cate
@@ -87,12 +86,9 @@ export class UsersService {
   
 
   getTechs(){
-    this.http.get('http://localhost:2175/api/user/techs')
+    return this.http.get('http://localhost:2175/api/user/techs')
     .map(
-      (data : Response) =>{  return data.json() as User[]; })
-    .toPromise().then(x => {
-      this.techList = x;
-    }).catch((x)=>'error was called');
+      (data : Response) =>{  return data.json() as User[]; });
   }
 
   updateTechCat(tech:User){

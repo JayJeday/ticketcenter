@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { UsersService } from 'src/app/core/services/users.service';
 import { CategoriesService } from 'src/app/core/services/categories.service';
 import { FormBuilder, NgForm } from '@angular/forms';
 import { User } from 'src/app/core/models/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-tech-cat',
@@ -24,28 +25,20 @@ export class TechCatComponent implements OnInit {
     private usersService:UsersService,
     private categoryService:CategoriesService,
     private fb:FormBuilder,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public dialogRef: MatDialogRef<TechCatComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
     ) { }
 
   ngOnInit() {
 
     this.categoryService.getCategories();
 
-    this.route.params
-    .subscribe(
-      (params: Params) => {
-        this.id = +params['id'];
-
-        this.usersService.getUserById(this.id);
-        
-      }
-    );
-
+     this.usersService.getUserById(this.data.id);
 
   }
 
   onTechUpdate(form:NgForm){
-
 
     this.loading = true;
 
@@ -61,7 +54,9 @@ export class TechCatComponent implements OnInit {
      .subscribe(data => {
         this.loading = false;
        this.usersService.getTechs();
-       
+
+       this.categoryService.categoryChanged.next(true);
+       this.dialogRef.close();
        this.snackBar.open("Updated successfully",'', {
         duration: 1000
       });

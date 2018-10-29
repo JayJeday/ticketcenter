@@ -36,39 +36,28 @@
   </div>
     
   <div class="container-fluid">
-<div class="row">
-      <mat-tab-group>
-          <mat-tab label="List by status">
-          
-          <!--
+<div class="row data">
+  <!--
+ <mat-tab-group>
+          <mat-tab label="List by status">   
  <div>
             <h4>Filter by status</h4>
              <mat-radio-group (change)="statusChange($event)">
                 <mat-radio-button [value]="aStatus.StatusDesc"  *ngFor="let aStatus of statusService.statusList">{{aStatus.StatusDesc}}</mat-radio-button>     
               </mat-radio-group>
            </div>
-
-          -->
-           
-             
-             
-             
-              <app-ticket-list [filteredType]="statType" [filteredProperty]="defaultStatusproperty"></app-ticket-list>     
+       
+              <app-ticket-list [filteredType]="dashType" [filteredProperty]="defaultStatusproperty"></app-ticket-list>     
             </mat-tab>
           
             <mat-tab label="List by categories">
-            
-            <!--
+               
 <div>
                 <h4>Filter by categories</h4>
                 <mat-radio-group (change)="categoryChange($event)">
                     <mat-radio-button [value]="aCategory.CategoryDesc"  *ngFor="let aCategory of categoryService.categoryList">{{aCategory.CategoryDesc}}</mat-radio-button>     
                   </mat-radio-group>
               </div>
-
-            -->
-              
-                
 
               <app-ticket-list [filteredType]="catType" [filteredProperty]="defaultCatproperty"></app-ticket-list>     
             </mat-tab>
@@ -83,13 +72,15 @@
               <app-ticket-list [filteredType]="userInput" [filteredProperty]="techProperty"></app-ticket-list>     
           </mat-tab>
 
-
-
       </mat-tab-group>
+
+-->
+      
   </div>
 
 
-
+   <app-ticket-list [listType]="dashType"></app-ticket-list>     
+       
 
 
 

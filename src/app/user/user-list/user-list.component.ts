@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { User } from 'src/app/core/models/user.model';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from 'src/app/core/services/users.service';
+import { MatSort, MatDialog, MatTableDataSource } from '@angular/material';
+import { UserDetailComponent } from '../user-detail/user-detail.component';
 
 
 @Component({
@@ -14,28 +16,53 @@ export class UserListComponent implements OnInit {
   filteredType="technician";
   filteredProperty='';
 
+  users:User[] = [];
   toogle:boolean = true;
+
+  displayedColumns: string[] = ['Id', 'FirstName', 'LastName','Role', 
+  'CreatedDate','actions'];
+  @ViewChild(MatSort) sort: MatSort;
+
+
+  userData: MatTableDataSource<any>;
 
   @Input()listType;
 
-  constructor(private route:ActivatedRoute,private service:UsersService) { }
+  constructor(private route:ActivatedRoute,private service:UsersService,
+    private dialog: MatDialog
+    ) { }
 
   ngOnInit() {
-    //get all users by default
-    this.service.getU();
-    
-    console.log(this.service.userList);
-    
-    console.log(this.listType);
-
 
     this.route.data.subscribe((data)=>{
        this.filteredProperty = data['prop'];
       
     });
 
+    this.service.getU().subscribe((data)=>{
+      this.users = data;
+       this.userData = new MatTableDataSource(this.users);
+       this.userData.sort = this.sort;
+    });
+
+    //update list 
+    this.service.roleChanged.subscribe((changed)=>{
+
+      this.service.getU().subscribe((data)=>{
+        this.users = data;
+         this.userData = new MatTableDataSource(this.users);
+      });
+    });
 
   }
+
+  onEdit(row){
+    const dialogRef = this.dialog.open(UserDetailComponent, {
+       width: '60%',
+       data:{id:row}
+    });
+  }
+
 
   onTicketRoleFilter(){
     //toggle

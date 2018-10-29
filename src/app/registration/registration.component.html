@@ -38,6 +38,10 @@
                 
                         </div>
 
+                        <div *ngIf="error">
+                              <p style="color:red">Error trying to register.</p>
+                        </div>
+
           
              
                 <button mat-raised-button type="submit"  [disabled]="rForm.invalid"   color="primary">Register</button>

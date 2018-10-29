@@ -14,6 +14,8 @@ export class TicketService {
 
   summaryActivated = new Subject();
 
+  ticketChanged = new Subject();
+
   summary:Summary;
   totalTicket = 0;
   openTicket = 0;

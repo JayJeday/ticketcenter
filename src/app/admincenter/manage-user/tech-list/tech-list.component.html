@@ -1,4 +1,77 @@
-<mat-list role="list">
-   <app-tech-item  [itemType]="listType"   [tech]="aTech" *ngFor="let aTech of userService.techList">
+<div class="col-md-12">
+
+<mat-list role="list" *ngIf="this.listType === 'assign'">
+   <app-tech-item  [itemType]="listType"   [tech]="aTech" *ngFor="let aTech of users">
    </app-tech-item>
   </mat-list>
+
+
+<div class="mat-elevation-z8" *ngIf="this.listType !== 'assign'">
+  
+        <mat-table [dataSource]="this.techData"  matSort>
+          
+          <ng-container matColumnDef="Id">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header>Tech ID</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+          </ng-container>
+        
+          <ng-container matColumnDef="FirstName">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header>FirstName</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.FirstName}}</mat-cell>
+          </ng-container>
+         
+          <ng-container matColumnDef="LastName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>LastName</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.LastName}}</mat-cell>
+          </ng-container>
+
+          
+          <ng-container matColumnDef="Role">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{element.Role}}</mat-cell>
+                      </ng-container>
+
+         <ng-container matColumnDef="CategoryDesc">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
+                            <mat-cell *matCellDef="let element">{{element.CategoryDesc}}</mat-cell>
+        </ng-container>
+
+          <ng-container matColumnDef="RegisterDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Registration Date</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.RegisterDate | date}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button  (click)="onEdit(row.id)"><mat-icon>launch</mat-icon></button>   
+             </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="loading">
+                <mat-footer-cell *matFooterCellDef colspan="6">
+                  Loading data...
+                </mat-footer-cell>
+              </ng-container>
+              <ng-container matColumnDef="noData">
+                <mat-footer-cell *matFooterCellDef colspan="6">
+                  No data.
+                </mat-footer-cell>
+              </ng-container>
+
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':this.techData!=null}"></mat-footer-row>
+          <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(this.techData!=null && this.techData.length==0)}"></mat-footer-row>
+        </mat-table>
+      
+
+        <mat-paginator #paginator 
+     [length]="this.users[0]?.TotalCount" 
+      [pageSize]="5" 
+       (page)="pageEvent = handlePage($event)">
+    </mat-paginator> 
+      </div>
+
+</div>

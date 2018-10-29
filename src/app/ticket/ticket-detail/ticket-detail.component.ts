@@ -35,10 +35,13 @@ export class TicketDetailComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log(this.data.id);
+    
     //get the  route parameter
      this.ticketService.getTicket(this.data.id);
-   
+     
+      this.comp = this.data.type;
+    console.log(this.comp);
+
     this.route.params
     .subscribe(
       (params: Params) => {
@@ -47,11 +50,11 @@ export class TicketDetailComponent implements OnInit {
       }
     );
 
-    this.route.data
-    .subscribe((data)=>{
-      this.comp = data['comp'];
+    //this.route.data
+   // .subscribe((data)=>{
+    //  this.comp = data['comp'];
       
-    });
+   // });
 
     this.statusService.getStatus();
 
@@ -85,10 +88,11 @@ export class TicketDetailComponent implements OnInit {
       });
 
        //need to update list so it refresh it 
-       //TODO need to have the id  of the current user from local storage
-       if(this.comp ==="tech"){
-         //update tech list
-        // this.ticketService.getUserTicket(this.id);
+       //Update fro  admin
+       if(this.comp ==="admin"){
+         //update tech list-- go to the first page
+         console.log("was called");
+        this.ticketService.ticketChanged.next(true);
        }
        
      },

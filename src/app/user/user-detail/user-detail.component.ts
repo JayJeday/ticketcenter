@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { UsersService } from 'src/app/core/services/users.service';
 import { RolesService } from 'src/app/core/services/roles.service';
@@ -6,6 +6,8 @@ import { CategoriesService } from 'src/app/core/services/categories.service';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { User } from 'src/app/core/models/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef } from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-user-detail',
@@ -31,7 +33,9 @@ export class UserDetailComponent implements OnInit {
     private roleService: RolesService,
     private categoryService:CategoriesService,
     private fb:FormBuilder,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public dialogRef: MatDialogRef<UserDetailComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
     ) { }
 
   ngOnInit() {
@@ -39,16 +43,7 @@ export class UserDetailComponent implements OnInit {
     this.categoryService.getCategories();
     this.roleService.getRoles();
 
-    this.route.params
-    .subscribe(
-      (params: Params) => {
-        this.id = +params['id'];
-
-        this.usersService.getUserRoleById(this.id);
-        console.log(this.usersService.user);
-        
-      }
-    );
+    this.usersService.getUserRoleById(this.data.id);
 
     //get the data of routes
     this.route.data
@@ -75,6 +70,8 @@ export class UserDetailComponent implements OnInit {
      .subscribe(data => {
         this.loading = false;
        
+        this.usersService.roleChanged.next(true);
+        this.dialogRef.close();
         this.snackBar.open("Updated successfully",'', {
           duration: 1000
         });

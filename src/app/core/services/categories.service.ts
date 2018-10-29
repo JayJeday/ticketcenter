@@ -3,6 +3,7 @@ import { Headers, Http, Response, RequestOptions, RequestMethod } from '@angular
 import 'rxjs/Rx';
 import { Category } from '../models/category.model';
 import { Summary } from 'src/app/dashboard/summary.model';
+import { Subject } from 'rxjs/Rx';
 ;
 
 @Injectable({
@@ -12,6 +13,8 @@ export class CategoriesService {
 
   categoryList:Category[];
   category:Category;
+
+  categoryChanged = new Subject();
 
   categorySummaryList:Summary[] = [];
 
@@ -26,6 +29,13 @@ export class CategoriesService {
     }).catch((x)=>'error was called');
 
   }
+
+  deleteCategoryById(id:number){
+   return this.http.delete('http://localhost:2175/api/category/'+ id)
+    .map(
+      (data : Response) =>{  return data.json() as Category[] });
+    }
+
 
   updateCategory(category:Category){
 

@@ -51,7 +51,7 @@ this.userService.registerClient(this.regForm.value).subscribe(
  
 },error =>{
   console.log(error);
-
+  this.error = error;
 });
 
 
@@ -84,6 +84,7 @@ this.authenticationService.login(this.f.Email.value,this.f.Password.value)
     },
     error => {
         this.error = error;
+        console.log(error);
         this.loading = false;
     });
 

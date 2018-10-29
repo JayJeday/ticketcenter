@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { TicketService } from '../core/services/ticket.service';
 import { Summary } from './summary.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CategoriesService } from '../core/services/categories.service';
 import { StatusService } from '../core/services/status.service';
 import { MatRadioChange } from '@angular/material/radio';
+import { BaseChartDirective } from 'ng2-charts';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { MatRadioChange } from '@angular/material/radio';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  
 
   //get the summary from child
   summary:Summary;
@@ -25,6 +27,10 @@ export class DashboardComponent implements OnInit {
 //overall status
   type:string="open";
   property:string="StatusDesc";
+
+
+  //dash list
+  dashType:string='dash';
 
 
   //defaultstatus by tabs
@@ -48,16 +54,13 @@ categoryNameData:string[] = [];
 statusNameData:string[] = [];
 
 
-
-
   //for status => 
   public doughnutChartLabels:string[];
   public doughnutChartStatusData:number[];
+
   public doughnutChartCategoryData:number[];
   public doughnutChartType:string = 'doughnut';
  
-
-  
 
   //for categories
   public doughnutChartLabels2:string[];
@@ -99,8 +102,10 @@ statusNameData:string[] = [];
     this.categoryService.getCategories();
     this.statusService.getStatus();
 
-    //create observable when list changes to this
+    console.log(this.categoryService.categorySummaryList);
+    console.log(this.statusService.statusSummaryList);
 
+    //create observable when list changes to this
     this.categoryService.categorySummaryList.forEach((s:Summary)=> {
       this.categoryData.push(s.categoriesNumber);
       this.categoryNameData.push(s.CategoryDesc);
@@ -108,8 +113,8 @@ statusNameData:string[] = [];
 
     //iterate over status list
  this.statusService.statusSummaryList.forEach((s:Summary)=> {
-  this.statusData.push(s.statusNumber);
-  this.statusNameData.push(s.StatusDesc);
+ this.statusData.push(s.statusNumber);
+ this.statusNameData.push(s.StatusDesc);
 });
 
     //set graphic categories to chart 
@@ -128,7 +133,14 @@ statusNameData:string[] = [];
 
   }
 
+  ngAfterViewInit() {
 
+    this.categoryService.getCategoriesSummary();
+    this.statusService.getStatusSummary();
+    this.categoryService.getCategories();
+    this.statusService.getStatus();
+
+  }
   categoryChange($event: MatRadioChange){
     this.catType = $event.value;
   }

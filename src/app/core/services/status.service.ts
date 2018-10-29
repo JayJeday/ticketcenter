@@ -51,6 +51,13 @@ export class StatusService {
       }).catch((x)=>'error was called');
     }
 
+    deleteStatusById(id:number){
+     return this.http.delete('http://localhost:2175/api/status/'+ id)
+      .map(
+        (data : Response) =>{  return data.json() as Status[] });
+    }
+
+
 
   addStatus(status:Status){
       var body = JSON.stringify(status);

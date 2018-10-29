@@ -11,6 +11,9 @@ export class User {
     CategoryId:number;
     RoleId:number;
     techId:number;
+    RegisterDate:string;
+    AdminId:number;
+    CreatedDate:string
     
 
     //token info

@@ -51,6 +51,23 @@ update(){
  
 }
 
+delete(){
+    
+  //call service  to update category here
+  this.loading = true;
+  this.categoryService.deleteCategoryById(this.categoryService.category.CategoryId)
+     .subscribe(data => {
+        this.loading = false;
+
+        //need to update list so it refresh it 
+        this.categoryService.getCategories();
+        //route back to list
+        this.gotoCategoryList();
+     });
+ 
+}
+
+
 
 cancel(){
   this.gotoCategoryList();

@@ -1,5 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { UsersService } from 'src/app/core/services/users.service';
+import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
+import { TechCatComponent } from '../../manage-tech/tech-cat/tech-cat.component';
+import { User } from 'src/app/core/models/user.model';
+import { CategoriesService } from 'src/app/core/services/categories.service';
 
 @Component({
   selector: 'app-tech-list',
@@ -10,11 +14,57 @@ export class TechListComponent implements OnInit {
 
   @Input()listType;
 
-  constructor(private userService:UsersService) { }
+
+  displayedColumns: string[] = ['Id', 'FirstName', 'LastName','Role', 
+  'RegisterDate','CategoryDesc','actions'];
+  @ViewChild(MatSort) sort: MatSort;
+
+  techData: MatTableDataSource<any>;
+
+  users:User[] = [];
+
+  constructor(private userService:UsersService,
+    private dialog: MatDialog,
+    private categoryService:CategoriesService) { }
 
   ngOnInit() {
 
-    this.userService.getTechs();
+    if(this.listType === "assign"){
+      this.userService.getTechs().subscribe((data)=>{
+        this.users = data;
+      });
+
+
+    }
+
+
+
+    if(this.listType !== "assign"){
+
+      this.userService.getTechs().subscribe((data)=>{
+      this.users = data;
+      this.techData = new MatTableDataSource(this.users);
+      this.techData.sort = this.sort;
+    });
+    }
+    
+
+//update list
+    this.categoryService.categoryChanged.subscribe((changed)=>{
+      this.userService.getTechs().subscribe((data)=>{
+        this.users = data;
+        this.techData = new MatTableDataSource(this.users);
+      });
+
+    });
   }
+
+  onEdit(row){
+    const dialogRef = this.dialog.open(TechCatComponent, {
+       width: '60%',
+       data:{id:row}
+    });
+  }
+
 
 }

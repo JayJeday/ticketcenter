@@ -54,9 +54,9 @@ export class TicketListComponent implements OnInit,DoCheck {
     ticketData: MatTableDataSource<any>;
 
     //define Columns
-    displayedColumns: string[] = ['TicketId', 'StatusDesc', 'Description', 'CategoryDesc', 'CreatedDate','actions'];
+    displayedColumns: string[] = ['TicketId', 'StatusDesc', 'Description', 'CategoryDesc', 
+    'CreatedDate','actions'];
     @ViewChild(MatSort) sort: MatSort;
-
 
   constructor(private ticketService:TicketService,
      private router: Router,
@@ -74,7 +74,10 @@ export class TicketListComponent implements OnInit,DoCheck {
   
   ngOnInit() {
     //tickets by all
-    if(this.listType !== "byUser"){
+    if(this.listType === "dash" || this.listType === "admin"){
+
+      this.displayedColumns.splice(3,0,"Technician");
+
         this.ticketService.getTickets(1,5).subscribe((data)=>{
           this.tickets = data;
           this.ticketData = new MatTableDataSource(this.tickets);
@@ -82,15 +85,34 @@ export class TicketListComponent implements OnInit,DoCheck {
         });
         
     } 
-    
-      this.ticketService.getUserTicket2(this.id,1,5).subscribe((data)=>{
+   //by technician 
+if(this.listType === "byUser"){
+
+ this.ticketService.getUserTicket2(this.id,1,5).subscribe((data)=>{
         this.tickets = data;
          this.ticketData = new MatTableDataSource(this.tickets);
          this.ticketData.sort = this.sort;
       });
-    
+
+}
+       
+
+//admin updated the ticket
+this.ticketService.ticketChanged.subscribe((changed)=>{
+  console.log("from here");
+  this.ticketService.getTickets(1,5).subscribe((data)=>{
+    this.tickets = data;
+    this.ticketData = new MatTableDataSource(this.tickets);
+  });
+
+});
    
   }
+
+  applyFilter(filterValue: string) {
+    this.ticketData.filter = filterValue.trim().toLowerCase();
+  }
+
 
 //this is called when the button of paginator is pressed
   public handlePage(e: any) {
@@ -112,6 +134,18 @@ export class TicketListComponent implements OnInit,DoCheck {
     
     }
 
+    //admin updated the ticket
+    this.ticketService.ticketChanged.subscribe((data)=>{
+      console.log("from here");
+      this.ticketService.getTickets(this.pageIndex,5).subscribe((data)=>{
+        this.tickets = data;
+        this.ticketData = new MatTableDataSource(this.tickets);
+      });
+
+    });
+
+
+
     this.ticketService.getTickets(this.pageIndex,5).subscribe((data)=>{
       this.tickets = data;
       this.ticketData = new MatTableDataSource(this.tickets);
@@ -123,7 +157,7 @@ export class TicketListComponent implements OnInit,DoCheck {
   onEdit(row){
     const dialogRef = this.dialog.open(TicketDetailComponent, {
        width: '60%',
-       data:{id:row}
+       data:{id:row,type:this.listType}
     });
   }
 

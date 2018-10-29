@@ -6,3 +6,7 @@ mat-list {
 table {
     width: 100%;
   }
+
+  .filterSeach{
+      margin-bottom:20px
+  }

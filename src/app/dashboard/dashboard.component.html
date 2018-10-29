@@ -39,12 +39,17 @@
 <div class="row">
       <mat-tab-group>
           <mat-tab label="List by status">
-           <div>
-             <h4>Filter by status</h4>
+          
+          <!--
+ <div>
+            <h4>Filter by status</h4>
              <mat-radio-group (change)="statusChange($event)">
                 <mat-radio-button [value]="aStatus.StatusDesc"  *ngFor="let aStatus of statusService.statusList">{{aStatus.StatusDesc}}</mat-radio-button>     
               </mat-radio-group>
            </div>
+
+          -->
+           
              
              
              
@@ -52,12 +57,17 @@
             </mat-tab>
           
             <mat-tab label="List by categories">
-              <div>
+            
+            <!--
+<div>
                 <h4>Filter by categories</h4>
                 <mat-radio-group (change)="categoryChange($event)">
                     <mat-radio-button [value]="aCategory.CategoryDesc"  *ngFor="let aCategory of categoryService.categoryList">{{aCategory.CategoryDesc}}</mat-radio-button>     
                   </mat-radio-group>
               </div>
+
+            -->
+              
                 
 
               <app-ticket-list [filteredType]="catType" [filteredProperty]="defaultCatproperty"></app-ticket-list>     
@@ -66,6 +76,7 @@
 
 
             <mat-tab label="List by Technicians">
+              
                 <mat-form-field>
                     <input matInput [(ngModel)]="userInput" placeholder="Search by Name" type="text">
                 </mat-form-field>

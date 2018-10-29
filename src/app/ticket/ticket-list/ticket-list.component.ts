@@ -121,15 +121,10 @@ export class TicketListComponent implements OnInit,DoCheck {
   }
 
   onEdit(row){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "60%";
-    dialogConfig.data = {
-      data: {
-        ticketId: row
-      }
-    }
-    this.dialog.open(TicketDetailComponent,dialogConfig);
+    const dialogRef = this.dialog.open(TicketDetailComponent, {
+       width: '60%',
+       data:{id:row}
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -35,9 +35,9 @@ export class TicketDetailComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log(this.data.ticketId);
+    console.log(this.data.id);
     //get the  route parameter
-     this.ticketService.getTicket(this.data.ticketId);
+     this.ticketService.getTicket(this.data.id);
    
     this.route.params
     .subscribe(

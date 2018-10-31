@@ -7,7 +7,7 @@
     *ngFor="let status of service.statusList"
     [class.selected]="status.StatusId === selectedId">
     
-    <a [routerLink]="['/admincenter/props',{outlets:{stat:'status/' + status.StatusId}}]">
+    <a [routerLink]="['/admin/props',{outlets:{stat:'status/' + status.StatusId}}]">
       {{ status.StatusDesc}}
       </a>
     </mat-list-item>

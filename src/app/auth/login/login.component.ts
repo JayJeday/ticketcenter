@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { User } from '../core/models/user.model';
+import { User } from '../../core/models/user.model';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
-import { UsersService } from '../core/services/users.service';
+import { UsersService } from '../../core/services/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material/dialog';
-import { AuthenticationService } from '../core/services/authentication.service';
+import { AuthenticationService } from '../../core/services/authentication.service';
 import { first } from 'rxjs/operators';
 
 
@@ -74,7 +74,7 @@ login(){
 
           localStorage.setItem('currentUser', JSON.stringify(this.loggedUser));
           
-          console.log(this.loggedUser);
+          console.log("logged user" + this.loggedUser);
           this.success = true;
           this.loading  = false;
           this.dialogRef.close();
@@ -84,11 +84,11 @@ login(){
           //if user has role and client id empty 
       if(this.loggedUser.RoleId === 2 && this.loggedUser.ClientId == ""){
          //go to dashboard page
-         this.router.navigateByUrl('/dashboard');
+         this.router.navigateByUrl('dashboard');
       }
       else if(this.loggedUser.RoleId === 1 && this.loggedUser.ClientId == ""){
       //go to technician page
-          this.router.navigate(['tech', this.loggedUser.techId]);
+          this.router.navigate(['technician', this.loggedUser.techId]);
         }else if(this.loggedUser.aRoleId == ""){
       //user does not have a role then go to add tickets
         this.router.navigateByUrl('/addTicket');

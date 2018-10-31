@@ -67,9 +67,6 @@ export class TechnicianComponent implements OnInit {
 
     }
 
-    
-
-
     radioChange($event: MatRadioChange) {
       console.log($event.source.name, $event.value);
       

@@ -1,8 +1,9 @@
 import { Component, OnInit, Input,Inject } from '@angular/core';
-import { AuthenticationService } from '../core/services/authentication.service';
+import { AuthenticationService } from '../../../core/services/authentication.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { User } from '../core/models/user.model';
-import { LoginComponent } from '../login/login.component';
+import { User } from '../../../core/models/user.model';
+import { LoginComponent } from '../../../auth/login/login.component';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

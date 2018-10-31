@@ -3,7 +3,7 @@ import { User } from 'src/app/core/models/user.model';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from 'src/app/core/services/users.service';
 import { MatSort, MatDialog, MatTableDataSource } from '@angular/material';
-import { UserDetailComponent } from '../user-detail/user-detail.component';
+import { UserDetailComponent } from '../../details/user-detail/user-detail.component';
 
 
 @Component({

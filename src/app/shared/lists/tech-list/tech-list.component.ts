@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { UsersService } from 'src/app/core/services/users.service';
 import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
-import { TechCatComponent } from '../../manage-tech/tech-cat/tech-cat.component';
+import { TechCatComponent } from '../../../admin/manage-tech/tech-cat/tech-cat.component';
 import { User } from 'src/app/core/models/user.model';
 import { CategoriesService } from 'src/app/core/services/categories.service';
 

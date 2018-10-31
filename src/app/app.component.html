@@ -18,13 +18,13 @@
           
           <li *ngIf="currentUser.aRoleId === '2'" role="presentation"
             routerLinkActive="active">
-            <a [routerLink]="['dashboard']">Dashboard</a>
+            <a [routerLink]="['/dashboard']">Dashboard</a>
           </li>
 
 
           <li *ngIf="currentUser.aRoleId === '2'"  role="presentation"
               routerLinkActive="active">
-            <a [routerLink]="['admincenter']">Admin Center</a>
+            <a [routerLink]="['/admin']">Admin Center</a>
           </li>
 
         </ul>

@@ -1,16 +1,13 @@
 import { Component, OnInit, Input, DoCheck, IterableDiffers, SimpleChanges, ViewChild } from '@angular/core';
-import {Ticket} from  '../../core/models/ticket.model';
+import {Ticket} from  '../../../core/models/ticket.model';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import {TicketService} from '../../core/services/ticket.service'
-import { Subscription } from 'rxjs/Subscription';
-import { CategoriesService } from 'src/app/core/services/categories.service';
-import { Summary } from 'src/app/dashboard/summary.model';
+import {TicketService} from '../../../core/services/ticket.service';
 import { PageEvent } from '@angular/material/paginator';
 import { User } from 'src/app/core/models/user.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { TicketDetailComponent } from '../ticket-detail/ticket-detail.component';
+import { TicketDetailComponent } from '../../../shared/details/ticket-detail/ticket-detail.component';
 
 
 @Component({

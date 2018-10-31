@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UsersService } from '../core/services/users.service';
-import { AuthenticationService } from '../core/services/authentication.service';
+import { UsersService } from '../../core/services/users.service';
+import { AuthenticationService } from '../../core/services/authentication.service';
 import { first } from 'rxjs/operators';
-import { User } from '../core/models/user.model';
+import { User } from '../../core/models/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -79,7 +79,7 @@ this.authenticationService.login(this.f.Email.value,this.f.Password.value)
       this.userService.userLoggedIn.next(true);
 
     
-      this.router.navigateByUrl('/addTicket');
+      this.router.navigateByUrl('/ticket');
 
     },
     error => {

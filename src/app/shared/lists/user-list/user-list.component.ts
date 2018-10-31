@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { User } from 'src/app/core/models/user.model';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from 'src/app/core/services/users.service';
-import { MatSort, MatDialog, MatTableDataSource } from '@angular/material';
+import { MatSort, MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
 import { UserDetailComponent } from '../../details/user-detail/user-detail.component';
 
 
@@ -18,6 +18,8 @@ export class UserListComponent implements OnInit {
 
   users:User[] = [];
   toogle:boolean = true;
+
+  pageEvent: PageEvent;
 
   displayedColumns: string[] = ['Id', 'FirstName', 'LastName','Role', 
   'CreatedDate','actions'];
@@ -63,7 +65,9 @@ export class UserListComponent implements OnInit {
     });
   }
 
-
+  handlePage($event){
+    
+  }
   onTicketRoleFilter(){
     //toggle
     if(this.toogle){

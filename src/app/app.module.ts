@@ -30,6 +30,7 @@ import { AppMaterialModule } from './app-material/app-material.module';
 import { AuthModule } from './auth/auth.module';
 import { TechnicianModule } from './technician/technician.module';
 import { TicketModule } from './ticket/ticket.module';
+import { ChatModule } from './chat/chat.module';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { TicketModule } from './ticket/ticket.module';
     AppMaterialModule,
     AuthModule,
     TechnicianModule,
-    TicketModule
+    TicketModule,
+    ChatModule
   ],
   providers: [
   ],

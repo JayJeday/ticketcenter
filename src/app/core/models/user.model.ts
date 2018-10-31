@@ -25,5 +25,5 @@ export class User {
     aEmpId:number;
    
     UserId:number;
-
+    TotalCount:number;
 }

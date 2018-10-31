@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core";
 import {Routes, RouterModule, PreloadAllModules} from "@angular/router";
+
+
 const routes: Routes = [
   
     {
@@ -22,7 +24,10 @@ const routes: Routes = [
       path: 'ticket',
       loadChildren: './ticket/ticket.module#TicketModule'
     },
-   
+   {
+      path:'chat',
+      loadChildren:'./chat/chat.module#ChatModule'
+   },
     {
       path: '',
       redirectTo: 'home',

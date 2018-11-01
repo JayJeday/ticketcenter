@@ -66,12 +66,15 @@
                           <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(this.userData!=null && this.userData.length==0)}"></mat-footer-row>
                         </mat-table>
                       
-        
-                        <mat-paginator #paginator 
+        <!--
+ <mat-paginator #paginator 
                      [length]="this.users[0]?.TotalCount" 
                       [pageSize]="5" 
                        (page)="pageEvent = handlePage($event)">
                     </mat-paginator> 
+        -->
+                       
+
                       </div>
         
 

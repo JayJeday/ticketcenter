@@ -141,8 +141,6 @@ this.ticketService.ticketChanged.subscribe((changed)=>{
 
     });
 
-
-
     this.ticketService.getTickets(this.pageIndex,5).subscribe((data)=>{
       this.tickets = data;
       this.ticketData = new MatTableDataSource(this.tickets);

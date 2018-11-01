@@ -83,7 +83,7 @@
                 <mat-paginator #paginator 
              [length]="this.tickets[0]?.TotalCount" 
               [pageSize]="5" 
-               (page)="pageEvent = handlePage($event)">
+               (page)="handlePage($event)">
             </mat-paginator> 
               </div>
 

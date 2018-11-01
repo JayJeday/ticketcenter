@@ -2,7 +2,8 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { User } from 'src/app/core/models/user.model';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from 'src/app/core/services/users.service';
-import { MatSort, MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
+import { MatSort, MatDialog, MatTableDataSource } from '@angular/material';
+import { PageEvent } from '@angular/material/paginator';
 import { UserDetailComponent } from '../../details/user-detail/user-detail.component';
 
 

@@ -1,23 +1,26 @@
-<button mat-fab (click)="onClickUserInfo()">
-  <mat-icon>person</mat-icon>
-</button>
 <div class="chat-container">
   <mat-card class="main-card">
     <mat-list class="chat-list">
+    
       <mat-list-item *ngFor="let message of messages" [ngClass]="[(message.action === undefined && message.from.id === user.id)? 'chat-list-item': '']">
         <img mat-list-avatar *ngIf="message.action === undefined" [src]="message.from.avatar">
+        
         <h4 mat-line *ngIf="message.action === undefined">
-          <b>{{message.from.name}}</b>
+          <b>{{message.from.FirstName}} {{message.from.LastName}}</b>
         </h4>
+
         <p mat-line *ngIf="message.action === undefined">
           <span> {{message.content}} </span>
         </p>
+
         <p mat-line *ngIf="message.action === action.JOINED" class="chat-notification">
-          <span> <b>{{message.from.name}}</b> joined to the conversation. </span>
+          <span> <b>{{message.from.FirstName}} {{message.from.LastName}}</b> joined to the conversation. </span>
         </p>
-        <p mat-line *ngIf="message.action === action.RENAME" class="chat-notification">
-          <span> <b>{{message.content.previousUsername}}</b> is now <b>{{message.content.username}}</b> </span>
+
+        <p mat-line *ngIf="message.action === action.TECH" class="chat-notification">
+          <span>Wainting on technician.</span>
         </p>
+
       </mat-list-item>
     </mat-list>
     <div class="chat-footer-container">

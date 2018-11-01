@@ -21,7 +21,7 @@ export class StatusdetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private statusService:StatusService
+    public statusService:StatusService
 
   ) { }
 

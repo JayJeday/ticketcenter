@@ -29,9 +29,9 @@ export class UserDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private usersService:UsersService,
-    private roleService: RolesService,
-    private categoryService:CategoriesService,
+    public usersService:UsersService,
+    public roleService: RolesService,
+    public categoryService:CategoriesService,
     private fb:FormBuilder,
     public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<UserDetailComponent>,

@@ -24,9 +24,9 @@ export class CreateuserComponent implements OnInit {
   selectedValue:string;
 
   constructor(private userService:UsersService,
-      private categoryService:CategoriesService,
-      private statusService:StatusService,
-      private roleService:RolesService
+      public categoryService:CategoriesService,
+      public statusService:StatusService,
+      public roleService:RolesService
     ) { }
 
   ngOnInit() {

@@ -22,8 +22,8 @@ export class TechCatComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private usersService:UsersService,
-    private categoryService:CategoriesService,
+    public usersService:UsersService,
+    public categoryService:CategoriesService,
     private fb:FormBuilder,
     public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<TechCatComponent>,
@@ -44,7 +44,9 @@ export class TechCatComponent implements OnInit {
 
     this.user = new User();
     this.user.UserId = this.usersService.user.UserId;
-        
+    
+    //verify if this work
+    this.user.InChat = this.usersService.user.InChat;
     this.user.CategoryId = form.value.CategoryId;
   
     console.log(JSON.stringify(this.user));

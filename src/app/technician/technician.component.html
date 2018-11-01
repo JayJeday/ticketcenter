@@ -3,11 +3,25 @@
    <h2 class="text-center">Welcome {{techName}}</h2> 
   </div>
   
-  <!-- this should be a notification component-->
-  <mat-card *ngIf="false" class="col-md-6">
-        You have new tickets assigned
-  </mat-card>
 </div>
+<!-- Animation slide -->
+<div class="row" *ngIf="notify">
+    <mat-list class="chat-notification col-md-4 col-offset-4">
+     <a
+            style="cursor: pointer;"
+            [routerLink]="['/chat']"
+            class="list-group-item clearfix">
+          
+            <mat-list-item>
+                    <p mat-line class="chat-notification">
+                            <span> <b>Test client</b> is waiting in the chat.</span>
+                    </p>
+            </mat-list-item>
+    
+     </a>
+        </mat-list>
+</div>
+
 
 <!--
 div class="row">

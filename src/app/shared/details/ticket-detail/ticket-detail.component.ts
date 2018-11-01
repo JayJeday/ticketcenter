@@ -26,8 +26,8 @@ export class TicketDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router,  
-    private ticketService:TicketService,
-    private statusService:StatusService,
+    public ticketService:TicketService,
+    public statusService:StatusService,
     public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<TicketDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any

@@ -18,7 +18,7 @@
 
 .chat-list {
     overflow: auto;
-    position: fixed;
+    position:   absolute;
     top: 90px;
     left: 25px;
     right: 25px;

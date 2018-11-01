@@ -15,7 +15,7 @@ export class CategorylistComponent implements OnInit {
 
   loading = false;
 
-  constructor(private categoryService:CategoriesService,
+  constructor(public categoryService:CategoriesService,
     private route: ActivatedRoute
     ) { }
 

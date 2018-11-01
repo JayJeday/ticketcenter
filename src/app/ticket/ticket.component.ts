@@ -5,6 +5,7 @@ import { Category } from 'src/app/core/models/category.model';
 import { Ticket } from 'src/app/core/models/ticket.model';
 import { TicketService } from 'src/app/core/services/ticket.service';
 import { User } from 'src/app/core/models/user.model';
+import { UsersService } from '../core/services/users.service';
 
 
 @Component({
@@ -19,6 +20,10 @@ export class TicketComponent implements OnInit {
   //ticket to send to server
   ticket:Ticket
   
+  users:User[] = [];
+
+  tech:User;
+
   success:boolean;
 
   loading = false;
@@ -26,12 +31,17 @@ export class TicketComponent implements OnInit {
   client:User;
 
   //call categories services here.loaded from the database
-  constructor(private categoryService:CategoriesService,
-    private ticketService:TicketService) {}
+  constructor(public categoryService:CategoriesService,
+    public ticketService:TicketService,
+    public userService:UsersService
+    ) {}
 
   ngOnInit() {
     //fill the category list 
       this.categoryService.getCategories();
+      this.userService.getTechs().subscribe((data:any)=> {
+        this.users = data;
+      });
 
       //console.log(this.categoryService.getCategories);
 
@@ -39,6 +49,8 @@ export class TicketComponent implements OnInit {
           'categoryid': new FormControl('', [Validators.required]),
           'description': new FormControl(null, [Validators.required])
         });
+
+         this.client = JSON.parse(localStorage.getItem('currentUser'));
   }
   
 
@@ -47,9 +59,6 @@ export class TicketComponent implements OnInit {
 
   onAddTicket(){
     this.loading = true;
-
-    //get user id from local storage
-    this.client = JSON.parse(localStorage.getItem('currentUser'));
 
     this.ticket = new Ticket();
     this.ticket.ClientId = Number(this.client.ClientId);
@@ -65,8 +74,48 @@ export class TicketComponent implements OnInit {
 
     });
 
-    
     this.loading = false;
   }
 
+    onManageTicketToChat(){
+    //get the ticket 
+      this.ticketService.getTicketByClientId(Number(this.client.ClientId))
+      .subscribe((data:Ticket[])=> {
+
+        //return user
+        let t  = this.selectTechAndUpdateTickets(data[0]);
+       
+        //update ticket with the user id => tech id
+        this.ticketService.updateTicket(t).subscribe((data:any)=>{
+          
+        });
+
+
+      });
+
+    }
+
+    private selectTechAndUpdateTickets(ticket:Ticket){
+      
+      //get the ticket category
+      this.users.forEach((u:User)=>{
+
+        if(u.CategoryDesc === ticket.CategoryDesc && u.InChat === false){
+        //get the user if is not in chat and have that category
+          console.log('here');
+           this.tech = u;
+
+        }else if(u.InChat === false){
+          //get this user because all the tech are in chat 
+          this.tech = u;
+          console.log('there');
+        }
+
+      });
+
+      //update the tickets
+      ticket.TechId = this.tech.id;
+      
+      return ticket;
+    }
 }

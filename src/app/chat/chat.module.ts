@@ -7,6 +7,7 @@ import { AppMaterialModule } from '../app-material/app-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SocketService } from './shared/services/socket.service';
 import { DialogUserComponent } from './dialog-user/dialog-user.component';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   imports: [

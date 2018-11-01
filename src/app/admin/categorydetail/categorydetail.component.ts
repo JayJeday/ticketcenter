@@ -19,7 +19,7 @@ export class CategorydetailComponent implements OnInit {
 
   constructor( private route: ActivatedRoute,
     private router: Router,
-    private categoryService:CategoriesService
+    public categoryService:CategoriesService
     ) { }
 
   ngOnInit() {

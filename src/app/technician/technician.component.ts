@@ -4,6 +4,7 @@ import { TicketService } from 'src/app/core/services/ticket.service';
 import { StatusService } from '../core/services/status.service';
 import { MatRadioChange } from '@angular/material/radio';
 import { User } from '../core/models/user.model';
+import { SocketService } from '../chat/shared/services/socket.service';
 
 
 @Component({
@@ -18,9 +19,15 @@ export class TechnicianComponent implements OnInit {
   id:number;
   userTickets = 'byUser';
 
-  constructor(private route: ActivatedRoute,private router: Router, 
+  ioConnection: any;
+
+  notify = false;
+
+  constructor(private route: ActivatedRoute,
+    private router: Router, 
      private ticketService:TicketService,
-     private statusService:StatusService
+     private statusService:StatusService,
+     private socketService: SocketService
      ) { }
 
   type:string;
@@ -51,7 +58,25 @@ export class TechnicianComponent implements OnInit {
 
    this.tech = JSON.parse(localStorage.getItem('currentUser'));
    this.techName = this.tech.FirstName + " " + this.tech.LastName;
+
+    //implement IOServer here 
+    this.initIoConnection();
   }
+
+ //establish connection capture events
+ private initIoConnection(): void {
+   //initialize the socket
+  this.socketService.initSocket();
+
+  //recive message
+  this.ioConnection = this.socketService.onNotifyTech()
+    .subscribe((notify: boolean) => {
+      this.notify = notify;
+      console.log(this.notify);
+    });
+
+}
+
 
 
  setSearch(value){

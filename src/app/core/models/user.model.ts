@@ -1,7 +1,7 @@
 export class User {
-    id:number;
-    FirstName:string;
-    LastName:string;
+    id?:number;
+    FirstName?:string;
+    LastName?:string;
     Password:string;
     Email:string;
     isActivate:boolean;
@@ -14,8 +14,10 @@ export class User {
     RegisterDate:string;
     AdminId:number;
     CreatedDate:string
-    
+    InChat?:boolean;
 
+
+    avatar?: string;
     //token info
     aRoleId:string;
     access_token:string;

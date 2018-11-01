@@ -63,8 +63,12 @@ getTickets(pageIndex:number,pageSize:number){
         (data : Response) =>{  return data.json() as Ticket[] });
   }
 
-
-
+  //get ticket by client id to chat 
+  getTicketByClientId(id:number){
+    return this.http.get("http://localhost:2175/api/user/ticket/client?id=" + id)
+    .map(
+      (data : Response) =>{  return data.json() as Ticket[] });
+  }
 
   addTicket(ticket:Ticket){
     var body = JSON.stringify(ticket);

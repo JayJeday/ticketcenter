@@ -22,7 +22,7 @@ export class StatuslistComponent implements OnInit {
 
 
 
-  constructor(private service:StatusService,
+  constructor(public service:StatusService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {

@@ -2,15 +2,16 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, ViewChildren, 
 
 
 
-import { MatDialogRef, MatList, MatListItem, MatDialog } from '@angular/material';
+import { MatList, MatListItem, MatDialog } from '@angular/material';
 
 import { SocketService } from '../shared/services/socket.service';
 import { Action } from '../shared/models/action';
-import { User } from '../shared/models/user.model';
+
+import { User } from '../../core/models/user.model';
+
 import {Event} from '../shared/models/event';
 import { Message } from '../shared/models/message.model';
-import { DialogUserType } from '../dialog-user/dialog-user';
-import { DialogUserComponent } from '../dialog-user/dialog-user.component';
+import { UsersService } from 'src/app/core/services/users.service';
 
 const AVATAR_URL = 'https://api.adorable.io/avatars/285';
 
@@ -20,24 +21,16 @@ const AVATAR_URL = 'https://api.adorable.io/avatars/285';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit, AfterViewInit {
-  
+  //join, left, rename
   action = Action;
   
-  user: User;
+  currentUser: User;
+  user:User;
+
   messages: Message[] = [];
   messageContent: string;
 
   ioConnection: any;
-
-  dialogRef: MatDialogRef<DialogUserComponent> | null;
-
-  defaultDialogUserParams: any = {
-    disableClose: true,
-    data: {
-      title: 'Welcome',
-      dialogType: DialogUserType.NEW
-    }
-  };
 
   // getting a reference to the overall list, which is the parent container of the list items
   @ViewChild(MatList, { read: ElementRef }) matList: ElementRef;
@@ -46,14 +39,31 @@ export class ChatComponent implements OnInit, AfterViewInit {
   @ViewChildren(MatListItem, { read: ElementRef }) matListItems: QueryList<MatListItem>;
 
   constructor(private socketService: SocketService,
+    private userService:UsersService,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
+    //TODO::send the specific technician event that the client is in the room
+
+
+    //set the current user from the token data
     this.initModel();
+    
     // Using timeout due to https://github.com/angular/angular/issues/14748
     setTimeout(() => {
-      this.openUserPopup(this.defaultDialogUserParams);
+
+      this.sendNotification('user',Action.JOINED);
+      
+      //user is not a tech
+      if(!this.currentUser.RoleId){
+        //send notification to tech that a clients is waitng **Tech service
+        this.socketService.notify(true);
+      }
+
     }, 0);
+
+    this.initIoConnection();
   }
 
   ngAfterViewInit(): void {
@@ -72,17 +82,25 @@ export class ChatComponent implements OnInit, AfterViewInit {
     }
   }
 
+  //pass model to chat
   private initModel(): void {
     const randomId = this.getRandomId();
-    this.user = {
-      id: randomId,
-      avatar: `${AVATAR_URL}/${randomId}.png`
-    };
+   //set the user
+  this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  
+    this.user = new User();
+    this.user.id = this.currentUser.id;
+    this.user.FirstName = this.currentUser.FirstName;
+    this.user.LastName = this.currentUser.LastName;  
+    this.user.avatar = `${AVATAR_URL}/${randomId}.png`;
+
   }
 
+  //establish connection capture events
   private initIoConnection(): void {
     this.socketService.initSocket();
 
+    //recive message
     this.ioConnection = this.socketService.onMessage()
       .subscribe((message: Message) => {
         this.messages.push(message);
@@ -104,33 +122,16 @@ export class ChatComponent implements OnInit, AfterViewInit {
     return Math.floor(Math.random() * (1000000)) + 1;
   }
 
+  //to display user info only for technician
   public onClickUserInfo() {
-    this.openUserPopup({
-      data: {
-        username: this.user.name,
-        title: 'Edit Details',
-        dialogType: DialogUserType.EDIT
-      }
-    });
+
   }
 
   private openUserPopup(params): void {
-    this.dialogRef = this.dialog.open(DialogUserComponent, params);
-    this.dialogRef.afterClosed().subscribe(paramsDialog => {
-      if (!paramsDialog) {
-        return;
-      }
 
-      this.user.name = paramsDialog.username;
-      if (paramsDialog.dialogType === DialogUserType.NEW) {
-        this.initIoConnection();
-        this.sendNotification(paramsDialog, Action.JOINED);
-      } else if (paramsDialog.dialogType === DialogUserType.EDIT) {
-        this.sendNotification(paramsDialog, Action.RENAME);
-      }
-    });
   }
 
+  //user send message 
   public sendMessage(message: string): void {
     if (!message) {
       return;
@@ -140,9 +141,11 @@ export class ChatComponent implements OnInit, AfterViewInit {
       from: this.user,
       content: message
     });
+
     this.messageContent = null;
   }
 
+  //Send notification to the room when user do a specific action 
   public sendNotification(params: any, action: Action): void {
     let message: Message;
 
@@ -151,16 +154,19 @@ export class ChatComponent implements OnInit, AfterViewInit {
         from: this.user,
         action: action
       }
-    } else if (action === Action.RENAME) {
+    } else if (action === Action.LEFT) {
       message = {
-        action: action,
-        content: {
-          username: this.user.name,
-          previousUsername: params.previousUsername
-        }
-      };
+        from: this.user,
+        action: action, 
+      }
+    } else if(action === Action.TECH){
+      message = {
+        from: this.user,
+        action: action
+      }
     }
-
+    //the message that emit
     this.socketService.send(message);
   }
+
 }

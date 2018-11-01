@@ -17,8 +17,13 @@ export class UsersService {
 
   roleChanged = new Subject();
 
+
   loggedUser = new User();
   userLoggedIn = new Subject();
+
+
+  //client is waiting to chat
+  
 
   constructor(private http:Http) { }
 

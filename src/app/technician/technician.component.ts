@@ -5,6 +5,7 @@ import { StatusService } from '../core/services/status.service';
 import { MatRadioChange } from '@angular/material/radio';
 import { User } from '../core/models/user.model';
 import { SocketService } from '../chat/shared/services/socket.service';
+import { Notify } from '../chat/shared/models/notify.model';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class TechnicianComponent implements OnInit {
 
   ioConnection: any;
 
-  notify = false;
+  notify:Notify;
+  showNotification:boolean;
 
   constructor(private route: ActivatedRoute,
     private router: Router, 
@@ -55,8 +57,9 @@ export class TechnicianComponent implements OnInit {
     );
     this.statusService.getStatus();
 
-
+      //current tech
    this.tech = JSON.parse(localStorage.getItem('currentUser'));
+
    this.techName = this.tech.FirstName + " " + this.tech.LastName;
 
     //implement IOServer here 
@@ -70,14 +73,16 @@ export class TechnicianComponent implements OnInit {
 
   //recive message
   this.ioConnection = this.socketService.onNotifyTech()
-    .subscribe((notify: boolean) => {
+    .subscribe((notify: Notify) => {
       this.notify = notify;
-      console.log(this.notify);
+       if(this.tech.techId === this.notify.techId && notify.isNotify){
+        //show notification
+         this.showNotification = true;
+       }
+
     });
 
 }
-
-
 
  setSearch(value){
     if(value === 'selectAll'){
@@ -86,8 +91,7 @@ export class TechnicianComponent implements OnInit {
       console.log(this.type);
     }else{
        this.property = value;
-
-       
+             
     } 
 
     }

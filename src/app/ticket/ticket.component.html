@@ -28,8 +28,8 @@
 
 
 <div *ngIf="success">
-  <h4>Ticket has been submitted. We will contact you by email
-   for the next steps.To chat with a member <a [routerLink]="['/chat']" (click)="onManageTicketToChat()">click here</a>.Thank you.</h4>
+  <h4>Ticket has been submitted. We will contact you by email 
+   for the next steps.To chat with a member <a (click)="onManageTicketToChat()">click here</a>.Thank you.</h4>
 </div>
 
 <mat-spinner *ngIf="loading"></mat-spinner>

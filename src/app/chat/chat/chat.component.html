@@ -17,12 +17,13 @@
           <span> <b>{{message.from.FirstName}} {{message.from.LastName}}</b> joined to the conversation. </span>
         </p>
 
-        <p mat-line *ngIf="message.action === action.TECH" class="chat-notification">
-          <span>Wainting on technician.</span>
+        <p mat-line *ngIf="message.action === action.LEFT" class="chat-notification">
+          <span> <b>{{message.from.FirstName}} {{message.from.LastName}}</b> left the conversation.</span>
         </p>
-
       </mat-list-item>
+    
     </mat-list>
+    
     <div class="chat-footer-container">
       <mat-icon>message</mat-icon>
       <mat-form-field class="chat-input">

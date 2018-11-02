@@ -12,6 +12,7 @@ import { User } from '../../core/models/user.model';
 import {Event} from '../shared/models/event';
 import { Message } from '../shared/models/message.model';
 import { UsersService } from 'src/app/core/services/users.service';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 
 const AVATAR_URL = 'https://api.adorable.io/avatars/285';
 
@@ -27,10 +28,19 @@ export class ChatComponent implements OnInit, AfterViewInit {
   currentUser: User;
   user:User;
 
+  tech:User;
+
   messages: Message[] = [];
   messageContent: string;
 
   ioConnection: any;
+
+  //tech id to notify the technician
+  techId:number;
+
+  //generate random room
+   room:string;
+
 
   // getting a reference to the overall list, which is the parent container of the list items
   @ViewChild(MatList, { read: ElementRef }) matList: ElementRef;
@@ -40,15 +50,26 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   constructor(private socketService: SocketService,
     private userService:UsersService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
 
     //TODO::send the specific technician event that the client is in the room
-
+    this.route.params
+    .subscribe(
+      (params: Params) => {
+        //verify this
+        this.techId = +params['id'];
+        
+      }
+    );
 
     //set the current user from the token data
     this.initModel();
+
     
     // Using timeout due to https://github.com/angular/angular/issues/14748
     setTimeout(() => {
@@ -57,13 +78,28 @@ export class ChatComponent implements OnInit, AfterViewInit {
       
       //user is not a tech
       if(!this.currentUser.RoleId){
-        //send notification to tech that a clients is waitng **Tech service
-        this.socketService.notify(true);
+        //***** */send notification to tech that a clients is waitng *******Tech service
+        this.socketService.notify({isNotify:true,techId:this.techId});
+        console.log("notified");
+      }else{
+        //update the technician that the tech is in chat
+        this.tech = new User();
+        this.tech.UserId = this.currentUser.id;
+        //verify if this work
+        this.tech.InChat = true;
+        
+        //update tech
+        this.userService.updateTechCat(this.tech).subscribe((data)=>{
+            console.log(data);
+        });
+
       }
 
     }, 0);
 
     this.initIoConnection();
+    //init room
+    this.initRoom();
   }
 
   ngAfterViewInit(): void {
@@ -85,7 +121,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
   //pass model to chat
   private initModel(): void {
     const randomId = this.getRandomId();
-   //set the user
+   
+  //set the user
   this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   
     this.user = new User();
@@ -94,6 +131,11 @@ export class ChatComponent implements OnInit, AfterViewInit {
     this.user.LastName = this.currentUser.LastName;  
     this.user.avatar = `${AVATAR_URL}/${randomId}.png`;
 
+  }
+   //init room to server
+  private initRoom():void{
+    this.room = "room" + this.getRandomRoomNumber();
+    this.socketService.createRoom(this.room);
   }
 
   //establish connection capture events
@@ -118,16 +160,17 @@ export class ChatComponent implements OnInit, AfterViewInit {
       });
   }
 
+
   private getRandomId(): number {
+    return Math.floor(Math.random() * (1000000)) + 1;
+  }
+
+  private getRandomRoomNumber(): number {
     return Math.floor(Math.random() * (1000000)) + 1;
   }
 
   //to display user info only for technician
   public onClickUserInfo() {
-
-  }
-
-  private openUserPopup(params): void {
 
   }
 
@@ -167,6 +210,23 @@ export class ChatComponent implements OnInit, AfterViewInit {
     }
     //the message that emit
     this.socketService.send(message);
+  }
+
+  public ngOnDestroy() {
+    //send message that  left
+    this.sendNotification('user',Action.LEFT);
+
+    this.socketService.disconnect();
+  //if current user is tech updated in chat because is 0
+    if(this.currentUser.RoleId){
+      this.tech.InChat = false;
+      //update tech
+      this.userService.updateTechCat(this.tech).subscribe((data)=>{
+        console.log(data);
+    });
+    }
+
+    
   }
 
 }

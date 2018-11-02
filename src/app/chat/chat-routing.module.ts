@@ -4,7 +4,10 @@ import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
 
-  {path:'',component:ChatComponent}
+  //path for technician
+  {path:'',component:ChatComponent},
+  //alternative path for clients
+  {path:':id',component:ChatComponent}
 ];
 
 @NgModule({

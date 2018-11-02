@@ -6,6 +6,7 @@ import { Ticket } from 'src/app/core/models/ticket.model';
 import { TicketService } from 'src/app/core/services/ticket.service';
 import { User } from 'src/app/core/models/user.model';
 import { UsersService } from '../core/services/users.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -30,10 +31,15 @@ export class TicketComponent implements OnInit {
 
   client:User;
 
+  //techId to be passed from to be notify it.
+  techId:number;
+
+
   //call categories services here.loaded from the database
   constructor(public categoryService:CategoriesService,
     public ticketService:TicketService,
-    public userService:UsersService
+    public userService:UsersService,
+    private router: Router,
     ) {}
 
   ngOnInit() {
@@ -87,9 +93,12 @@ export class TicketComponent implements OnInit {
        
         //update ticket with the user id => tech id
         this.ticketService.updateTicket(t).subscribe((data:any)=>{
-          
-        });
 
+          console.log(data);
+
+        });
+        //pass the tech Id to chat. clear history
+        this.router.navigate(['/chat', this.techId],{replaceUrl: true});
 
       });
 
@@ -102,13 +111,12 @@ export class TicketComponent implements OnInit {
 
         if(u.CategoryDesc === ticket.CategoryDesc && u.InChat === false){
         //get the user if is not in chat and have that category
-          console.log('here');
            this.tech = u;
 
         }else if(u.InChat === false){
           //get this user because all the tech are in chat 
           this.tech = u;
-          console.log('there');
+         
         }
 
       });
@@ -116,6 +124,10 @@ export class TicketComponent implements OnInit {
       //update the tickets
       ticket.TechId = this.tech.id;
       
+      //receive the id of the technician 
+      this.techId = this.tech.id;
+
+
       return ticket;
     }
 }

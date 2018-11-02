@@ -45,8 +45,6 @@ export class TechCatComponent implements OnInit {
     this.user = new User();
     this.user.UserId = this.usersService.user.UserId;
     
-    //verify if this work
-    this.user.InChat = this.usersService.user.InChat;
     this.user.CategoryId = form.value.CategoryId;
   
     console.log(JSON.stringify(this.user));

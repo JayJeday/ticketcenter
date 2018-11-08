@@ -9,6 +9,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './Interceptors/error.interceptor';
 import { JwtInterceptor } from './Interceptors/jwt.Interceptor';
+import { ApiService } from './services/api.service';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { JwtInterceptor } from './Interceptors/jwt.Interceptor';
     TicketService,
     UsersService,
     CategoriesService,
-    AuthenticationService
+    AuthenticationService,
+    ApiService
   ],
   declarations: []
 })

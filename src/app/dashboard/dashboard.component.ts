@@ -6,6 +6,9 @@ import { CategoriesService } from '../core/services/categories.service';
 import { StatusService } from '../core/services/status.service';
 import { MatRadioChange } from '@angular/material/radio';
 import { BaseChartDirective } from 'ng2-charts';
+import { forkJoin } from 'rxjs';
+import { Category } from '../core/models/category.model';
+import { Status } from '../core/models/status.model';
 
 
 @Component({
@@ -54,6 +57,12 @@ categoryNameData:string[] = [];
 statusNameData:string[] = [];
 
 
+//fork join stuff 
+categoryList:Category[] = [];
+statusList:Status[];
+categorySummary:Summary[];
+statusSummary:Summary[];
+
   //for status => 
   public doughnutChartLabels:string[];
   public doughnutChartStatusData:number[];
@@ -61,7 +70,6 @@ statusNameData:string[] = [];
   public doughnutChartCategoryData:number[];
   public doughnutChartType:string = 'doughnut';
  
-
   //for categories
   public doughnutChartLabels2:string[];
 
@@ -95,52 +103,67 @@ statusNameData:string[] = [];
 
 
   ngOnInit() {
-    
-    //call summary data
-    this.categoryService.getCategoriesSummary();
-    this.statusService.getStatusSummary();
-    this.categoryService.getCategories();
-    this.statusService.getStatus();
 
-    console.log(this.categoryService.categorySummaryList);
-    console.log(this.statusService.statusSummaryList);
+    //************** multiple sequential request **************
+    /*
+    this.homeworld = this.http.get('/api/people/1').pipe(
+      mergeMap(character => this.http.get(character.homeworld))
+    );
 
-    //create observable when list changes to this
-    this.categoryService.categorySummaryList.forEach((s:Summary)=> {
-      this.categoryData.push(s.categoriesNumber);
-      this.categoryNameData.push(s.CategoryDesc);
+ forkJoin([categorySummary,statusSummary]).subscribe(results =>{
+      this.categoryPerformSummay(results[0]);
+      this.statusPerformSummary(results[1]);
     });
 
-    //iterate over status list
- this.statusService.statusSummaryList.forEach((s:Summary)=> {
- this.statusData.push(s.statusNumber);
- this.statusNameData.push(s.StatusDesc);
-});
+    */
 
-    //set graphic categories to chart 
+      this.categoryService.getCategoriesSummary().toPromise().then(data =>{
+           this.categoryPerformSummay(data);
+          });
+
+      this.statusService.getStatusSummary().toPromise().then(data =>{
+        this.statusPerformSummary(data);
+        //set graphic status to chart 
+      });
+
+   this.doughnutChartLabels2 = this.categoryNameData;
     this.doughnutChartCategoryData = this.categoryData;
-    this.doughnutChartLabels2 = this.categoryNameData;
 
-
-    //set graphic status to chart 
     this.doughnutChartStatusData = this.statusData;
     this.doughnutChartLabels = this.statusNameData;
 
-
-
-    console.log(this.categoryData);
+    console.log(this.statusData);
   // this.doughnutChartStatusData = [this.ticketService.summary.numTicketsOpen,this.ticketService.summary.numTicketsClose];
 
   }
 
-  ngAfterViewInit() {
+  private categoryPerformSummay(categoriesSummary:any[]){
 
-    this.categoryService.getCategoriesSummary();
-    this.statusService.getStatusSummary();
-    this.categoryService.getCategories();
-    this.statusService.getStatus();
+    //create observable when list changes to this
+    categoriesSummary.forEach((s:Summary)=> {
+
+      this.categoryData.push(s.categoriesNumber);
+      this.categoryNameData.push(s.CategoryDesc);
+    
+    });
+    
 
   }
+
+  private statusPerformSummary(statusSummary:any[]){
+
+        statusSummary.forEach((s:Summary)=> {
+          
+      this.statusData.push(s.statusNumber);
+      this.statusNameData.push(s.StatusDesc);
+  });
+
+  } 
+
+  ngAfterViewInit() {
+
+  }
+
   categoryChange($event: MatRadioChange){
     this.catType = $event.value;
   }

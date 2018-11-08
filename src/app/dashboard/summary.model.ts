@@ -1,8 +1,6 @@
-export class Summary{
-    public categoriesNumber
-    public CategoryDesc
-    public statusNumber
-    public StatusDesc
-    
-  
+export interface Summary{
+     categoriesNumber:number;
+     CategoryDesc:string;
+     statusNumber:number;
+     StatusDesc:string;
 }

@@ -1,5 +1,4 @@
-export class Status{
-    public StatusId:number;
-    public StatusDesc:string;
-   
+export interface Status{
+        StatusId:number;
+         StatusDesc:string;
 }

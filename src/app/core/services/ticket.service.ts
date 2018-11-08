@@ -5,6 +5,7 @@ import { Headers, Http, Response, RequestOptions, RequestMethod } from '@angular
 import 'rxjs/Rx';
 import { Subject } from 'rxjs/Rx';
 import { Summary } from 'src/app/dashboard/summary.model';
+import { ApiService } from './api.service';
 
 
 @Injectable({
@@ -26,7 +27,7 @@ export class TicketService {
   ticketList:Ticket[];
   ticket:Ticket;
 
-  constructor(private http:Http) { }
+  constructor(private http:Http, private apiService:ApiService) { }
 
   //get all tickets
   /*
@@ -38,9 +39,8 @@ getTickets(pageIndex:number,pageSize:number){
       this.ticketList = x;
     }).catch((x)=>'error was called');
   }
-
-
   */
+
   getTickets(pageIndex:number,pageSize:number){
     return this.http.get("http://localhost:2175/api/ticket/?pageIndex=" + pageIndex + "&pageSize=" + pageSize)
     .map(

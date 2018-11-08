@@ -40,7 +40,7 @@ export class StatuslistComponent implements OnInit {
 
   addStatus(){
     
-    var c = new Status();
+    var c;
     c.StatusDesc = this.statusAdded;
     this.loading = true;
 

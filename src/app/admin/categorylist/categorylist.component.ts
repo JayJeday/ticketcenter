@@ -12,6 +12,8 @@ export class CategorylistComponent implements OnInit {
 
   displayAddForm = false;
   categoryAdded:string;
+  
+  categoryList:Category[];
 
   loading = false;
 
@@ -20,12 +22,15 @@ export class CategorylistComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.categoryService.getCategories();
+    this.categoryService.getCategories().subscribe((data:any)=>{
+      this.categoryList = data;
+    });
+    
   }
 
   addCategory(){
     console.log(this.categoryAdded);
-    var c = new Category();
+    var c;
     c.CategoryDesc = this.categoryAdded;
     this.loading = true;
 

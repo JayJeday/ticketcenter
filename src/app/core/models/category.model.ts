@@ -1,5 +1,5 @@
-export class Category{
-    public CategoryId:number;
-    public CategoryDesc:string;
+export interface Category{
+            CategoryId:number;
+            CategoryDesc:string;
    
 }

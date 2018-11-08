@@ -1,24 +1,24 @@
 import { NumberValueAccessor } from "@angular/forms/src/directives";
 
-export class Ticket{
+export interface Ticket{
 
-   public TicketId:number;
-    public Description:string;
-    public Comment:string;
-    public CreatedDate:string;
-    public CategoryId:number;
-    public CategoryDesc:string;
-    public StatusDesc:string;
-    public StatusId:number;
-    public TechId:number;
-    public TechName:string;
-    public RolesId:number;
+         TicketId:number;
+         Description:string;
+         Comment:string;
+         CreatedDate:string;
+         CategoryId:number;
+         CategoryDesc:string;
+         StatusDesc:string;
+         StatusId:number;
+         TechId:number;
+         TechName:string;
+         RolesId:number;
 
-    public ClientId:number;
+         ClientId:number;
      
 
     //pagination
-    public pageIndex:number;
-    public pageSize:number;
-    public TotalCount:number;
+         pageIndex:number;
+         pageSize:number;
+         TotalCount:number;
 }

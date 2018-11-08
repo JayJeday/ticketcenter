@@ -34,6 +34,7 @@ export class TicketComponent implements OnInit {
   //techId to be passed from to be notify it.
   techId:number;
 
+  categoryList:Category[];
 
   //call categories services here.loaded from the database
   constructor(public categoryService:CategoriesService,
@@ -44,7 +45,11 @@ export class TicketComponent implements OnInit {
 
   ngOnInit() {
     //fill the category list 
-      this.categoryService.getCategories();
+     this.categoryService.getCategories().subscribe((data:Category[])=>{
+        this.categoryList = data;
+     });
+
+
       this.userService.getTechs().subscribe((data:any)=> {
         this.users = data;
       });
@@ -66,7 +71,6 @@ export class TicketComponent implements OnInit {
   onAddTicket(){
     this.loading = true;
 
-    this.ticket = new Ticket();
     this.ticket.ClientId = Number(this.client.ClientId);
     this.ticket.Description = this.f.description.value;
     this.ticket.CategoryId = this.f.categoryid.value;

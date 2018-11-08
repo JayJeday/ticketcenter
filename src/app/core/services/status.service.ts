@@ -4,6 +4,9 @@ import 'rxjs/Rx';
 import { Headers, Http, Response, RequestOptions, RequestMethod } from '@angular/http';
 import { Subject } from 'rxjs/Rx';
 import { Summary } from 'src/app/dashboard/summary.model';
+import { ApiService } from './api.service';
+import { map } from 'rxjs/operators';
+
 
 
 @Injectable({
@@ -19,18 +22,24 @@ export class StatusService {
   //observe when list change
   statusChanged = new Subject<Status[]>();
 
-  constructor(private http:Http) { }
+  constructor(private apiService:ApiService,
+    private http:Http
+    ) { }
 
   getStatus(){
-    this.http.get('http://localhost:2175/api/status')
-    .map(
-      (data : Response) =>{  return data.json() as Status[]; })
-    .toPromise().then(x => {
-      this.statusList = x;
-    }).catch((x)=>'error was called');
+    return this.apiService.get('status').pipe(map((data : any)=> 
+    {  
+      return data as Status[]
+     }))
+   }
 
-  }
+    getStatusSummary(){
+      return  this.apiService.get('status/summary').pipe(map((data:any)=>{
+          return data as Summary[]
+      }))
 
+    }
+    
   updateStatus(status:Status){
 
     var body = JSON.stringify(status);
@@ -66,15 +75,6 @@ export class StatusService {
       var requestOptions = new RequestOptions({method : RequestMethod.Post,headers : headerOptions});
       return this.http.post('http://localhost:2175/api/status',body,requestOptions).map(x => x.json());
 
-    }
-
-    getStatusSummary(){
-      this.http.get('http://localhost:2175/api/status/summary')
-      .map(
-        (data : Response) =>{  return data.json() as Summary[]; })
-      .toPromise().then(x => {
-        this.statusSummaryList = x;
-      }).catch((x)=>'error was called');
     }
 
 }

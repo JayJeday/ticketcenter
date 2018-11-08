@@ -4,7 +4,8 @@ import 'rxjs/Rx';
 import { Category } from '../models/category.model';
 import { Summary } from 'src/app/dashboard/summary.model';
 import { Subject } from 'rxjs/Rx';
-;
+import { ApiService } from './api.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,17 +19,27 @@ export class CategoriesService {
 
   categorySummaryList:Summary[] = [];
 
-  constructor(private http:Http) { }
-
+  constructor(private http:Http, private apiService:ApiService) { }
+ 
   getCategories(){
-    this.http.get('http://localhost:2175/api/category/all')
-    .map(
-      (data : Response) =>{  return data.json() as Category[]; })
-    .toPromise().then(x => {
-      this.categoryList = x;
-    }).catch((x)=>'error was called');
-
+   return this.apiService.get('category/all').pipe(map((data : any)=> 
+   {  
+     return data as Category[]
+    }))
   }
+
+  /*
+  dashboard category summary
+  */
+  getCategoriesSummary(){
+    return this.apiService.get('category/summary').pipe(map((data :any)=>
+    {
+      return data as Summary[]
+    }
+    ))
+  }
+
+
 
   deleteCategoryById(id:number){
    return this.http.delete('http://localhost:2175/api/category/'+ id)
@@ -67,7 +78,8 @@ export class CategoriesService {
 
     }
 
-    getCategoriesSummary(){
+    /*
+      getCategoriesSummary(){
       this.http.get('http://localhost:2175/api/category/summary')
       .map(
         (data : Response) =>{  return data.json() as Summary[]; })
@@ -75,5 +87,6 @@ export class CategoriesService {
         this.categorySummaryList = x;
       }).catch((x)=>'error was called');
     }
+    */
 
 }

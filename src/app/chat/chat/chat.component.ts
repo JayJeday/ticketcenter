@@ -83,7 +83,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
         console.log("notified");
       }else{
         //update the technician that the tech is in chat
-        this.tech = new User();
         this.tech.UserId = this.currentUser.id;
         //verify if this work
         this.tech.InChat = true;
@@ -98,6 +97,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     }, 0);
 
     this.initIoConnection();
+    
     //init room
     this.initRoom();
   }
@@ -125,7 +125,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
   //set the user
   this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   
-    this.user = new User();
     this.user.id = this.currentUser.id;
     this.user.FirstName = this.currentUser.FirstName;
     this.user.LastName = this.currentUser.LastName;  

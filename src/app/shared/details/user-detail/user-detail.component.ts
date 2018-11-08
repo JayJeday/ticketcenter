@@ -58,7 +58,6 @@ export class UserDetailComponent implements OnInit {
 
     this.loading = true;
 
-    this.user = new User();
     this.user.id = this.usersService.user.UserId;
      this.user.RoleId = form.value.RoleId;
      this.user.FirstName = this.usersService.user.FirstName;

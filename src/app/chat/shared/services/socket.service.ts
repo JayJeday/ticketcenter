@@ -16,6 +16,7 @@ const SERVER_URL = 'http://localhost:8080';
 export class SocketService {
 
   private socket;
+  private roomName:string;
 
   public initSocket(): void {
       this.socket = socketIo(SERVER_URL);
@@ -27,6 +28,7 @@ export class SocketService {
   }
 
   public createRoom(roomName:string):void{
+      this.roomName = roomName;
       this.socket.emit('created',roomName);
   }
 
@@ -44,7 +46,7 @@ export class SocketService {
 // listen when there is a message and get it
   public onMessage(): Observable<Message> {
       return new Observable<Message>(observer => {
-          this.socket.on('room', (data: Message) => observer.next(data));
+          this.socket.to(this.roomName, (data: Message) => observer.next(data));
       });
   }
 

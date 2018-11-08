@@ -4,7 +4,7 @@
 
 <mat-list role="list">
     <mat-list-item role="listitem"   
-    *ngFor="let category of categoryService.categoryList"
+    *ngFor="let category of categoryList"
     [class.selected]="category.CategoryId === selectedId">
     
     <a [routerLink]="['category',category.CategoryId]">

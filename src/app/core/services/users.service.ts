@@ -17,14 +17,11 @@ export class UsersService {
 
   roleChanged = new Subject();
 
-
-  loggedUser = new User();
+ // loggedUser = new User();
   userLoggedIn = new Subject();
 
 
   //client is waiting to chat
-  
-
   constructor(private http:Http) { }
 
   getU(){
@@ -105,4 +102,5 @@ export class UsersService {
       body,
       requestOptions).map(res => res.json());
   }
+  
 }

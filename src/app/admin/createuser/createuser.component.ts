@@ -4,7 +4,10 @@ import { CategoriesService } from 'src/app/core/services/categories.service';
 import { StatusService } from 'src/app/core/services/status.service';
 import { RolesService } from 'src/app/core/services/roles.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { DISABLED } from '@angular/forms/src/model';
+import { forkJoin } from 'rxjs';
+import { Role } from 'src/app/core/models/rode.model';
+import { Category } from 'src/app/core/models/category.model';
+import { Status } from 'src/app/core/models/status.model';
 
 @Component({
   selector: 'app-createuser',
@@ -23,6 +26,10 @@ export class CreateuserComponent implements OnInit {
 
   selectedValue:string;
 
+  roles:Role[];
+  categories:Category[];
+  status:Status[];
+
   constructor(private userService:UsersService,
       public categoryService:CategoriesService,
       public statusService:StatusService,
@@ -30,9 +37,17 @@ export class CreateuserComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.categoryService.getCategories();
-    this.statusService.getStatus();
-    this.roleService.getRoles();
+    let categoryO = this.categoryService.getCategories();
+    let statusO = this.statusService.getStatus();
+    let roleO = this.roleService.getRoles();
+
+    forkJoin(categoryO,statusO,roleO).subscribe((results)=>{
+      
+      this.categories = results[0];
+      this.status = results[1];
+      this.roles = results[2];
+
+    });
 
     this.userForm = new FormGroup({
       'FirstName': new FormControl('', [Validators.required]),
@@ -65,12 +80,11 @@ export class CreateuserComponent implements OnInit {
     this.userService.createEmployee(this.userForm.value).subscribe(data => {
       this.loading  = false;
       this.success = true;
-      
+      console.log(data);
     },error =>{
       console.log(error);
     });
 
-    
     this.loading = false;
   }
 

@@ -6,14 +6,15 @@ import { TicketService } from './services/ticket.service';
 import { UsersService } from './services/users.service';
 import { CategoriesService } from './services/categories.service';
 import { AuthenticationService } from './services/authentication.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptor } from './Interceptors/error.interceptor';
 import { JwtInterceptor } from './Interceptors/jwt.Interceptor';
 import { ApiService } from './services/api.service';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

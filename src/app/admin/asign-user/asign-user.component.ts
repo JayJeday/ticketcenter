@@ -18,24 +18,22 @@ export class AsignUserComponent implements OnInit {
 
   userType ="assign"; 
 
-  userAssigned: User;
+  userAssigned: User = {} as User;
+
   constructor(private userService:UsersService) { }
 
   ngOnInit() {
     //get user of id if exist
-    console.log("is called" + this.ticket);
 
-    
-    console.log(this.userService.user);
 
     this.userService.userChanged.subscribe((user:User)=>{
       //when user select user from the list
-        this.userService.user = user;
+        this.userAssigned = user;
         //update ticket id to user id
-        this.ticket.TechId = this.userService.user.id;
-        console.log(this.userService.user.id);
-        this.displayList = false;
+        this.ticket.TechId = this.userAssigned.id;
         
+        this.displayList = false;
+
     });
 
   }

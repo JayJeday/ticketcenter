@@ -3,6 +3,8 @@ import {Role} from '../models/rode.model';
 
 import { Headers, Http, Response } from '@angular/http';
 import 'rxjs/Rx';
+import { ApiService } from './api.service';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -12,15 +14,14 @@ export class RolesService {
 
   roleList:Role[];
 
-  constructor(private http:Http) { }
+  constructor(private apiService:ApiService) { }
 
   getRoles(){
-    this.http.get('http://localhost:2175/api/role')
-    .map(
-      (data : Response) =>{  return data.json() as Role[]; })
-    .toPromise().then(x => {
-      this.roleList = x;
-    }).catch((x)=>'error was called');
+    return  this.apiService.get('role').pipe(map((data:any)=>{
+
+      return data as Role[];
+   
+    }));
   }
 
 }

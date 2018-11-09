@@ -163,7 +163,7 @@ this.ticketService.ticketChanged.subscribe((changed)=>{
   }
   ngDoCheck(): void {
    //check if array has change
-    let changes = this.iterableDiffer.diff(this.ticketService.ticketList);
+    let changes = this.iterableDiffer.diff(this.tickets);
     
     if (changes) {
         console.log('Changes detected!');

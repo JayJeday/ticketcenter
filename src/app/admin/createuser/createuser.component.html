@@ -35,7 +35,7 @@
 
         <mat-form-field>
           <mat-select formControlName="RoleId"  placeholder="Select User Role" (selectionChange)="setTech($event.value)">
-             <mat-option [value]="aRole.RoleId" *ngFor="let aRole of roleService.roleList">{{aRole.Role}} </mat-option>
+             <mat-option [value]="aRole.RoleId" *ngFor="let aRole of roles">{{aRole.Role}} </mat-option>
             </mat-select>
        </mat-form-field>
 
@@ -46,7 +46,7 @@
 
         <mat-form-field >
             <mat-select formControlName="CategoryId" [(ngModel)]="selectedValue"  placeholder="Select Category" [disabled]="techDisable">
-              <mat-option [value]="aCategory.CategoryId" *ngFor="let aCategory of categoryService.categoryList">{{aCategory.CategoryDesc}} </mat-option>
+              <mat-option [value]="aCategory.CategoryId" *ngFor="let aCategory of categories">{{aCategory.CategoryDesc}} </mat-option>
             </mat-select>
          </mat-form-field>
 

@@ -9,7 +9,7 @@
           <h4>Name: </h4>
       </div>
        <div class="col-md-3">
-        <h4>{{usersService?.user?.FirstName}} {{usersService?.user?.LastName}}</h4>
+        <h4>{{this.userWithRole.FirstName}} {{this.userWithRole.LastName}}</h4>
        </div>
     </div>
     <!--User description  -->
@@ -21,15 +21,15 @@
         </div>
      
         <div class="col-md-3">
-           <h4>{{usersService?.user?.Email}}</h4>
+           <h4>{{this.userWithRole.Email}}</h4>
         </div>
      </div>
      
 
     <div class="form-group" >
         <label for="role">Role:</label>
-        <select  name="RoleId" #RoleId="ngModel" [(ngModel)]="usersService.user.RoleId" class="form-control" id="categories">
-            <option [value]="aRole.RoleId" *ngFor="let aRole of roleService.roleList">{{aRole.Role}} </option>
+        <select  name="RoleId" #RoleId="ngModel" [(ngModel)]="this.userWithRole.RoleId" class="form-control" id="roles">
+            <option [value]="aRole.RoleId" *ngFor="let aRole of roles">{{aRole.Role}} </option>
         </select>
       </div>
 

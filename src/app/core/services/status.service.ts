@@ -8,7 +8,6 @@ import { ApiService } from './api.service';
 import { map } from 'rxjs/operators';
 
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -23,7 +22,6 @@ export class StatusService {
   statusChanged = new Subject<Status[]>();
 
   constructor(private apiService:ApiService,
-    private http:Http
     ) { }
 
   getStatus(){
@@ -41,39 +39,29 @@ export class StatusService {
     }
     
   updateStatus(status:Status){
-
-    var body = JSON.stringify(status);
-    console.log(body);
-    var headerOptions = new Headers({ 'Content-Type': 'application/json'});
-    var requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
-    return this.http.put("http://localhost:2175/api/status/updatestatus",
-      body,
-      requestOptions).map(res => res.json());
+    return this.apiService.put("status/updatestatus",status).pipe(map(res => res.json()));
   }
 
-    getStatusById(id:number){
-      this.http.get('http://localhost:2175/api/status/'+ id)
-      .map(
-        (data : Response) =>{  return data.json() as Status[] })
-      .toPromise().then(x => {
-        this.status = x[0];
-      }).catch((x)=>'error was called');
+  //get the first one => x[0]
+  getStatusById(id:number){
+      this.apiService.get('status/'+ id).pipe(map((data:any)=>{
+          return data.json() as Status[] 
+      } ));
     }
 
+    
     deleteStatusById(id:number){
-     return this.http.delete('http://localhost:2175/api/status/'+ id)
-      .map(
-        (data : Response) =>{  return data.json() as Status[] });
+     return this.apiService.delete('status/'+ id).pipe(map((data:any)=>{
+       return data.json() as Status[];
+     }))
     }
-
-
 
   addStatus(status:Status){
       var body = JSON.stringify(status);
       console.log(body);
       var headerOptions = new Headers({'Content-Type':'application/json'});
       var requestOptions = new RequestOptions({method : RequestMethod.Post,headers : headerOptions});
-      return this.http.post('http://localhost:2175/api/status',body,requestOptions).map(x => x.json());
+      return this.apiService.post('status',status).pipe(map(x => x.json())); 
 
     }
 

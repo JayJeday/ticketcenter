@@ -3,7 +3,7 @@ import { throwError, Observable } from "rxjs";
 
 import { environment } from "src/environments/environment";
 import { catchError } from "rxjs/operators";
-import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 //represent CRUD Operations in API at high level
 export class ApiService{
@@ -16,9 +16,12 @@ export class ApiService{
 
 //Insert
 post(path: string, body: Object = {}): Observable<any> {
+
+    const headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'})
+
     return this.http.post(
       `${environment.api_url}${path}`,
-      JSON.stringify(body))
+      JSON.stringify(body), {headers: headers})
       .pipe(catchError(this.formatErrors));
   }
 
@@ -31,8 +34,11 @@ delete(path): Observable<any> {
 
 //Update
 put(path: string, body: Object = {}):Observable<any>{
+
+    const headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
+    
     return this.http.put(`${environment.api_url}${path}`,
-        JSON.stringify(body))
+        JSON.stringify(body),{headers:headers})
         .pipe(catchError(this.formatErrors));
 }
 

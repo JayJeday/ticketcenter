@@ -8,15 +8,14 @@ import { ManageTicketsComponent } from './manage-tickets/manage-tickets.componen
 import { CreateuserComponent } from './createuser/createuser.component';
 import { CategorylistComponent } from './categorylist/categorylist.component';
 import { CategorydetailComponent } from './categorydetail/categorydetail.component';
-import { AsignUserComponent } from './asign-user/asign-user.component';
 import { TechCatComponent } from './manage-tech/tech-cat/tech-cat.component';
 import { AppMaterialModule } from '../app-material/app-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { ManageTechComponent } from './manage-tech/manage-tech.component';
+import { UserDetailComponent } from '../shared/details/user-detail/user-detail.component';
 
 
 @NgModule({
@@ -41,6 +40,9 @@ import { ManageTechComponent } from './manage-tech/manage-tech.component';
     CategorydetailComponent,
     ManageTechComponent,
     TechCatComponent
+  ],
+  entryComponents:[
+    UserDetailComponent
   ]
 })
 export class AdminModule { }

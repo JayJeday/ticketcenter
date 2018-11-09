@@ -2,12 +2,13 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { UsersService } from 'src/app/core/services/users.service';
 import { RolesService } from 'src/app/core/services/roles.service';
-import { CategoriesService } from 'src/app/core/services/categories.service';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { User } from 'src/app/core/models/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
 import {MAT_DIALOG_DATA} from '@angular/material';
+import { Category } from 'src/app/core/models/category.model';
+import { Role } from 'src/app/core/models/rode.model';
 
 @Component({
   selector: 'app-user-detail',
@@ -19,6 +20,11 @@ export class UserDetailComponent implements OnInit {
   loading = false;
   id:number;
 
+  categories:Category[];
+  roles:Role[];
+
+  userWithRole:User = {} as User;
+
   user:User;
 
   userForm:FormGroup;
@@ -26,13 +32,15 @@ export class UserDetailComponent implements OnInit {
   //to display spasific UI element based on the route is called
   comp:string;
 
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public usersService:UsersService,
-    public roleService: RolesService,
-    public categoryService:CategoriesService,
+    private usersService:UsersService,
+    private roleService: RolesService,
+    
     private fb:FormBuilder,
+    
     public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<UserDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -40,16 +48,19 @@ export class UserDetailComponent implements OnInit {
 
   ngOnInit() {
 
-    this.categoryService.getCategories();
-    this.roleService.getRoles();
+    this.roleService.getRoles().subscribe((data)=>{
+      this.roles = data;
+    });
 
-    this.usersService.getUserRoleById(this.data.id);
+   this.usersService.getUserRoleById(this.data.id).subscribe((data)=>{
+      this.userWithRole = data[0];
+   });
+
 
     //get the data of routes
     this.route.data
     .subscribe((data)=>{
       this.comp = data['comp'];
-      console.log(this.comp);
     });
 
   }
@@ -58,10 +69,10 @@ export class UserDetailComponent implements OnInit {
 
     this.loading = true;
 
-    this.user.id = this.usersService.user.UserId;
+    this.user.id = this.userWithRole.UserId;
      this.user.RoleId = form.value.RoleId;
-     this.user.FirstName = this.usersService.user.FirstName;
-     this.user.LastName = this.usersService.user.LastName;
+     this.user.FirstName = this.userWithRole.FirstName;
+     this.user.LastName = this.userWithRole.LastName;
 
 
     console.log(JSON.stringify(this.user));
@@ -85,6 +96,5 @@ export class UserDetailComponent implements OnInit {
     this.loading = false;
 
   }
-
 
 }

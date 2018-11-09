@@ -6,6 +6,7 @@ import { MatRadioChange } from '@angular/material/radio';
 import { User } from '../core/models/user.model';
 import { SocketService } from '../chat/shared/services/socket.service';
 import { Notify } from '../chat/shared/models/notify.model';
+import { Ticket } from '../core/models/ticket.model';
 
 
 @Component({
@@ -24,6 +25,8 @@ export class TechnicianComponent implements OnInit {
 
   notify:Notify;
   showNotification:boolean;
+
+  tickets:Ticket[];
 
   constructor(private route: ActivatedRoute,
     private router: Router, 
@@ -96,6 +99,8 @@ export class TechnicianComponent implements OnInit {
 
     }
 
+    /*  functionality not in use
+
     radioChange($event: MatRadioChange) {
       console.log($event.source.name, $event.value);
       
@@ -114,6 +119,6 @@ export class TechnicianComponent implements OnInit {
 
        }
   }
-
+*/
 
 }

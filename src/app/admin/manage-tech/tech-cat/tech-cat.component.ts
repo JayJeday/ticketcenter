@@ -6,6 +6,7 @@ import { FormBuilder, NgForm } from '@angular/forms';
 import { User } from 'src/app/core/models/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Category } from 'src/app/core/models/category.model';
 
 @Component({
   selector: 'app-tech-cat',
@@ -17,14 +18,19 @@ export class TechCatComponent implements OnInit {
   loading = false;
   id:number;
 
-  user:User;
+  categoryList:Category[];
+  
+  user:User = {} as User;
 
+  tech:User = {} as User;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
     public usersService:UsersService,
     public categoryService:CategoriesService,
+    
     private fb:FormBuilder,
+    
     public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<TechCatComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -32,17 +38,22 @@ export class TechCatComponent implements OnInit {
 
   ngOnInit() {
 
-    this.categoryService.getCategories();
+    this.categoryService.getCategories().subscribe((data)=>{
+        this.categoryList = data;
+    });
 
-     this.usersService.getUserById(this.data.id);
+     this.usersService.getUserById(this.data.id).subscribe((data)=>{
+        this.tech = data[0];
+     });
 
   }
 
   onTechUpdate(form:NgForm){
 
+    //****TODO Better solution than this */
     this.loading = true;
 
-    this.user.UserId = this.usersService.user.UserId;
+    this.user.UserId = this.tech.UserId;
     
     this.user.CategoryId = form.value.CategoryId;
   
@@ -51,6 +62,7 @@ export class TechCatComponent implements OnInit {
     //pass back the same ticket
     this.usersService.updateTechCat(this.user)
      .subscribe(data => {
+
         this.loading = false;
        this.usersService.getTechs();
 

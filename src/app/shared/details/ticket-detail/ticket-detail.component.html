@@ -5,24 +5,24 @@
        <form class="tick-form" #ticketForm="ngForm" (ngSubmit)="onEditTicket(ticketForm)">
 
 
-              <h4 class="list-group-item-text right">{{this?.ticketService?.ticket?.CategoryDesc}}</h4>
+              <h4 class="list-group-item-text right">{{this.ticket.CategoryDesc}}</h4>
               
               <h4>Ticket Description: </h4>
-              <p> {{this?.ticketService?.ticket?.Description}}</p>
+              <p> {{this.ticket.Description}}</p>
            
-        <textarea  class="form-control"  id="comment" name="Comment" #Comment="ngModel" placeholder="Enter description"  [(ngModel)]="this?.ticketService?.ticket.Comment"  rows="5">
-                {{this?.ticketService?.ticket?.Comment}}
+        <textarea  class="form-control"  id="comment" name="Comment" #Comment="ngModel" placeholder="Enter description"  [(ngModel)]="this.ticket.Comment"  rows="5">
+                {{this?.ticket?.Comment}}
         </textarea>
        
         <div class="form-group">
                 <label for="status"></label>
-                <select  name="StatusId" #StatusId="ngModel" [(ngModel)]="this.ticketService.ticket.StatusId" class="form-control" id="categories">
-                    <option [value]="aStatus.StatusId" *ngFor="let aStatus of statusService.statusList">{{aStatus.StatusDesc}} </option>   
+                <select  name="StatusId" #StatusId="ngModel" [(ngModel)]="this.ticket.StatusId" class="form-control" id="categories">
+                    <option [value]="aStatus.StatusId" *ngFor="let aStatus of this.statusList">{{aStatus.StatusDesc}} </option>   
                 </select>
             </div>
 
         <div>
-            <h4>Date created: {{this?.ticketService?.ticket?.CreatedDate | date}}</h4>
+            <h4>Date created: {{this?.ticket?.CreatedDate | date}}</h4>
         </div>
         
             <button *ngIf="this.data.type !== 'dash'" mat-raised-button type="submit" color="primary">Update Ticket</button>
@@ -31,7 +31,7 @@
 
 
         <div *ngIf="this.data.type === 'admin'">
-            <app-asign-user [ticket]="this.ticketService.ticket"></app-asign-user>
+            <app-asign-user [ticket]="this.ticket"></app-asign-user>
         </div>
 
 

@@ -7,6 +7,7 @@ import { StatusService } from 'src/app/core/services/status.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
 import {MAT_DIALOG_DATA} from '@angular/material';
+import { Status } from 'src/app/core/models/status.model';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -15,7 +16,10 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 })
 export class TicketDetailComponent implements OnInit {
 
-  ticket:Ticket;
+  ticket:Ticket = {} as Ticket;
+  aticket:Ticket = {} as Ticket;
+  statusList:Status[];
+
   id:number;
   loading = false;
   selected:number;
@@ -35,9 +39,11 @@ export class TicketDetailComponent implements OnInit {
 
   ngOnInit() {
 
-    
     //get the  route parameter
-     this.ticketService.getTicket(this.data.id);
+     this.ticketService.getTicket(this.data.id).subscribe((data)=>{
+       this.ticket = data[0];
+       console.log(this.ticket);
+     });
      
       this.comp = this.data.type;
     console.log(this.comp);
@@ -56,29 +62,30 @@ export class TicketDetailComponent implements OnInit {
       
    // });
 
-    this.statusService.getStatus();
+    this.statusService.getStatus().subscribe((data)=>{
+      this.statusList = data; 
+    });
 
-
+    
   }
 
   onEditTicket(form:NgForm){
     this.loading = true;
 
-    this.ticket.TicketId = this.ticketService.ticket.TicketId;
+    this.aticket.TicketId = this.ticket.TicketId;
     
     //if comment is null get the one from service
-    this.ticket.Comment = form.value.Comment;
+    this.aticket.Comment = form.value.Comment;
     
-
-    this.ticket.StatusId = form.value.StatusId;
+    this.aticket.StatusId = form.value.StatusId;
 
     //get the ticket user id from the service
-     this.ticket.TechId = this.ticketService.ticket.TechId;
+     this.aticket.TechId = this.ticket.TechId;
 
-    console.log(JSON.stringify(this.ticket));
+    console.log(JSON.stringify(this.aticket));
 
     //pass back the same ticket
-    this.ticketService.updateTicket(this.ticket)
+    this.ticketService.updateTicket(this.aticket)
      .subscribe(data => {
         this.loading = false;
 

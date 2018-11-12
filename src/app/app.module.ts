@@ -31,6 +31,7 @@ import { AuthModule } from './auth/auth.module';
 import { TechnicianModule } from './technician/technician.module';
 import { TicketModule } from './ticket/ticket.module';
 import { ChatModule } from './chat/chat.module';
+import { TestcomponentComponent } from './testcomponent/testcomponent.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { ChatModule } from './chat/chat.module';
    AdmincenterComponent,
    UserEditComponent,
    TicketStatusPipe,
-   UserTechnicianPipe
+   UserTechnicianPipe,
+   TestcomponentComponent
    
   ],
   imports: [

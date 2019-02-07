@@ -68,6 +68,7 @@ export class TechCatComponent implements OnInit {
 
        this.categoryService.categoryChanged.next(true);
        this.dialogRef.close();
+       
        this.snackBar.open("Updated successfully",'', {
         duration: 1000
       });

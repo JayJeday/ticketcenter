@@ -79,7 +79,7 @@ export class TicketService {
     
     .pipe(map((res => res.json())
     
-    ))
+    ));
   }
 
   getTicket(id:number){

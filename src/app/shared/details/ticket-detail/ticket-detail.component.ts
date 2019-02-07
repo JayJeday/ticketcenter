@@ -107,8 +107,7 @@ export class TicketDetailComponent implements OnInit {
      });
 
     this.loading = false;
-
-
+    
   }
 
   closeDialog(){

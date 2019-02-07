@@ -22,6 +22,7 @@ import { TicketItemComponent } from './lists/ticket-list/ticket-item/ticket-item
     FormsModule,
     CommonModule,
   ],exports:[
+    
     HeaderComponent,
     TechListComponent,
     TechItemComponent,

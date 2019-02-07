@@ -10,7 +10,6 @@ import { AuthenticationService } from './core/services/authentication.service';
 })
 export class AppComponent implements OnInit {
  
-
   currentUser:User;
 
   //save this in local storage

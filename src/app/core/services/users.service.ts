@@ -37,8 +37,8 @@ export class UsersService {
     .pipe(map((data:any)=> {
 
       return data as User[]
+    }));
     
-    }))
   }
 
 

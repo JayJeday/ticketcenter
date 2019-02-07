@@ -4,8 +4,11 @@ import { throwError, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { catchError } from "rxjs/operators";
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { Injectable } from "@angular/core";
 
-//represent CRUD Operations in API at high level
+@Injectable({
+    providedIn: 'root'
+  })
 export class ApiService{
 
     constructor(private http:HttpClient){}
